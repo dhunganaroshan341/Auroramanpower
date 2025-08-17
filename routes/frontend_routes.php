@@ -81,4 +81,3 @@ Route::prefix('solutions')->group(function () {
         });
 });
 
-require_once base_path('routes/frontend_routes.php');

@@ -69,7 +69,7 @@
                                   {{-- <li class="dropdown"><a href="{{ route('index') }}">Pages</a>
                                             <ul> --}}
                                   <li class=""><a href="{{ route('index') }}">Category</a>
-                                  <li class=""><a href="{{ route('index') }}">Find Jobs</a>
+                                  <li class=""><a href="{{ route('job') }}">Find Jobs</a>
 
                                   </li>
                                   <li class=""><a href="{{ route('index') }}">Credentials</a>
@@ -93,12 +93,12 @@
                                         <li><a href="{{ route('pageError') }}">404</a></li>
                                     </ul>
                                     </li> --}}
-                                  <li class=""><a href="{{ route('index') }}">Blog</a>
-                                      <ul>
+                                  <li class=""><a href="{{ route('blog') }}">Blog</a>
+                                      {{-- <ul>
                                           <li><a href="{{ route('blog') }}">Blog Grid</a></li>
                                           <li><a href="{{ route('blog2') }}">Blog Standard</a></li>
                                           <li><a href="{{ route('blogDetails') }}">Blog Details</a></li>
-                                      </ul>
+                                      </ul> --}}
                                   </li>
                                   <li><a href="{{ route('contact') }}">Contact</a></li>
                               </ul>
@@ -139,7 +139,3 @@
       </div>
   </header>
   <!-- main-header end -->
-
-  <!-- Mobile Menu  -->
-  @include('frontend.components.mobilemenu')
-  <!-- End Mobile Menu -->
