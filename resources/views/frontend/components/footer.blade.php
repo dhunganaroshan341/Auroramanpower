@@ -8,18 +8,7 @@
                                     src="{{ asset('assets/images/logo-bg.png') }}" alt=""></a></figure>
                         <p>Since 2018, Aurora has connecting hospitality workers to thousands of business, private
                             events and universities.</p>
-                        <div class="download-btn">
-                            <a href="{{ route('about') }}" class="apple-store">
-                                <img src="{{ asset('assets/images/icons/icon-4.png') }}" alt="">
-                                <span>Download on</span>
-                                App Store
-                            </a>
-                            <a href="{{ route('about') }}" class="play-store">
-                                <img src="{{ asset('assets/images/icons/icon-5.png') }}" alt="">
-                                <span>Get it on</span>
-                                Google Play
-                            </a>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
