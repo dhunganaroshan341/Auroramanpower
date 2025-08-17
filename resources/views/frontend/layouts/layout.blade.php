@@ -22,7 +22,10 @@
         @include('frontend.components.header')
 
         {{-- Mobile Menu --}}
+        <!-- Mobile Menu  -->
         @include('frontend.components.mobilemenu')
+        <!-- End Mobile Menu -->
+
 
         {{-- Page Title --}}
         @if (!isset($breadcrumb))
