@@ -402,7 +402,7 @@
         <!-- main-header end -->
 
         <!-- Mobile Menu  -->
-        @include('frontend.components.mobileMenu')
+        @include('frontend.components.mobilemenu')
         <!-- End Mobile Menu -->
 
         <!-- banner-section -->
