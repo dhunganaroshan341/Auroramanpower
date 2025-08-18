@@ -91,8 +91,8 @@ Route::apiResource('/section-category', AdminSectionCategoryController::class);
 Route::apiResource('/section-content', AdminSectionContentController::class);
     Route::get('/section-content/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
 // Route
-Route::get('/admin/section-content/{categoryId}/list', [AdminSectionContentController::class, 'list']);
-Route::post('/admin/section-content/reorder', [AdminSectionContentController::class, 'reorder']);
+Route::get('/section-content/{categoryId}/list', [AdminSectionContentController::class, 'list']);
+Route::post('/section-content/reorder', [AdminSectionContentController::class, 'reorder']);
 
     // Users
     Route::get('/user', [UserController::class, 'index'])->name('user');
