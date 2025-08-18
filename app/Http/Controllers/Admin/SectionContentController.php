@@ -96,6 +96,10 @@ class SectionContentController extends Controller
     {
         $validated = $request->validated();
         $content = SectionContent::findOrFail($id);
+if($validated['image']!=null){
+        $validated['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-content');
+
+}
         $content->update($validated);
 
         return response()->json(['success' => true, 'message' => 'Section Content updated successfully.']);
