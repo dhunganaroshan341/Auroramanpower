@@ -13,8 +13,8 @@ $(document).ready(function () {
         $('.sectionContentForm')[0].reset();
         $('.sectionContentForm').attr('id', 'SectionContentForm');
         $('#sectionContentModal').modal('show');
-        $('#updateContentBtn').hide();
-        $('#submitContentBtn').show();
+        $('.updateBtn').hide();
+        $('.submitBtn').show();
     });
 
     // Open modal for editing content
@@ -23,8 +23,8 @@ $(document).ready(function () {
         $('.sectionContentForm').attr('id', 'updateSectionContentForm');
         $("#updateSectionContentForm").attr("data-id", id);
         $('#sectionContentModal').modal('show');
-        $('#submitContentBtn').hide();
-        $('#updateContentBtn').show();
+        $('.submitBtn').hide();
+        $('.updateBtn').show();
 
         // Fetch content data
         $.ajax({
@@ -80,8 +80,8 @@ $(document).ready(function () {
         let method = 'POST';
 
         if (isUpdate) {
-            $('#updateContentBtn').show();
-            $('#submitContentBtn').hide();
+            $('.updateBtn').show();
+            $('.submitBtn').hide();
             const id = form.attr("data-id");
             url = `/admin/section-contents/${id}`;
             method = 'POST';
@@ -118,8 +118,8 @@ $(document).ready(function () {
                     $("#sectionContentModal").modal("hide");
                     form[0].reset();
                     form.attr("id", "SectionContentForm");
-                    $('#submitContentBtn').show();
-                    $('#updateContentBtn').hide();
+                    $('.submitBtn').show();
+                    $('.updateBtn').hide();
                 } else {
                     Swal.fire({
                         icon: "error",
