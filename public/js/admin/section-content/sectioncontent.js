@@ -55,7 +55,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/admin/section-contents",
+            url: "/admin/section-content",
             type: "GET"
         },
         columns: [
