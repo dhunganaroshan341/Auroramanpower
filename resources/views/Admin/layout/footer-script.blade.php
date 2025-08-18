@@ -6,7 +6,7 @@
 <!-- DataTables JS -->
 <!-- Summernote JS -->
 <!-- Your global JS -->
-<script src="{{ asset('js/global.js') }}"></script>
+<script src="{{ asset('js/admin/global.js') }}"></script>
 
 
 {{-- Select 2 --}}

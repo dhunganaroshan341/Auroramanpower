@@ -34,7 +34,8 @@ $(document).ready(function () {
                 $('#section_category_id').val(response.section_category_id);
                 $('#title').val(response.title);
                 $('#short_description').val(response.short_description);
-                $('#image').val(response.image);
+                // $('#image').val(response.image);
+                  renderImage(response.image, "#imagePreview");
                 $('#video').val(response.video);
                 $('#pdf').val(response.pdf);
                 $('#description').val(response.description);
