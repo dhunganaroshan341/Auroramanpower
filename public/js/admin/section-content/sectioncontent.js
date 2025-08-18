@@ -57,7 +57,10 @@ $(document).ready(function () {
         serverSide: true,
         ajax: {
             url: "/admin/section-content",
-            type: "GET"
+            type: "GET",
+            data: function (d) {
+            d.category_id = $('#categoryFilter').val(); // send filter value
+        }
         },
         columns: [
             { data: 'DT_RowIndex', orderable: false, searchable: false },
@@ -67,6 +70,10 @@ $(document).ready(function () {
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });
+    // Reload table when filter changes
+$('#categoryFilter').change(function () {
+    sectionContentTable.ajax.reload();
+});
 
     // Handle form submit (create/update)
     $(document).off("submit", ".sectionContentForm").on("submit", ".sectionContentForm", function (e) {

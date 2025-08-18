@@ -50,30 +50,24 @@ $(document).ready(function () {
     });
 
     // Initialize DataTable
- sectionCategoryTable = $("#section-category-table").DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-        url: "/admin/section-category",
-        type: "GET",
-        data: function (d) {
-            d.category_id = $('#categoryFilter').val(); // pass filter value
-        }
-    },
-    columns: [
-        { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'title', name: 'title' },
-        { data: 'sub_heading', name: 'sub_heading' },
-        { data: 'slug', name: 'slug' },
-        { data: 'image', name: 'image' },
-        { data: 'action', name: 'action', orderable: false, searchable: false }
-    ]
-});
+    sectionCategoryTable = $("#section-category-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/admin/section-category",
+            type: "GET"
+        },
+        columns: [
+            { data: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'title', name: 'title' },
+            { data: 'sub_heading', name: 'sub_heading' },
+            { data: 'slug', name: 'slug' },
+            { data: 'image', name: 'image' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ]
 
-// Reload table when filter changes
-$('#categoryFilter').change(function () {
-    sectionCategoryTable.ajax.reload();
-});
+
+    });
 
 
     // Handle form submit (create/update)
