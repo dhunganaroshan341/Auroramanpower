@@ -6,13 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "centrex/laravel-countries": "^1.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.8",
-        "centrex/laravel-countries": "^1.1",
         "nerdsnipe/laravel-countries": "^1.2",
+        "spatie/laravel-medialibrary": "^10.15",
         "wisdom-diala/countrypkg-laravel": "^1.0",
         "yajra/laravel-datatables-buttons": "^10.0",
         "yajra/laravel-datatables-oracle": "^10.11"
