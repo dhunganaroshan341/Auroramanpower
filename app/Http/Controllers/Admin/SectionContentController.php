@@ -54,7 +54,7 @@ class SectionContentController extends Controller
             config('js-map.admin.buttons.style')
         );
         //
-        return view('Admin.pages.SectionContent.sectionContentIndex', ['extraJs' => $extraJs, 'extraCs' => $extraCs]);
+        return view('Admin.pages.SectionContent.sectionContentIndex', ['categories'=>$categories,'extraJs' => $extraJs, 'extraCs' => $extraCs]);
 
     }
 
