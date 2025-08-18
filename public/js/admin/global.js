@@ -1,5 +1,5 @@
 // public/js/global.js
-function renderImage(response, containerSelector, imageKey = 'image', defaultImage = '/defaultimage/defaultimage.webp', width = 100, height = 100) {
+function renderImage(response, containerSelector, imageKey = 'image', defaultImage = '/user.png', width = 100, height = 100) {
     let imagePath = '';
 
     if (typeof response === 'string') {
@@ -8,7 +8,7 @@ function renderImage(response, containerSelector, imageKey = 'image', defaultIma
         imagePath = response[imageKey];
     }
 
-    const html = `<img src="${imagePath ? '/uploads/' + imagePath : defaultImage}"
+    const html = `<img src="${imagePath ?   imagePath :  defaultImage}"
                        alt="Image"
                        width="${width}"
                        height="${height}"
