@@ -53,6 +53,7 @@ class SectionContentController extends Controller
             config('js-map.admin.summernote.style'),
             config('js-map.admin.buttons.style')
         );
+        //
         return view('Admin.pages.SectionContent.sectionContentIndex', ['extraJs' => $extraJs, 'extraCs' => $extraCs]);
 
     }
