@@ -27,7 +27,7 @@ class SectionContentController extends Controller
                 })
                 ->addColumn('image', function ($item) {
                     $dataimage =   $item->image;
-                    $defaultImage=asset('defaultImage/defaultimage.webp');
+                    $defaultImage=asset('user.png');
                     return ' <td class="py-1">
                     <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
                     </td>';
