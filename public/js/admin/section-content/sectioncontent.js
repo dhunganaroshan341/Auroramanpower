@@ -28,7 +28,7 @@ $(document).ready(function () {
 
         // Fetch content data
         $.ajax({
-            url: `/admin/section-contents/${id}`,
+            url: `/admin/section-content/${id}`,
             type: 'GET',
             success: function (response) {
                 $('#section_category_id').val(response.section_category_id);
@@ -83,11 +83,11 @@ $(document).ready(function () {
             $('.updateBtn').show();
             $('.submitBtn').hide();
             const id = form.attr("data-id");
-            url = `/admin/section-contents/${id}`;
+            url = `/admin/section-content/${id}`;
             method = 'POST';
             formData.append('_method', 'PUT');
         } else {
-            url = '/admin/section-contents';
+            url = '/admin/section-content';
         }
 
         $(".btn").prop("disabled", true);
@@ -168,7 +168,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "DELETE",
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    url: `/admin/section-contents/${id}`,
+                    url: `/admin/section-content/${id}`,
                     success: function (response) {
                         Swal.fire({
                             icon: "success",
