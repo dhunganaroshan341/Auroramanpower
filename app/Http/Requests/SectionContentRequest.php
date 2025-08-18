@@ -11,7 +11,7 @@ class SectionContentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,8 @@ public function rules()
             'section_category_id' => 'required|exists:section_categories,id',
             'title' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:255',
-            'image' => 'nullable|string|max:255',
+                     'image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048', // max size in KB
+
             'video' => 'nullable|string|max:255',
             'pdf' => 'nullable|string|max:255',
             'description' => 'nullable|string',
