@@ -1,17 +1,14 @@
-<div class="container-fluid d-flex justify-content-between align-items-center">
-    <button class="btn btn-primary addContentBtn mb-4 mt-4">Add Section Content</button>
+<div class="d-flex align-items-center gap-2 mb-4 mt-4">
+    <select id="categoryFilter" class="form-select">
+        <option value="">All Categories</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->title }}</option>
+        @endforeach
+    </select>
 
-    <div class="d-flex align-items-center gap-2 mb-4 mt-4">
-        <select id="categoryFilter" class="form-select">
-            <option value="">All Categories</option>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->title }}</option>
-            @endforeach
-        </select>
-
-        <!-- Hidden reorder button -->
-        <button id="reorderBtn" class="btn btn-secondary" style="display:none;">Reorder</button>
-    </div>
+    <!-- Hidden reorder button -->
+    <button id="reorderBtn" class="btn btn-secondary" style="display:none;">Reorder</button>
+</div>
 </div>
 
 <!-- Modal -->
@@ -30,4 +27,3 @@
             </div>
         </div>
     </div>
-</div>
