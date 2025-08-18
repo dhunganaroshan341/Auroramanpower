@@ -1,0 +1,90 @@
+<?php
+
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SectionContentRequest;
+use App\Models\SectionContent;
+use App\Models\SectionCategory;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class SectionContentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = SectionContent::with('sectionCategory')->orderBy('id', 'desc');
+
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('category', function ($item) {
+                    return $item->sectionCategory ? $item->sectionCategory->title : '-';
+                })
+                ->addColumn('action', function ($item) {
+                    return '
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-warning editContentBtn" data-id="' . $item->id . '">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger deleteContentBtn" data-id="' . $item->id . '">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        $categories = SectionCategory::all();
+        return view('Admin.pages.SectionContent.index', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(SectionContentRequest $request)
+    {
+        $validated = $request->validated();
+        SectionContent::create($validated);
+
+        return response()->json(['success' => true, 'message' => 'Section Content created successfully.']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $content = SectionContent::with('sectionCategory')->findOrFail($id);
+        return response()->json($content);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(SectionContentRequest $request, string $id)
+    {
+        $validated = $request->validated();
+        $content = SectionContent::findOrFail($id);
+        $content->update($validated);
+
+        return response()->json(['success' => true, 'message' => 'Section Content updated successfully.']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $content = SectionContent::findOrFail($id);
+        $content->delete();
+
+        return response()->json(['success' => true, 'message' => 'Section Content deleted successfully.']);
+    }
+}

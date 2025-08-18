@@ -36,6 +36,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Admin\SectionCategoryController as AdminSectionCategoryController;
+use App\Http\Controllers\Admin\SectionContentController as AdminSectionContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +81,16 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard.index');
 // pages management
     Route::apiResource('pages',PageController::class);
-  Route::get('/pages/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+    Route::get('/pages/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+
+// Section Category resource routes
+Route::apiResource('/section-category', AdminSectionCategoryController::class);
+    Route::get('/section-content/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+
+// Section Content resource routes
+Route::apiResource('/section-content', AdminSectionContentController::class);
+    Route::get('/section-category/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+
     // Users
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/user/latest-order', [UserController::class, 'latestOrder'])->name('user.latest-order');
