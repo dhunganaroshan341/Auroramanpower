@@ -9,10 +9,11 @@ class SectionCategoryRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
-    }
+  public function authorize(): bool
+{
+    // Only allow if the user is an admin
+    return auth()->check() && auth()->user()->role === 'Admin';
+}
 
     /**
      * Get the validation rules that apply to the request.
