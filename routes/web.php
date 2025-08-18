@@ -85,11 +85,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
 // Section Category resource routes
 Route::apiResource('/section-category', AdminSectionCategoryController::class);
-    Route::get('/section-content/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+    Route::get('/section-categoy/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
 
 // Section Content resource routes
 Route::apiResource('/section-content', AdminSectionContentController::class);
-    Route::get('/section-category/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+    Route::get('/section-content/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
 
     // Users
     Route::get('/user', [UserController::class, 'index'])->name('user');
