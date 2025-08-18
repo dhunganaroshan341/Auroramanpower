@@ -6,7 +6,7 @@ $(document).ready(function () {
         }
     });
 
-    let sectionContentTable;
+    // let sectionContentTable;
 
     // Open modal for adding new content
     $(document).on('click', '.addContentBtn', function () {
@@ -52,7 +52,7 @@ $(document).ready(function () {
     });
 
     // Initialize DataTable
-    sectionContentTable = $("#section-content-table").DataTable({
+    window.sectionContentTable = $("#section-content-table").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
