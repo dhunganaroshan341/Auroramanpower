@@ -154,24 +154,18 @@ public function statusToggle($id)
         if (!$data) {
             return response()->json([
                 'success' => false,
-                'message' => 'Section content not found'
+                'message' => 'Record not found'
             ], 404);
         }
 
         $data->status = $data->status === 'Active' ? 'Inactive' : 'Active';
         $data->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Status changed successfully'
-        ], 200);
-
+        return response()->json(['success' => true, 'message' => 'Status changed']);
     } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage()
-        ]);
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
     }
 }
+
 
 }
