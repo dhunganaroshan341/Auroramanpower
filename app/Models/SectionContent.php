@@ -12,6 +12,7 @@ class SectionContent extends Model
     protected $fillable = [
         'section_category_id',
         'title',
+        'status',
         'short_description',
         'image',
         'video',

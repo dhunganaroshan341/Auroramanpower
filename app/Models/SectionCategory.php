@@ -11,6 +11,7 @@ class SectionCategory extends Model
 
     protected $fillable = [
         'title',
+        'status',
         'sub_heading',
         'image',
         'video',
