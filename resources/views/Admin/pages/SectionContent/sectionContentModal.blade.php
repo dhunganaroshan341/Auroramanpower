@@ -33,7 +33,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Image</label>
-                            <input type="text" name="image" id="image" class="form-control" />
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*" />
+                            <div id="imagePreview" class="mt-2">
+                                <img src="" alt="Image Preview" id="previewImg" class="img-thumbnail d-none"
+                                    style="max-width: 150px;">
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Video</label>
