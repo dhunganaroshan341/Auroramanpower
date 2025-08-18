@@ -42,7 +42,19 @@ class SectionContentController extends Controller
         }
 
         $categories = SectionCategory::all();
-        return view('Admin.pages.SectionContent.sectionContentIndex', compact('categories'));
+         $extraJs = array_merge(
+            config('js-map.admin.datatable.script'),
+            config('js-map.admin.summernote.script'),
+            config('js-map.admin.buttons.script')
+        );
+
+        $extraCs = array_merge(
+            config('js-map.admin.datatable.style'),
+            config('js-map.admin.summernote.style'),
+            config('js-map.admin.buttons.style')
+        );
+        return view('Admin.pages.SectionContent.sectionContentIndex', ['extraJs' => $extraJs, 'extraCs' => $extraCs]);
+
     }
 
     /**
