@@ -42,15 +42,41 @@
         </div>
     </li>
 
+
+
     {{-- === CONTENT MANAGEMENT === --}}
     <li class="nav-item nav-category">Content</li>
 
+
+
+
+    <li class="nav-item nav-category">Page & sections Management</li>
+
+    <li class="nav-item">
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.pages.index') }}">
             <i class="mdi mdi-file-document menu-icon"></i>
-            <span class="menu-title">Pages & Sections</span>
+            <span class="menu-title">General Page & Section</span>
         </a>
     </li>
+    <a class="nav-link" data-bs-toggle="collapse" href="#packageMenu" role="button" aria-expanded="false"
+        aria-controls="packageMenu">
+        <i class="mdi mdi-map-marker-path menu-icon"></i>
+        <span class="menu-title">Manage sections </span>
+        <i class="menu-arrow"></i>
+    </a>
+    <div class="collapse" id="packageMenu">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.section-category.index') }}">Category</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('admin.section-content.index') }}">Section
+                    Content</a>
+            </li>
+        </ul>
+    </div>
+    </li>
+
+
 
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#bannerMenu" role="button" aria-expanded="false"
@@ -66,7 +92,8 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.page-banner.index') }}">Page Banner</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.call-to-action.index') }}">CTA Banner</a>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.call-to-action.index') }}">CTA
+                        Banner</a>
                 </li>
             </ul>
         </div>
