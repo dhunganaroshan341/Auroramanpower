@@ -52,7 +52,7 @@
         <a class="nav-link" data-bs-toggle="collapse" href="#sectionMenu" role="button" aria-expanded="false"
             aria-controls="sectionMenu">
             <i class="mdi mdi-view-list menu-icon"></i>
-            <span class="menu-title"> Additional Sections</span>
+            <span class="menu-title"> Fancy Sections</span>
             <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="sectionMenu">
