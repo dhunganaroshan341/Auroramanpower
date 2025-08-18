@@ -42,7 +42,7 @@ class SectionContentController extends Controller
         }
 
         $categories = SectionCategory::all();
-        return view('Admin.pages.SectionContent.index', compact('categories'));
+        return view('Admin.pages.SectionContent.sectionContentIndex', compact('categories'));
     }
 
     /**

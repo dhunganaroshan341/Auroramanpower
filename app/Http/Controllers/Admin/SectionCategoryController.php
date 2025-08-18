@@ -37,7 +37,7 @@ class SectionCategoryController extends Controller
                 ->make(true);
         }
 
-        return view('Admin.pages.SectionCategory.index');
+        return view('Admin.pages.SectionCategory.sectionCategoryIndex');
     }
 
     /**
