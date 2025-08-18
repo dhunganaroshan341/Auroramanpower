@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('pdf')->nullable();
             $table->longText('description')->nullable();
             $table->longText('description2')->nullable();
-            $table->string('image')->nullable();
             $table->string('icon_class')->nullable();
             $table->string('link_title')->nullable();
             $table->string('link_url')->nullable();
