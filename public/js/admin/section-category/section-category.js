@@ -13,8 +13,8 @@ $(document).ready(function () {
         $('.sectionCategoryForm')[0].reset();
         $('.sectionCategoryForm').attr('id', 'SectionCategoryForm');
         $('#sectionCategoryModal').modal('show');
-        $('#updateCategoryBtn').hide();
-        $('#submitCategoryBtn').show();
+        $('.submitBtn').show();
+        $('.updateBtn').hide();
     });
 
     // Open modal for editing category
@@ -23,12 +23,12 @@ $(document).ready(function () {
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
         $('#sectionCategoryModal').modal('show');
-        $('#submitCategoryBtn').hide();
-        $('#updateCategoryBtn').show();
+       $('.submitBtn').hide();
+        $('.updateBtn').show();
 
         // Fetch category data
         $.ajax({
-            url: `/admin/section-categories/${id}`,
+            url: `/admin/section-category/${id}`,
             type: 'GET',
             success: function (response) {
                 $('#title').val(response.title);
@@ -79,11 +79,11 @@ $(document).ready(function () {
             $('#updateCategoryBtn').show();
             $('#submitCategoryBtn').hide();
             const id = form.attr("data-id");
-            url = `/admin/section-categories/${id}`;
+            url = `/admin/section-category/${id}`;
             method = 'POST';
             formData.append('_method', 'PUT');
         } else {
-            url = '/admin/section-categories';
+            url = '/admin/section-category';
         }
 
         $(".btn").prop("disabled", true);
@@ -164,7 +164,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "DELETE",
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                    url: `/admin/section-categories/${id}`,
+                    url: `/admin/section-category/${id}`,
                     success: function (response) {
                         Swal.fire({
                             icon: "success",

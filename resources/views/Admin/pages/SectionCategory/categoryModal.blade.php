@@ -2,7 +2,7 @@
     aria-labelledby="sectionCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="sectionCategoryForm" class="sectionCategoryForm">
+            <form id="sectionCategoryForm" class="sectionCategoryForm" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="sectionCategoryModalLabel">Add Category</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -27,7 +27,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Image</label>
-                            <input type="text" name="image" id="image" class="form-control" />
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*" />
+                            <div id="imagePreview" class="mt-2">
+                                <img src="" alt="Image Preview" id="previewImg" class="img-thumbnail d-none"
+                                    style="max-width: 150px;">
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Video</label>
