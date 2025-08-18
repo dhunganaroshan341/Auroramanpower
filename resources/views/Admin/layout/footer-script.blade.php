@@ -5,6 +5,8 @@
 <script src="{{ asset('admin/js/template.js') }}"></script>
 <!-- DataTables JS -->
 <!-- Summernote JS -->
+<!-- Your global JS -->
+<script src="{{ asset('js/global.js') }}"></script>
 
 
 {{-- Select 2 --}}

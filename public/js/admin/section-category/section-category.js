@@ -33,7 +33,10 @@ $(document).ready(function () {
             success: function (response) {
                 $('#title').val(response.title);
                 $('#sub_heading').val(response.sub_heading);
-                $('#image').val(response.image);
+                // Set hidden input and preview
+        // $('#image').val(response.image);
+        renderImage(response.image, "#imagePreview");
+
                 $('#video').val(response.video);
                 $('#slug').val(response.slug);
                 $('#description').val(response.description);
@@ -188,5 +191,7 @@ $(document).ready(function () {
             }
         });
     });
+
+
 
 });
