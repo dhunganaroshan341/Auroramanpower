@@ -52,7 +52,7 @@
         <a class="nav-link" data-bs-toggle="collapse" href="#sectionMenu" role="button" aria-expanded="false"
             aria-controls="sectionMenu">
             <i class="mdi mdi-view-list menu-icon"></i>
-            <span class="menu-title"> Fancy Sections</span>
+            <span class="menu-title">Manage Sections</span>
             <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="sectionMenu">
@@ -148,4 +148,22 @@
     <li class="nav-item nav-category">Utilities</li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.contact.index') }}">
-            <i class="mdi
+            <i class="mdi mdi-contacts menu-icon"></i>
+            <span class="menu-title">Contact</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.newsletters.index') }}">
+            <i class="mdi mdi-email-newsletter menu-icon"></i>
+            <span class="menu-title">Newsletters</span>
+        </a>
+    </li>
+
+    {{-- === LOGOUT === --}}
+    <li class="nav-item mt-3">
+        <a class="nav-link" href="{{ route('admin.logout') }}">
+            <i class="mdi mdi-logout menu-icon text-danger"></i>
+            <span class="menu-title text-danger">Logout</span>
+        </a>
+    </li>
+</ul>
