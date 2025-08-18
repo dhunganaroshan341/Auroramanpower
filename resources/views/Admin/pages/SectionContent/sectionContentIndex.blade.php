@@ -11,7 +11,7 @@
                         <th scope="col">S.N</th>
                         <th scope="col">Title</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Short Description</th>
+
                         <th scope="col">Image</th>
                         <th scope="col">Action</th>
                     </tr>

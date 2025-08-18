@@ -62,7 +62,7 @@ $(document).ready(function () {
             { data: 'DT_RowIndex', orderable: false, searchable: false },
             { data: 'title', name: 'title' },
             { data: 'category', name: 'category' },
-            { data: 'short_description', name: 'short_description' },
+            { data: 'image', name: 'image' },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });

@@ -25,6 +25,13 @@ class SectionContentController extends Controller
                 ->addColumn('category', function ($item) {
                     return $item->sectionCategory ? $item->sectionCategory->title : '-';
                 })
+                ->addColumn('image', function ($item) {
+                    $dataimage =   $item->image;
+                    $defaultImage=asset('defaultImage/defaultimage.webp');
+                    return ' <td class="py-1">
+                    <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
+                    </td>';
+                })
                 ->addColumn('action', function ($item) {
                     return '
                         <div class="d-flex gap-1">
@@ -37,7 +44,7 @@ class SectionContentController extends Controller
                         </div>
                     ';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','image'])
                 ->make(true);
         }
 
