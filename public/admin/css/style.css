@@ -27014,9 +27014,10 @@ dl li {
   font-size: 0.812rem;
 }
 .table td img {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
+	width: 36px;
+	height: 36px;
+	border-radius: 100%;
+	object-fit: contain;
 }
 .table td .badge {
   margin-bottom: 0;
