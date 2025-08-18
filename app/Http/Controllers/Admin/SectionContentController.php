@@ -51,11 +51,12 @@ class SectionContentController extends Controller
                 </div>
             ';
         })->addColumn('status', function ($status) {
-                    $checked = $status->status == 'Active' ? 'checked' : '';
-                    return '<div class="form-check form-switch d-flex">
-                                <input class="form-check-input statusIdData mx-auto" type="checkbox" data-id="' . $status->id . '" role="switch" id="flexSwitchCheckChecked" ' . $checked . '>
-                            </div>';
-                })
+    $checked = $status->status == 'Active' ? 'checked' : '';
+    return '<div class="form-check form-switch d-flex">
+                <input class="form-check-input statusIdData mx-auto" type="checkbox" data-id="' . $status->id . '" role="switch" id="flexSwitchCheckChecked" ' . $checked . '>
+            </div>';
+})
+
                 ->rawColumns(['action', 'image', 'status'])
         ->make(true);
 }
