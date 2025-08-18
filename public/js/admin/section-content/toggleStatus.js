@@ -1,7 +1,16 @@
 $(document).ready(function () {
  // Status Update Toggle Button
+
     $(document).on("change", ".statusIdData", function () {
         let id = $(this).data("id");
+if (!id) {
+    Swal.fire({
+        icon: "error",
+        title: "Invalid ID!"
+    });
+    return;
+}
+
         console.log(id);
         let checked = $(this);
         checked.prop("disabled", true);
@@ -17,21 +26,26 @@ $(document).ready(function () {
                 $.ajax({
                     type: "get",
                     url: "/admin/section-content/status/" + id,
-                    success: function (response) {
-                        if (response.success == true) {
-                            table.draw();
-                            checked.prop("disabled", false);
-                        } else {
-                            Swal.fire({
-                                icon: "warning",
-                                title: "Something went wrong!"
-                            });
-                            checked.prop("disabled", false);
-                        }
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseJSON.message);
-                    }
+                   success: function (response) {
+    if (response.success === true) {
+        table.draw();  // Make sure this refers to your DataTable
+        checked.prop("disabled", false);
+    } else {
+        Swal.fire({
+            icon: "warning",
+            title: response.message || "Something went wrong!"
+        });
+        checked.prop("disabled", false);
+    }
+},
+error: function (xhr) {
+    Swal.fire({
+        icon: "error",
+        title: xhr.responseJSON?.message || "AJAX error!"
+    });
+    checked.prop("disabled", false);
+}
+
                 })
             } else {
                 checked.prop("disabled", false);
