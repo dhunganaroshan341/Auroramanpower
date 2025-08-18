@@ -36,8 +36,20 @@ class SectionCategoryController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+         $extraJs = array_merge(
+            config('js-map.admin.datatable.script'),
+            config('js-map.admin.summernote.script'),
+            config('js-map.admin.buttons.script')
+        );
 
-        return view('Admin.pages.SectionCategory.sectionCategoryIndex');
+        $extraCs = array_merge(
+            config('js-map.admin.datatable.style'),
+            config('js-map.admin.summernote.style'),
+            config('js-map.admin.buttons.style')
+        );
+        return view('Admin.pages.SectionCategory.sectionCategoryIndex', ['extraJs' => $extraJs, 'extraCs' => $extraCs]);
+
+
     }
 
     /**
