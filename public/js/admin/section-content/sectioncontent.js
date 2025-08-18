@@ -67,6 +67,7 @@ $(document).ready(function () {
             { data: 'title', name: 'title' },
             { data: 'category', name: 'category' },
             { data: 'image', name: 'image' },
+            { data: 'status', name: 'status', orderable: false, searchable: false },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });

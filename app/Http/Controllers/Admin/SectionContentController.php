@@ -50,8 +50,13 @@ class SectionContentController extends Controller
                     </button>
                 </div>
             ';
-        })
-        ->rawColumns(['action','image'])
+        })->addColumn('status', function ($status) {
+                    $checked = $status->status == 'Active' ? 'checked' : '';
+                    return '<div class="form-check form-switch d-flex">
+                                <input class="form-check-input statusIdData mx-auto" type="checkbox" data-id="' . $status->id . '" role="switch" id="flexSwitchCheckChecked" ' . $checked . '>
+                            </div>';
+                })
+                ->rawColumns(['action', 'image', 'status'])
         ->make(true);
 }
 
@@ -139,5 +144,21 @@ public function reorder(Request $request)
 
     return response()->json(['status' => 'success']);
 }
+
+ public function statusToggle($id)
+    {
+        try {
+            $data = SectionContent::find($id);
+            if ($data->status == 'Active') {
+                $data->status = 'Inactive';
+            } else {
+                $data->status = 'Active';
+            }
+            $data->save();
+            return response()->json(['success' => true, 'message' => 'Status Changes'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 
 }

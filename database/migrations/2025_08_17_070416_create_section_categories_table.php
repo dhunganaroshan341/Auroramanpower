@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable(); // optional slug for URLs
             $table->text('description')->nullable(); // optional description
             $table->text('description2')->nullable(); // optional description
+            $table->enum('status',['Active','Inactive'])->default('Active');
+
             $table->timestamps();
         });
     }

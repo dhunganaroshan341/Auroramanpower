@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('icon_class')->nullable();
             $table->string('link_title')->nullable();
             $table->string('link_url')->nullable();
+            $table->enum('status',['Active','Inactive'])->default('Active');
+
             $table->timestamps();
         });
     }
