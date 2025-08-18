@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionContentRequest;
 use App\Models\SectionContent;
 use App\Models\SectionCategory;
+use App\Traits\HandlesImage;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class SectionContentController extends Controller
 {
+     use HandlesImage;
     /**
      * Display a listing of the resource.
      */
@@ -71,6 +73,8 @@ class SectionContentController extends Controller
     public function store(SectionContentRequest $request)
     {
         $validated = $request->validated();
+        $validated['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-content');
+
         SectionContent::create($validated);
 
         return response()->json(['success' => true, 'message' => 'Section Content created successfully.']);
