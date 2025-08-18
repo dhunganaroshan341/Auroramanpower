@@ -23,4 +23,16 @@ class SectionCategory extends Model
     {
         return $this->hasMany(SectionContent::class);
     }
+
+    /**
+     * Accessor for the image attribute
+     * Automatically prepends the asset URL.
+     */
+    public function getImageAttribute($value)
+    {
+        if ($value) {
+            return asset($value); // returns full URL
+        }
+        return null; // no image uploaded
+    }
 }

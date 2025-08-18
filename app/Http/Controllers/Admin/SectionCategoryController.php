@@ -6,31 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionCategoryRequest;
 use App\Models\SectionCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Traits\HandlesImage;
 
 class SectionCategoryController extends Controller
 {
-    /**
-     * Handle image upload and deletion logic.
-     */
-    private function handleImageUpload(Request $request, ?SectionCategory $category = null): ?string
-    {
-        if ($request->hasFile('image')) {
-            // If updating and category already has an image, delete it first
-            if ($category && $category->image && Storage::disk('public')->exists($category->image)) {
-                Storage::disk('public')->delete($category->image);
-            }
-
-            $path = 'images/section-category/';
-            $imageName = time() . '_' . $request->image->getClientOriginalName();
-            $store = $request->image->storeAs($path, $imageName, 'public');
-
-            return $store;
-        }
-
-        return $category?->image; // keep old image if no new file uploaded
-    }
+    use HandlesImage;
 
     /**
      * Display a listing of the resource.
@@ -81,12 +62,10 @@ class SectionCategoryController extends Controller
      */
     public function store(SectionCategoryRequest $request)
     {
-        $validated = $request->validated();
+        $data = $request->validated();
+        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category');
 
-        // Handle image upload
-        $validated['image'] = $this->handleImageUpload($request);
-
-        SectionCategory::create($validated);
+        SectionCategory::create($data);
 
         return response()->json(['success' => true, 'message' => 'Section Category created successfully.']);
     }
@@ -105,13 +84,11 @@ class SectionCategoryController extends Controller
      */
     public function update(SectionCategoryRequest $request, string $id)
     {
-        $validated = $request->validated();
         $category = SectionCategory::findOrFail($id);
+        $data = $request->validated();
+        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category', $category);
 
-        // Handle image replacement
-        $validated['image'] = $this->handleImageUpload($request, $category);
-
-        $category->update($validated);
+        $category->update($data);
 
         return response()->json(['success' => true, 'message' => 'Section Category updated successfully.']);
     }
@@ -123,9 +100,9 @@ class SectionCategoryController extends Controller
     {
         $category = SectionCategory::findOrFail($id);
 
-        // Delete image file if exists
-        if ($category->image && Storage::disk('public')->exists($category->image)) {
-            Storage::disk('public')->delete($category->image);
+        // Delete image manually
+        if ($category->image && file_exists(public_path($category->image))) {
+            @unlink(public_path($category->image));
         }
 
         $category->delete();
