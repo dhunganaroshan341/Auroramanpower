@@ -4,14 +4,7 @@
         <button class="btn btn-primary addContentBtn mb-4 mt-4">Add Section Content</button>
 
         <!-- Category Filter -->
-        <div class="mb-4 mt-4">
-            <select id="categoryFilter" class="form-select">
-                <option value="">All Categories</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                @endforeach
-            </select>
-        </div>
+        @include('Admin.pages.SectionContent.categoryFilter')
     </div>
 
     @include('Admin.pages.SectionContent.sectionContentModal')

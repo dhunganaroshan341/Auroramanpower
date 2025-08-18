@@ -90,6 +90,9 @@ Route::apiResource('/section-category', AdminSectionCategoryController::class);
 // Section Content resource routes
 Route::apiResource('/section-content', AdminSectionContentController::class);
     Route::get('/section-content/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+// Route
+Route::get('/admin/section-content/{categoryId}/list', [SectionContentController::class, 'list']);
+Route::post('/admin/section-content/reorder', [SectionContentController::class, 'reorder']);
 
     // Users
     Route::get('/user', [UserController::class, 'index'])->name('user');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('section_category_id')->constrained()->onDelete('cascade'); // relation
             $table->string('title');
             $table->string('short_description')->nullable();
+             $table->integer('order')->default(0);
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->string('pdf')->nullable();

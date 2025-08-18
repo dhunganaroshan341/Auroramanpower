@@ -121,4 +121,23 @@ if($validated['image']!=null){
 
         return response()->json(['success' => true, 'message' => 'Section Content deleted successfully.']);
     }
+
+
+    public function list($categoryId)
+{
+    return SectionContent::where('section_category_id', $categoryId)
+        ->orderBy('order')
+        ->get(['id', 'title']);
+}
+
+public function reorder(Request $request)
+{
+    foreach ($request->order as $item) {
+        SectionContent::where('id', $item['id'])
+            ->update(['order' => $item['position']]);
+    }
+
+    return response()->json(['status' => 'success']);
+}
+
 }

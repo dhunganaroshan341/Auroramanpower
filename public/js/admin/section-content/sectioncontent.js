@@ -72,8 +72,15 @@ $(document).ready(function () {
     });
     // Reload table when filter changes
 $('#categoryFilter').change(function () {
-    sectionContentTable.ajax.reload();
+    sectionCategoryTable.ajax.reload();
+
+    if ($(this).val()) {
+        $('#reorderBtn').show();
+    } else {
+        $('#reorderBtn').hide();
+    }
 });
+
 
     // Handle form submit (create/update)
     $(document).off("submit", ".sectionContentForm").on("submit", ".sectionContentForm", function (e) {

@@ -29,6 +29,7 @@ public function rules()
 
             'video' => 'nullable|string|max:255',
             'pdf' => 'nullable|string|max:255',
+            'order' => 'nullable|integer',
             'description' => 'nullable|string',
             'description2' => 'nullable|string',
             'icon_class' => 'nullable|string|max:255',
