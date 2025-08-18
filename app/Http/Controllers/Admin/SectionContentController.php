@@ -20,35 +20,41 @@ class SectionContentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = SectionContent::with('sectionCategory')->orderBy('id', 'desc');
+    $query = SectionContent::with('sectionCategory')
+        ->orderBy('id', 'desc');
 
-            return DataTables::of($query)
-                ->addIndexColumn()
-                ->addColumn('category', function ($item) {
-                    return $item->sectionCategory ? $item->sectionCategory->title : '-';
-                })
-                ->addColumn('image', function ($item) {
-                    $dataimage =   $item->image;
-                    $defaultImage=asset('user.png');
-                    return ' <td class="py-1">
-                    <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
-                    </td>';
-                })
-                ->addColumn('action', function ($item) {
-                    return '
-                        <div class="d-flex gap-1">
-                            <button class="btn btn-sm btn-warning editContentBtn" data-id="' . $item->id . '">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger deleteContentBtn" data-id="' . $item->id . '">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    ';
-                })
-                ->rawColumns(['action','image'])
-                ->make(true);
-        }
+    if ($request->has('category_id') && !empty($request->category_id)) {
+        $query->where('section_category_id', $request->category_id);
+    }
+
+    return DataTables::of($query)
+        ->addIndexColumn()
+        ->addColumn('category', function ($item) {
+            return $item->sectionCategory ? $item->sectionCategory->title : '-';
+        })
+        ->addColumn('image', function ($item) {
+            $dataimage = $item->image;
+            $defaultImage = asset('user.png');
+            return ' <td class="py-1">
+                <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
+                </td>';
+        })
+        ->addColumn('action', function ($item) {
+            return '
+                <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-warning editContentBtn" data-id="' . $item->id . '">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger deleteContentBtn" data-id="' . $item->id . '">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            ';
+        })
+        ->rawColumns(['action','image'])
+        ->make(true);
+}
+
 
         $categories = SectionCategory::all();
          $extraJs = array_merge(
