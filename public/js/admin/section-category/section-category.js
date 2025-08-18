@@ -62,6 +62,7 @@ $(document).ready(function () {
             { data: 'title', name: 'title' },
             { data: 'sub_heading', name: 'sub_heading' },
             { data: 'slug', name: 'slug' },
+            { data: 'image', name: 'image' },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });
