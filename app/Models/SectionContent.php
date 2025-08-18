@@ -27,4 +27,11 @@ class SectionContent extends Model
     {
         return $this->belongsTo(SectionCategory::class);
     }
+       public function getImageAttribute($value)
+    {
+        if ($value) {
+            return asset($value); // returns full URL
+        }
+        return null; // no image uploaded
+    }
 }
