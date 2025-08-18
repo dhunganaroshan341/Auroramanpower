@@ -25,7 +25,7 @@ class SectionCategoryRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'sub_heading' => 'required|string|max:255',
-            'image' => 'nullable|string|max:255',
+          'image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048', // max size in KB
             'video' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255|unique:section_categories,slug,' . $this->id,
             'description' => 'nullable|string',
