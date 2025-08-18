@@ -1,5 +1,5 @@
 <?php
-// database/seeders/UserSeeder.php
+
 
 namespace Database\Seeders;
 
@@ -10,6 +10,8 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        $faker = \Faker\Factory::create();
+
         // Create default admin
         User::updateOrCreate(
             ['email' => 'adminstar@gmail.com'],
@@ -24,12 +26,12 @@ class UserSeeder extends Seeder
                 'instagram_link' => 'https://instagram.com/roshan',
                 'twitter_link' => 'https://twitter.com/roshan',
                 'phonenumber' => '9823681753',
-                'notes' => fake()->paragraph(),
-                'google_id' => fake()->uuid(),
+                'notes' => $faker->paragraph(),
+                'google_id' => $faker->uuid(),
             ]
         );
 
-        // Create 100 users using factory
+        // Create 5 users using factory
         User::factory()->count(5)->create();
     }
 }
