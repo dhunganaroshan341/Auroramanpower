@@ -28,7 +28,7 @@ if (!id) {
                     url: "/admin/section-content/status/" + id,
                    success: function (response) {
     if (response.success === true) {
-        table.draw();  // Make sure this refers to your DataTable
+        sectionContentTable.draw();  // Make sure this refers to your DataTable
         checked.prop("disabled", false);
     } else {
         Swal.fire({
