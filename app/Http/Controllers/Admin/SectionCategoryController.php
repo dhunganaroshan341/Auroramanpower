@@ -1,16 +1,37 @@
 <?php
 
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionCategoryRequest;
 use App\Models\SectionCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SectionCategoryController extends Controller
 {
+    /**
+     * Handle image upload and deletion logic.
+     */
+    private function handleImageUpload(Request $request, ?SectionCategory $category = null): ?string
+    {
+        if ($request->hasFile('image')) {
+            // If updating and category already has an image, delete it first
+            if ($category && $category->image && Storage::disk('public')->exists($category->image)) {
+                Storage::disk('public')->delete($category->image);
+            }
+
+            $path = 'images/section-category/';
+            $imageName = time() . '_' . $request->image->getClientOriginalName();
+            $store = $request->image->storeAs($path, $imageName, 'public');
+
+            return $store;
+        }
+
+        return $category?->image; // keep old image if no new file uploaded
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +57,8 @@ class SectionCategoryController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-         $extraJs = array_merge(
+
+        $extraJs = array_merge(
             config('js-map.admin.datatable.script'),
             config('js-map.admin.summernote.script'),
             config('js-map.admin.buttons.script')
@@ -47,9 +69,11 @@ class SectionCategoryController extends Controller
             config('js-map.admin.summernote.style'),
             config('js-map.admin.buttons.style')
         );
-        return view('Admin.pages.SectionCategory.sectionCategoryIndex', ['extraJs' => $extraJs, 'extraCs' => $extraCs]);
 
-
+        return view('Admin.pages.SectionCategory.sectionCategoryIndex', [
+            'extraJs' => $extraJs,
+            'extraCs' => $extraCs
+        ]);
     }
 
     /**
@@ -58,6 +82,10 @@ class SectionCategoryController extends Controller
     public function store(SectionCategoryRequest $request)
     {
         $validated = $request->validated();
+
+        // Handle image upload
+        $validated['image'] = $this->handleImageUpload($request);
+
         SectionCategory::create($validated);
 
         return response()->json(['success' => true, 'message' => 'Section Category created successfully.']);
@@ -79,6 +107,10 @@ class SectionCategoryController extends Controller
     {
         $validated = $request->validated();
         $category = SectionCategory::findOrFail($id);
+
+        // Handle image replacement
+        $validated['image'] = $this->handleImageUpload($request, $category);
+
         $category->update($validated);
 
         return response()->json(['success' => true, 'message' => 'Section Category updated successfully.']);
@@ -90,6 +122,12 @@ class SectionCategoryController extends Controller
     public function destroy(string $id)
     {
         $category = SectionCategory::findOrFail($id);
+
+        // Delete image file if exists
+        if ($category->image && Storage::disk('public')->exists($category->image)) {
+            Storage::disk('public')->delete($category->image);
+        }
+
         $category->delete();
 
         return response()->json(['success' => true, 'message' => 'Section Category deleted successfully.']);
