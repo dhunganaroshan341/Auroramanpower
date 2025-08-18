@@ -145,20 +145,32 @@ public function reorder(Request $request)
     return response()->json(['status' => 'success']);
 }
 
- public function statusToggle($id)
-    {
-        try {
-            $data = SectionContent::find($id);
-            if ($data->status == 'Active') {
-                $data->status = 'Inactive';
-            } else {
-                $data->status = 'Active';
-            }
-            $data->save();
-            return response()->json(['success' => true, 'message' => 'Status Changes'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+public function statusToggle($id)
+{
+    try {
+        $data = SectionContent::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Section content not found'
+            ], 404);
         }
+
+        $data->status = $data->status === 'Active' ? 'Inactive' : 'Active';
+        $data->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status changed successfully'
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
     }
+}
 
 }
