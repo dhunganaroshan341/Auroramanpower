@@ -27019,6 +27019,10 @@ dl li {
 	border-radius: 100%;
 	object-fit: contain;
 }
+#imagePreview  img {
+
+	object-fit: contain;
+}
 .table td .badge {
   margin-bottom: 0;
 }
