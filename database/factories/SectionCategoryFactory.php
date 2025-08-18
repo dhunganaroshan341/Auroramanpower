@@ -13,6 +13,7 @@ class SectionCategoryFactory extends Factory
 
         return [
             'title' => ucfirst($title),
+            'status' => "Active",
             'sub_heading' => $this->faker->sentence(4),
             'image' => $this->faker->imageUrl(640, 480, 'business', true),
             'video' => $this->faker->url(),

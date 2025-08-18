@@ -12,6 +12,7 @@ class SectionContentFactory extends Factory
         return [
             'section_category_id' => SectionCategory::inRandomOrder()->first()?->id ?? 1,
             'title' => $this->faker->sentence(3),
+            'status' => "Active",
             'short_description' => $this->faker->sentence(6),
             'image' => $this->faker->imageUrl(640, 480, 'tech', true),
             'video' => $this->faker->url(),
