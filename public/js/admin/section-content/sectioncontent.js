@@ -72,7 +72,7 @@ $(document).ready(function () {
     });
     // Reload table when filter changes
 $('#categoryFilter').change(function () {
-    sectionCategoryTable.ajax.reload();
+    sectionContentTable.ajax.reload();
 
     if ($(this).val()) {
         $('#reorderBtn').show();
