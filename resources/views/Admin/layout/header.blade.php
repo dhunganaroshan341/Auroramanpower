@@ -32,8 +32,7 @@
     <script>
         window.appBaseUrl = "{{ env('APP_URL') }}";
         window.routes = {
-            packagesImageUpload: "{{ route('admin.tour-package-images.store') }}",
-            packagesVideoUpload: "{{ route('admin.tour-package-videos.store') }}"
+
         };
     </script>
     <style>
