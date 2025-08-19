@@ -1,6 +1,5 @@
 Dropzone.autoDiscover = false;
 
-// Initialize Dropzone separately
 function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
     return new Dropzone("#sectionCategoryDropzone", {
         url: '/admin/section-category/images/upload',
@@ -15,12 +14,10 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
         init: function () {
             const dz = this;
 
-            // Append category_id to every request
             dz.on("sending", function(file, xhr, formData) {
                 if (categoryId) formData.append('category_id', categoryId);
             });
 
-            // Preload existing images
             existingImages.forEach(image => {
                 let mockFile = { name: image.name, size: image.size || 12345, dataURL: image.url, serverId: image.id };
                 dz.emit("addedfile", mockFile);
@@ -36,7 +33,6 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
                     value: file.serverId
                 }).appendTo('#sectionCategoryForm');
 
-                // Optional: delete immediately from server
                 $.ajax({
                     url: '/section-category/images/delete/' + file.serverId,
                     type: 'DELETE',
@@ -131,13 +127,14 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (res) {
-                    if (!currentCategoryId && res.id) currentCategoryId = res.id; // new ID after create
+                    if (!currentCategoryId && res.id) currentCategoryId = res.id;
                     Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
                     $('#categoryId').val(currentCategoryId);
 
-                    // process Dropzone queue after category exists
                     if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
-                        sectionCategoryDropzone.one("queuecomplete", function() {
+                        // Remove previous listeners to avoid duplicates
+                        sectionCategoryDropzone.off("queuecomplete");
+                        sectionCategoryDropzone.on("queuecomplete", function() {
                             sectionCategoryTable.ajax.reload(null, false);
                             $('#sectionCategoryModal').modal('hide');
                             form[0].reset();
@@ -157,12 +154,7 @@ $(document).ready(function () {
             });
         }
 
-        // If adding new category, create first then upload files
-        if (!isUpdate && sectionCategoryDropzone.getQueuedFiles().length > 0) {
-            sendAjax(); // Dropzone queue handled in success above
-        } else {
-            sendAjax();
-        }
+        sendAjax();
     });
 
     // ------------------ DELETE ------------------
