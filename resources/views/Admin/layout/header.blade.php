@@ -35,6 +35,7 @@
 
         };
     </script>
+    {{-- widnow routes setting up  --}}
     <style>
         /* Remove underline from icon links inside the datatable */
         table.dataTable a.addItineraryBtn,
