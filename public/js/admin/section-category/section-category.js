@@ -1,7 +1,16 @@
 Dropzone.autoDiscover = false;
 
-function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
-    return new Dropzone("#sectionCategoryDropzone", {
+let sectionCategoryDropzone;
+let currentCategoryId = null;
+
+// Initialize Dropzone
+function initSectionCategoryDropzone(existingImages = []) {
+    if (sectionCategoryDropzone) {
+        sectionCategoryDropzone.destroy();
+        $('#sectionCategoryDropzone').html(''); // clean container
+    }
+
+    sectionCategoryDropzone = new Dropzone("#sectionCategoryDropzone", {
         url: '/admin/section-category/images/upload',
         paramName: "file",
         maxFilesize: 5,
@@ -14,21 +23,26 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
         init: function () {
             const dz = this;
 
-            // Ensure category_id is always sent
-            dz.on("sending", function(file, xhr, formData) {
-                if (!categoryId) return; // prevent sending if categoryId undefined
-                formData.append('category_id', categoryId);
-            });
-
             // Preload existing images
             existingImages.forEach(image => {
-                let mockFile = { name: image.name, size: image.size || 12345, dataURL: image.url, serverId: image.id };
+                let mockFile = {
+                    name: image.image.split('/').pop(),
+                    size: image.size || 12345,
+                    dataURL: '/' + image.image,
+                    serverId: image.id
+                };
                 dz.emit("addedfile", mockFile);
-                dz.emit("thumbnail", mockFile, image.url);
+                dz.emit("thumbnail", mockFile, '/' + image.image);
                 dz.emit("complete", mockFile);
             });
 
-            // Handle remove file
+            // Append category_id to every upload
+            dz.on("sending", function(file, xhr, formData) {
+                if (!currentCategoryId) return;
+                formData.append('category_id', currentCategoryId);
+            });
+
+            // Handle removed files
             dz.on("removedfile", function(file) {
                 if (!file.serverId) return;
                 $('<input>').attr({
@@ -45,6 +59,13 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
                     error: err => console.error('Delete failed', err)
                 });
             });
+
+            dz.on("queuecomplete", function() {
+                sectionCategoryTable.ajax.reload(null, false);
+                $('#sectionCategoryModal').modal('hide');
+                dz.removeAllFiles(true);
+                $('.sectionCategoryForm')[0].reset();
+            });
         }
     });
 }
@@ -52,6 +73,7 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
 $(document).ready(function () {
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
+    // DataTable
     let sectionCategoryTable = $("#section-category-table").DataTable({
         processing: true,
         serverSide: true,
@@ -66,9 +88,6 @@ $(document).ready(function () {
         ]
     });
 
-    let sectionCategoryDropzone;
-    let currentCategoryId = null;
-
     // ------------------ ADD ------------------
     $(document).on('click', '.addCategoryBtn', function () {
         $('.sectionCategoryForm')[0].reset();
@@ -79,8 +98,7 @@ $(document).ready(function () {
         $('.submitBtn').show();
         $('.updateBtn').hide();
 
-        if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
-        sectionCategoryDropzone = initSectionCategoryDropzone(); // empty Dropzone
+        initSectionCategoryDropzone();
     });
 
     // ------------------ EDIT ------------------
@@ -106,8 +124,7 @@ $(document).ready(function () {
                 $('#description2').val(response.description2);
                 renderImage(response.image, "#imagePreview");
 
-                if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
-                sectionCategoryDropzone = initSectionCategoryDropzone(id, response.images || []);
+                initSectionCategoryDropzone(response.images || []);
             },
             error: function () { alert("Failed to fetch category for editing."); }
         });
@@ -123,39 +140,26 @@ $(document).ready(function () {
 
         if (isUpdate) formData.append('_method', 'PUT');
 
-        function afterCreateOrUpdate(res) {
-            if (!currentCategoryId && res.id) currentCategoryId = res.id; // new ID
-            $('#categoryId').val(currentCategoryId);
-
-            // If Dropzone has files, upload them now
-            if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
-                sectionCategoryDropzone.off("sending"); // remove old listeners
-                sectionCategoryDropzone.on("sending", function(file, xhr, formData) {
-                    formData.append('category_id', currentCategoryId);
-                });
-                sectionCategoryDropzone.off("queuecomplete");
-                sectionCategoryDropzone.on("queuecomplete", function() {
-                    sectionCategoryTable.ajax.reload(null, false);
-                    $('#sectionCategoryModal').modal('hide');
-                    form[0].reset();
-                });
-                sectionCategoryDropzone.processQueue();
-            } else {
-                sectionCategoryTable.ajax.reload(null, false);
-                $('#sectionCategoryModal').modal('hide');
-                form[0].reset();
-            }
-
-            Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
-        }
-
         $.ajax({
             url: url,
             type: 'POST',
             data: formData,
             contentType: false,
             processData: false,
-            success: afterCreateOrUpdate,
+            success: function(res) {
+                if (!currentCategoryId && res.id) currentCategoryId = res.id;
+
+                // Upload Dropzone files if any
+                if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
+                    sectionCategoryDropzone.processQueue();
+                } else {
+                    sectionCategoryTable.ajax.reload(null, false);
+                    $('#sectionCategoryModal').modal('hide');
+                    form[0].reset();
+                }
+
+                Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
+            },
             error: function (err) {
                 let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
                 Swal.fire({ icon: "error", title: "Error", text: msg });
