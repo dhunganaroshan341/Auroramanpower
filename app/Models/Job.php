@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasImageUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Job extends Model
 {
+     use HasImageUrl;protected $imageFields = ['image'];
    protected $fillable = [
         'employer_id',
         'title',
@@ -15,6 +18,7 @@ class Job extends Model
         'location',
         'salary',
         'status',
+        'slug',
         'image',
         'pdf',
         'link',
@@ -35,5 +39,18 @@ class Job extends Model
     }
     public function OurCountry(){
         return $this->belongsTo(OurCountry::class);
+    }
+
+
+
+    protected static function booted()
+    {
+        static::creating(function ($job) {
+            $job->slug = Str::slug($job->title);
+        });
+
+        static::updating(function ($job) {
+            $job->slug = Str::slug($job->title);
+        });
     }
 }

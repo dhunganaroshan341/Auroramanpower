@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
 use App\Http\Controllers\Admin\GalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryMediaController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsLetterController as AdminSideNewsLetterController;
 use App\Http\Controllers\Admin\PageBannerController;
 use App\Http\Controllers\Admin\PageController;
@@ -240,6 +242,11 @@ Route::prefix('setting')->name('setting.')->group(function () {
     Route::get('/', [SettingController::class, 'index'])->name('index');
     Route::post('/', [SettingController::class, 'store'])->name('store');
 });
+
+    Route::apiResource('jobs',JobController::class);
+    Route::get('/jobs/status/{id}', [JobController::class, 'toggleStatus'])->name('client.status');
+ Route::apiResource('job-categories',JobCategoryController::class);
+    Route::get('/job-categories/status/{id}', [JobCategoryController::class, 'toggleStatus'])->name('client.status');
 
 
 

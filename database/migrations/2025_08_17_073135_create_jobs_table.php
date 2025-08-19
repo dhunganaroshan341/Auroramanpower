@@ -25,9 +25,10 @@ Schema::create('jobs', function (Blueprint $table) {
     $table->text('description');
     $table->text('requirements')->nullable();
     $table->string('location')->nullable();
+    $table->string('slug')->nullable();
     $table->integer('order')->nullable();
     $table->string('salary')->nullable();
-    $table->enum('status', ['active','inactive'])->default('active');
+    $table->enum('status', ['Active','Inactive'])->default('Active');
     $table->string('image')->nullable();
     $table->string('pdf')->nullable();
     $table->string('link')->nullable();

@@ -30,9 +30,65 @@
     {{-- Sweet Alert --}}
     <!-- Then app.js -->
     <script>
-        window.appBaseUrl = "{{ env('APP_URL') }}";
-        window.routes = {
+        window.appBaseUrl = "{{ url('/') }}";
 
+        window.routes = {
+            // Dashboard
+            dashboard: "{{ route('admin.dashboard') }}",
+
+            // Achievements
+            achievements: {
+                index: "{{ route('admin.achievements.index') }}",
+                store: "{{ route('admin.achievements.store') }}",
+                show: "{{ url('admin/achievements') }}/", // append ID in JS
+                edit: "{{ url('admin/achievements') }}/", // append ID in JS
+                destroy: "{{ url('admin/achievements') }}/", // append ID in JS
+                toggle: "{{ url('admin/achievements/status/toggle') }}/", // append ID in JS
+            },
+
+            // Clients
+            clients: {
+                index: "{{ route('admin.client.index') }}",
+                store: "{{ route('admin.client.store') }}",
+                status: "{{ url('admin/client/status') }}/", // append ID in JS
+                destroy: "{{ url('admin/client/delete') }}/", // append ID in JS
+            },
+
+            // Testimonials
+            testimonials: {
+                index: "{{ route('admin.testimonial') }}",
+                store: "{{ route('admin.testimonial.store') }}",
+                update: "{{ url('admin/testimonial/update') }}/", // append ID in JS
+                destroy: "{{ url('admin/testimonial/delete') }}/", // append ID in JS
+                status: "{{ url('admin/testimonial/status') }}/", // append ID in JS
+            },
+
+            // Notices
+            notices: {
+                index: "{{ route('admin.notice.index') }}",
+                store: "{{ route('admin.notice.store') }}",
+                update: "{{ url('admin/notice') }}/", // append ID
+                destroy: "{{ url('admin/notice') }}/", // append ID
+                status: "{{ url('admin/notice/status') }}/", // append ID
+            },
+
+            // Users
+            users: {
+                index: "{{ route('admin.user') }}",
+                store: "{{ route('admin.user.store') }}",
+                update: "{{ url('admin/user/update') }}/", // append ID
+                destroy: "{{ url('admin/user/delete') }}/", // append ID
+                resetPassword: "{{ url('admin/user/reset-password') }}/", // append ID
+            },
+
+            // Jobs (new)
+            jobs: {
+                index: "{{ route('jobs.index') }}",
+                store: "{{ route('jobs.store') }}",
+                update: "{{ url('admin/jobs/update') }}/", // append ID
+                destroy: "{{ url('admin/jobs/delete') }}/", // append ID
+                status: "{{ url('admin/jobs/status') }}/", // append ID
+            }
         };
     </script>
     {{-- widnow routes setting up  --}}
