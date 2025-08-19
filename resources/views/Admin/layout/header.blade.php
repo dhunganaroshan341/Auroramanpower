@@ -83,8 +83,8 @@
 
             // Jobs (new)
             jobs: {
-                index: "{{ route('jobs.index') }}",
-                store: "{{ route('jobs.store') }}",
+                index: "{{ route('admin.jobs.index') }}",
+                store: "{{ route('admin.jobs.store') }}",
                 update: "{{ url('admin/jobs/update') }}/", // append ID
                 destroy: "{{ url('admin/jobs/delete') }}/", // append ID
                 status: "{{ url('admin/jobs/status') }}/", // append ID
