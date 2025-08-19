@@ -32,7 +32,8 @@
         </a>
         <div class="collapse" id="jobMenu">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-briefcase-outline"></i> Manage
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.jobs.index') }}"><i
+                            class="mdi mdi-briefcase-outline"></i> Manage
                         Jobs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-calendar-check"></i>
                         Applications</a></li>
