@@ -14,10 +14,13 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
         init: function () {
             const dz = this;
 
+            // Ensure category_id is always sent
             dz.on("sending", function(file, xhr, formData) {
-                if (categoryId) formData.append('category_id', categoryId);
+                if (!categoryId) return; // prevent sending if categoryId undefined
+                formData.append('category_id', categoryId);
             });
 
+            // Preload existing images
             existingImages.forEach(image => {
                 let mockFile = { name: image.name, size: image.size || 12345, dataURL: image.url, serverId: image.id };
                 dz.emit("addedfile", mockFile);
@@ -25,6 +28,7 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
                 dz.emit("complete", mockFile);
             });
 
+            // Handle remove file
             dz.on("removedfile", function(file) {
                 if (!file.serverId) return;
                 $('<input>').attr({
@@ -69,14 +73,14 @@ $(document).ready(function () {
     $(document).on('click', '.addCategoryBtn', function () {
         $('.sectionCategoryForm')[0].reset();
         $('.sectionCategoryForm').attr('id', 'SectionCategoryForm');
-        $('#categoryId').val('');
         currentCategoryId = null;
+        $('#categoryId').val('');
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').show();
         $('.updateBtn').hide();
 
         if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
-        sectionCategoryDropzone = initSectionCategoryDropzone(); // empty for new
+        sectionCategoryDropzone = initSectionCategoryDropzone(); // empty Dropzone
     });
 
     // ------------------ EDIT ------------------
@@ -84,8 +88,8 @@ $(document).ready(function () {
         const id = $(this).data('id');
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
-        $('#categoryId').val(id);
         currentCategoryId = id;
+        $('#categoryId').val(id);
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').hide();
         $('.updateBtn').show();
@@ -119,42 +123,44 @@ $(document).ready(function () {
 
         if (isUpdate) formData.append('_method', 'PUT');
 
-        function sendAjax() {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (!currentCategoryId && res.id) currentCategoryId = res.id;
-                    Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
-                    $('#categoryId').val(currentCategoryId);
+        function afterCreateOrUpdate(res) {
+            if (!currentCategoryId && res.id) currentCategoryId = res.id; // new ID
+            $('#categoryId').val(currentCategoryId);
 
-                    if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
-                        // Remove previous listeners to avoid duplicates
-                        sectionCategoryDropzone.off("queuecomplete");
-                        sectionCategoryDropzone.on("queuecomplete", function() {
-                            sectionCategoryTable.ajax.reload(null, false);
-                            $('#sectionCategoryModal').modal('hide');
-                            form[0].reset();
-                        });
-                        sectionCategoryDropzone.options.url = '/admin/section-category/images/upload';
-                        sectionCategoryDropzone.processQueue();
-                    } else {
-                        sectionCategoryTable.ajax.reload(null, false);
-                        $('#sectionCategoryModal').modal('hide');
-                        form[0].reset();
-                    }
-                },
-                error: function (err) {
-                    let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
-                    Swal.fire({ icon: "error", title: "Error", text: msg });
-                }
-            });
+            // If Dropzone has files, upload them now
+            if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
+                sectionCategoryDropzone.off("sending"); // remove old listeners
+                sectionCategoryDropzone.on("sending", function(file, xhr, formData) {
+                    formData.append('category_id', currentCategoryId);
+                });
+                sectionCategoryDropzone.off("queuecomplete");
+                sectionCategoryDropzone.on("queuecomplete", function() {
+                    sectionCategoryTable.ajax.reload(null, false);
+                    $('#sectionCategoryModal').modal('hide');
+                    form[0].reset();
+                });
+                sectionCategoryDropzone.processQueue();
+            } else {
+                sectionCategoryTable.ajax.reload(null, false);
+                $('#sectionCategoryModal').modal('hide');
+                form[0].reset();
+            }
+
+            Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
         }
 
-        sendAjax();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: afterCreateOrUpdate,
+            error: function (err) {
+                let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
+                Swal.fire({ icon: "error", title: "Error", text: msg });
+            }
+        });
     });
 
     // ------------------ DELETE ------------------
