@@ -24,18 +24,18 @@
     {{-- === OPERATIONS === --}}
     <li class="nav-item nav-category">Operations</li>
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#packageMenu" role="button" aria-expanded="false"
-            aria-controls="packageMenu">
+        <a class="nav-link" data-bs-toggle="collapse" href="#jobMenu" role="button" aria-expanded="false"
+            aria-controls="jobMenu">
             <i class="mdi mdi-map-marker-path menu-icon"></i>
-            <span class="menu-title">Packages</span>
+            <span class="menu-title">Jobs</span>
             <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="packageMenu">
+        <div class="collapse" id="jobMenu">
             <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.tour-packages.index') }}"><i
-                            class="mdi mdi-briefcase-outline"></i> Manage Packages</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.bookings.index') }}"><i
-                            class="mdi mdi-calendar-check"></i> Bookings</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-briefcase-outline"></i> Manage
+                        Jobs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-calendar-check"></i>
+                        Applications</a></li>
             </ul>
         </div>
     </li>
