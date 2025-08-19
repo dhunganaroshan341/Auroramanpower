@@ -115,11 +115,12 @@ public function update(SectionCategoryRequest $request, string $id)
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $category = SectionCategory::findOrFail($id);
-        return response()->json($category);
-    }
+   public function show(string $id)
+{
+    $category = SectionCategory::with('images')->findOrFail($id);
+    return response()->json($category);
+}
+
 
     /**
      * Update the specified resource in storage.
