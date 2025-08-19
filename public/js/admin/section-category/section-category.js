@@ -1,7 +1,7 @@
 Dropzone.autoDiscover = false;
 
 // Initialize Dropzone separately
-function initSectionCategoryDropzone(existingImages = []) {
+function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
     return new Dropzone("#sectionCategoryDropzone", {
         url: '/admin/section-category/images/upload',
         paramName: "file",
@@ -9,11 +9,16 @@ function initSectionCategoryDropzone(existingImages = []) {
         acceptedFiles: "image/*",
         addRemoveLinks: true,
         dictRemoveFile: "×",
-        autoProcessQueue: false, // process manually
+        autoProcessQueue: false,
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 
         init: function () {
             const dz = this;
+
+            // Append category_id to every request
+            dz.on("sending", function(file, xhr, formData) {
+                if (categoryId) formData.append('category_id', categoryId);
+            });
 
             // Preload existing images
             existingImages.forEach(image => {
@@ -24,7 +29,7 @@ function initSectionCategoryDropzone(existingImages = []) {
             });
 
             dz.on("removedfile", function(file) {
-                if (!file.serverId) return; // skip local files
+                if (!file.serverId) return;
                 $('<input>').attr({
                     type: 'hidden',
                     name: 'removed_images[]',
@@ -44,9 +49,9 @@ function initSectionCategoryDropzone(existingImages = []) {
     });
 }
 
-// ------------------ Main jQuery ------------------
 $(document).ready(function () {
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
     let sectionCategoryTable = $("#section-category-table").DataTable({
         processing: true,
         serverSide: true,
@@ -62,31 +67,33 @@ $(document).ready(function () {
     });
 
     let sectionCategoryDropzone;
+    let currentCategoryId = null;
 
-    // Add Category
+    // ------------------ ADD ------------------
     $(document).on('click', '.addCategoryBtn', function () {
         $('.sectionCategoryForm')[0].reset();
         $('.sectionCategoryForm').attr('id', 'SectionCategoryForm');
+        $('#categoryId').val('');
+        currentCategoryId = null;
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').show();
         $('.updateBtn').hide();
 
-        // Initialize Dropzone empty for new form
         if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
-        sectionCategoryDropzone = initSectionCategoryDropzone([]);
+        sectionCategoryDropzone = initSectionCategoryDropzone(); // empty for new
     });
 
-    // Edit Category
+    // ------------------ EDIT ------------------
     $(document).on('click', '.editCategoryBtn', function () {
         const id = $(this).data('id');
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
         $('#categoryId').val(id);
+        currentCategoryId = id;
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').hide();
         $('.updateBtn').show();
 
-        // Fetch category data
         $.ajax({
             url: `/admin/section-category/${id}`,
             type: 'GET',
@@ -99,31 +106,24 @@ $(document).ready(function () {
                 $('#description2').val(response.description2);
                 renderImage(response.image, "#imagePreview");
 
-                // Destroy and re-init Dropzone with existing images
                 if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
-                sectionCategoryDropzone = initSectionCategoryDropzone(response.images || []);
+                sectionCategoryDropzone = initSectionCategoryDropzone(id, response.images || []);
             },
             error: function () { alert("Failed to fetch category for editing."); }
         });
     });
 
-    // Submit form (create/update)
+    // ------------------ SUBMIT ------------------
     $(document).off("submit", ".sectionCategoryForm").on("submit", ".sectionCategoryForm", function (e) {
         e.preventDefault();
         let form = $(this);
         let isUpdate = form.attr("id") === "updateSectionCategoryForm";
+        let formData = new FormData(form[0]);
+        let url = isUpdate ? `/admin/section-category/${currentCategoryId}` : '/admin/section-category';
 
-        // Append removed images hidden inputs already handled in Dropzone
-        function submitForm() {
-            let formData = new FormData(form[0]);
-            if (isUpdate) {
-                const id = form.attr("data-id");
-                formData.append('_method', 'PUT');
-                url = `/admin/section-category/${id}`;
-            } else {
-                url = '/admin/section-category';
-            }
+        if (isUpdate) formData.append('_method', 'PUT');
 
+        function sendAjax() {
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -131,10 +131,24 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (res) {
+                    if (!currentCategoryId && res.id) currentCategoryId = res.id; // new ID after create
                     Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
-                    $("#sectionCategoryModal").modal("hide");
-                    form[0].reset();
-                    sectionCategoryTable.ajax.reload(null, false);
+                    $('#categoryId').val(currentCategoryId);
+
+                    // process Dropzone queue after category exists
+                    if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
+                        sectionCategoryDropzone.one("queuecomplete", function() {
+                            sectionCategoryTable.ajax.reload(null, false);
+                            $('#sectionCategoryModal').modal('hide');
+                            form[0].reset();
+                        });
+                        sectionCategoryDropzone.options.url = '/admin/section-category/images/upload';
+                        sectionCategoryDropzone.processQueue();
+                    } else {
+                        sectionCategoryTable.ajax.reload(null, false);
+                        $('#sectionCategoryModal').modal('hide');
+                        form[0].reset();
+                    }
                 },
                 error: function (err) {
                     let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
@@ -143,18 +157,15 @@ $(document).ready(function () {
             });
         }
 
-        // If Dropzone has files, process them first
-        if (sectionCategoryDropzone.getQueuedFiles().length > 0) {
-            sectionCategoryDropzone.on("queuecomplete", function() {
-                submitForm();
-            });
-            sectionCategoryDropzone.processQueue();
+        // If adding new category, create first then upload files
+        if (!isUpdate && sectionCategoryDropzone.getQueuedFiles().length > 0) {
+            sendAjax(); // Dropzone queue handled in success above
         } else {
-            submitForm();
+            sendAjax();
         }
     });
 
-    // Delete category
+    // ------------------ DELETE ------------------
     $(document).on("click", ".deleteCategoryBtn", function () {
         let id = $(this).data("id");
         Swal.fire({
