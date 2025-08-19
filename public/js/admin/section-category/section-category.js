@@ -1,16 +1,7 @@
 Dropzone.autoDiscover = false;
 
-let sectionCategoryDropzone;
-let currentCategoryId = null;
-
-// Initialize Dropzone
-function initSectionCategoryDropzone(existingImages = []) {
-    if (sectionCategoryDropzone) {
-        sectionCategoryDropzone.destroy();
-        $('#sectionCategoryDropzone').html(''); // clean container
-    }
-
-    sectionCategoryDropzone = new Dropzone("#sectionCategoryDropzone", {
+function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
+    const dz = new Dropzone("#sectionCategoryDropzone", {
         url: '/admin/section-category/images/upload',
         paramName: "file",
         maxFilesize: 5,
@@ -21,28 +12,20 @@ function initSectionCategoryDropzone(existingImages = []) {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 
         init: function () {
-            const dz = this;
-
             // Preload existing images
             existingImages.forEach(image => {
-                let mockFile = {
-                    name: image.image.split('/').pop(),
-                    size: image.size || 12345,
-                    dataURL: '/' + image.image,
-                    serverId: image.id
-                };
+                let mockFile = { name: image.name || "image", size: image.size || 12345, dataURL: image.image, serverId: image.id };
                 dz.emit("addedfile", mockFile);
-                dz.emit("thumbnail", mockFile, '/' + image.image);
+                dz.emit("thumbnail", mockFile, image.image);
                 dz.emit("complete", mockFile);
             });
 
-            // Append category_id to every upload
+            // Attach category_id to every upload
             dz.on("sending", function(file, xhr, formData) {
-                if (!currentCategoryId) return;
-                formData.append('category_id', currentCategoryId);
+                if (categoryId) formData.append('category_id', categoryId);
             });
 
-            // Handle removed files
+            // Remove file
             dz.on("removedfile", function(file) {
                 if (!file.serverId) return;
                 $('<input>').attr({
@@ -59,21 +42,15 @@ function initSectionCategoryDropzone(existingImages = []) {
                     error: err => console.error('Delete failed', err)
                 });
             });
-
-            dz.on("queuecomplete", function() {
-                sectionCategoryTable.ajax.reload(null, false);
-                $('#sectionCategoryModal').modal('hide');
-                dz.removeAllFiles(true);
-                $('.sectionCategoryForm')[0].reset();
-            });
         }
     });
+
+    return dz;
 }
 
 $(document).ready(function () {
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
-    // DataTable
     let sectionCategoryTable = $("#section-category-table").DataTable({
         processing: true,
         serverSide: true,
@@ -88,22 +65,33 @@ $(document).ready(function () {
         ]
     });
 
+    let sectionCategoryDropzone;
+    let currentCategoryId = null;
+
+    function resetModal() {
+        $('.sectionCategoryForm')[0].reset();
+        if (sectionCategoryDropzone) {
+            sectionCategoryDropzone.destroy();
+            $('#sectionCategoryDropzone').html('');
+        }
+        currentCategoryId = null;
+    }
+
     // ------------------ ADD ------------------
     $(document).on('click', '.addCategoryBtn', function () {
-        $('.sectionCategoryForm')[0].reset();
+        resetModal();
         $('.sectionCategoryForm').attr('id', 'SectionCategoryForm');
-        currentCategoryId = null;
-        $('#categoryId').val('');
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').show();
         $('.updateBtn').hide();
 
-        initSectionCategoryDropzone();
+        sectionCategoryDropzone = initSectionCategoryDropzone(); // empty for new
     });
 
     // ------------------ EDIT ------------------
     $(document).on('click', '.editCategoryBtn', function () {
         const id = $(this).data('id');
+        resetModal();
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
         currentCategoryId = id;
@@ -124,7 +112,7 @@ $(document).ready(function () {
                 $('#description2').val(response.description2);
                 renderImage(response.image, "#imagePreview");
 
-                initSectionCategoryDropzone(response.images || []);
+                sectionCategoryDropzone = initSectionCategoryDropzone(id, response.images || []);
             },
             error: function () { alert("Failed to fetch category for editing."); }
         });
@@ -148,19 +136,26 @@ $(document).ready(function () {
             processData: false,
             success: function(res) {
                 if (!currentCategoryId && res.id) currentCategoryId = res.id;
+                $('#categoryId').val(currentCategoryId);
 
-                // Upload Dropzone files if any
+                // Upload queued images
                 if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
+                    sectionCategoryDropzone.off("queuecomplete");
+                    sectionCategoryDropzone.on("queuecomplete", function() {
+                        sectionCategoryTable.ajax.reload(null, false);
+                        $('#sectionCategoryModal').modal('hide');
+                        resetModal();
+                    });
                     sectionCategoryDropzone.processQueue();
                 } else {
                     sectionCategoryTable.ajax.reload(null, false);
                     $('#sectionCategoryModal').modal('hide');
-                    form[0].reset();
+                    resetModal();
                 }
 
                 Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
             },
-            error: function (err) {
+            error: function(err) {
                 let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
                 Swal.fire({ icon: "error", title: "Error", text: msg });
             }
