@@ -1,30 +1,89 @@
-$(document).ready(function () {
+Dropzone.autoDiscover = false;
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+// Initialize Dropzone separately
+function initSectionCategoryDropzone(existingImages = []) {
+    return new Dropzone("#sectionCategoryDropzone", {
+        url: '/admin/section-category/images/upload',
+        paramName: "file",
+        maxFilesize: 5,
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        dictRemoveFile: "×",
+        autoProcessQueue: false, // process manually
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+
+        init: function () {
+            const dz = this;
+
+            // Preload existing images
+            existingImages.forEach(image => {
+                let mockFile = { name: image.name, size: image.size || 12345, dataURL: image.url, serverId: image.id };
+                dz.emit("addedfile", mockFile);
+                dz.emit("thumbnail", mockFile, image.url);
+                dz.emit("complete", mockFile);
+            });
+
+            dz.on("removedfile", function(file) {
+                if (!file.serverId) return; // skip local files
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'removed_images[]',
+                    value: file.serverId
+                }).appendTo('#sectionCategoryForm');
+
+                // Optional: delete immediately from server
+                $.ajax({
+                    url: '/section-category/images/delete/' + file.serverId,
+                    type: 'DELETE',
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: res => console.log('Deleted:', res),
+                    error: err => console.error('Delete failed', err)
+                });
+            });
         }
     });
+}
 
-    let sectionCategoryTable;
+// ------------------ Main jQuery ------------------
+$(document).ready(function () {
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+    let sectionCategoryTable = $("#section-category-table").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/admin/section-category",
+        columns: [
+            { data: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'title', name: 'title' },
+            { data: 'sub_heading', name: 'sub_heading' },
+            { data: 'slug', name: 'slug' },
+            { data: 'image', name: 'image' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ]
+    });
 
-    // Open modal for adding new category
+    let sectionCategoryDropzone;
+
+    // Add Category
     $(document).on('click', '.addCategoryBtn', function () {
         $('.sectionCategoryForm')[0].reset();
         $('.sectionCategoryForm').attr('id', 'SectionCategoryForm');
         $('#sectionCategoryModal').modal('show');
         $('.submitBtn').show();
         $('.updateBtn').hide();
+
+        // Initialize Dropzone empty for new form
+        if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
+        sectionCategoryDropzone = initSectionCategoryDropzone([]);
     });
 
-    // Open modal for editing category
+    // Edit Category
     $(document).on('click', '.editCategoryBtn', function () {
         const id = $(this).data('id');
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
-         $('#categoryId').val(id); // <-- set hidden input
+        $('#categoryId').val(id);
         $('#sectionCategoryModal').modal('show');
-       $('.submitBtn').hide();
+        $('.submitBtn').hide();
         $('.updateBtn').show();
 
         // Fetch category data
@@ -34,131 +93,70 @@ $(document).ready(function () {
             success: function (response) {
                 $('#title').val(response.title);
                 $('#sub_heading').val(response.sub_heading);
-                // Set hidden input and preview
-        // $('#image').val(response.image);
-        renderImage(response.image, "#imagePreview");
-
                 $('#video').val(response.video);
                 $('#slug').val(response.slug);
                 $('#description').val(response.description);
                 $('#description2').val(response.description2);
+                renderImage(response.image, "#imagePreview");
+
+                // Destroy and re-init Dropzone with existing images
+                if (sectionCategoryDropzone) sectionCategoryDropzone.destroy();
+                sectionCategoryDropzone = initSectionCategoryDropzone(response.images || []);
             },
-            error: function (err) {
-                console.error("Error fetching category:", err);
-                alert("Failed to fetch category for editing.");
-            }
+            error: function () { alert("Failed to fetch category for editing."); }
         });
     });
 
-    // Initialize DataTable
-    sectionCategoryTable = $("#section-category-table").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "/admin/section-category",
-            type: "GET"
-        },
-        columns: [
-            { data: 'DT_RowIndex', orderable: false, searchable: false },
-            { data: 'title', name: 'title' },
-            { data: 'sub_heading', name: 'sub_heading' },
-            { data: 'slug', name: 'slug' },
-            { data: 'image', name: 'image' },
-            { data: 'action', name: 'action', orderable: false, searchable: false }
-        ]
-
-
-    });
-
-
-    // Handle form submit (create/update)
+    // Submit form (create/update)
     $(document).off("submit", ".sectionCategoryForm").on("submit", ".sectionCategoryForm", function (e) {
         e.preventDefault();
-
         let form = $(this);
-        let formData = new FormData(this);
-        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-
         let isUpdate = form.attr("id") === "updateSectionCategoryForm";
-        let url = '';
-        let method = 'POST';
 
-        if (isUpdate) {
-            $('#updateCategoryBtn').show();
-            $('#submitCategoryBtn').hide();
-            const id = form.attr("data-id");
-            url = `/admin/section-category/${id}`;
-            method = 'POST';
-            formData.append('_method', 'PUT');
-        } else {
-            url = '/admin/section-category';
-        }
+        // Append removed images hidden inputs already handled in Dropzone
+        function submitForm() {
+            let formData = new FormData(form[0]);
+            if (isUpdate) {
+                const id = form.attr("data-id");
+                formData.append('_method', 'PUT');
+                url = `/admin/section-category/${id}`;
+            } else {
+                url = '/admin/section-category';
+            }
 
-        $(".btn").prop("disabled", true);
-
-        $.ajax({
-            url: url,
-            type: method,
-            data: formData,
-            contentType: false,
-            processData: false,
-
-            success: function (response) {
-                $(".btn").prop("disabled", false);
-
-                if (response.success) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Success",
-                        text: response.message || "Section Category saved successfully.",
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-
-                    if (sectionCategoryTable) {
-                        sectionCategoryTable.ajax.reload(null, false);
-                    }
-
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    Swal.fire({ icon: "success", title: "Success", text: res.message, timer: 1000, showConfirmButton: false });
                     $("#sectionCategoryModal").modal("hide");
                     form[0].reset();
-                    form.attr("id", "SectionCategoryForm");
-                    $('#submitCategoryBtn').show();
-                    $('#updateCategoryBtn').hide();
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: response.message || "Something went wrong!",
-                    });
+                    sectionCategoryTable.ajax.reload(null, false);
+                },
+                error: function (err) {
+                    let msg = err.responseJSON?.errors ? Object.values(err.responseJSON.errors).flat().join('\n') : err.responseJSON?.message || "Error";
+                    Swal.fire({ icon: "error", title: "Error", text: msg });
                 }
-            },
+            });
+        }
 
-            error: function (err) {
-                $(".btn").prop("disabled", false);
-                console.error("Submission failed:", err);
-
-                let message = "Something went wrong.";
-
-                if (err.status === 422 && err.responseJSON?.errors) {
-                    const errors = err.responseJSON.errors;
-                    message = Object.values(errors).flat().join('\n');
-                } else if (err.responseJSON?.message) {
-                    message = err.responseJSON.message;
-                }
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: message,
-                });
-            }
-        });
+        // If Dropzone has files, process them first
+        if (sectionCategoryDropzone.getQueuedFiles().length > 0) {
+            sectionCategoryDropzone.on("queuecomplete", function() {
+                submitForm();
+            });
+            sectionCategoryDropzone.processQueue();
+        } else {
+            submitForm();
+        }
     });
 
     // Delete category
     $(document).on("click", ".deleteCategoryBtn", function () {
         let id = $(this).data("id");
-
         Swal.fire({
             icon: "warning",
             title: "Are you sure?",
@@ -171,32 +169,13 @@ $(document).ready(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     url: `/admin/section-category/${id}`,
-                    success: function (response) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Deleted",
-                            text: response.message || "Section Category deleted successfully",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        if (sectionCategoryTable) {
-                            sectionCategoryTable.ajax.reload(null, false);
-                        }
-                    },
-                    error: function () {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "Failed to delete category",
-                        });
+                    success: function(res) {
+                        Swal.fire({ icon: "success", title: "Deleted", text: res.message, timer: 1500, showConfirmButton: false });
+                        sectionCategoryTable.ajax.reload(null, false);
                     }
                 });
             }
         });
     });
-
-
-
 });
