@@ -7,6 +7,8 @@
                     <h1 class="modal-title fs-5" id="sectionCategoryModalLabel">Add Category</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <input type="hidden" name="id" id="categoryId">
+
                 <div class="modal-body">
                     <p id="validationErrors" class="alert alert-danger d-none"></p>
                     <div class="row">

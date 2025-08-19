@@ -20,16 +20,18 @@ class SectionCategoryRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-     public function rules()
-    {
-        return [
-            'title' => 'required|string|max:255',
-            'sub_heading' => 'required|string|max:255',
-          'image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048', // max size in KB
-            'video' => 'nullable|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:section_categories,slug,' . $this->id,
-            'description' => 'nullable|string',
-            'description2' => 'nullable|string',
-        ];
-    }
+     // In your FormRequest
+public function rules()
+{
+    $id = $this->input('id'); // get it from AJAX payload
+    return [
+        'title' => 'required|string|max:255',
+        'sub_heading' => 'required|string|max:255',
+        'image' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:2048',
+        'video' => 'nullable|string|max:255',
+        'slug' => 'nullable|string|max:255|unique:section_categories,slug,' . $id,
+        'description' => 'nullable|string',
+        'description2' => 'nullable|string',
+    ];
+}
 }

@@ -22,6 +22,7 @@ $(document).ready(function () {
         const id = $(this).data('id');
         $('.sectionCategoryForm').attr('id', 'updateSectionCategoryForm');
         $("#updateSectionCategoryForm").attr("data-id", id);
+         $('#categoryId').val(id); // <-- set hidden input
         $('#sectionCategoryModal').modal('show');
        $('.submitBtn').hide();
         $('.updateBtn').show();
