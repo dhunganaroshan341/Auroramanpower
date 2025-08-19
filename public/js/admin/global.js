@@ -16,3 +16,18 @@ function renderImage(response, containerSelector, imageKey = 'image', defaultIma
 
     $(containerSelector).html(html);
 }
+function renderMultipleImages(files, container) {
+    const previewContainer = document.querySelector(container);
+    previewContainer.innerHTML = '';
+    Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'img-thumbnail me-2 mb-2';
+            img.style.maxWidth = '150px';
+            previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+}

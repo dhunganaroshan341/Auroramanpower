@@ -8,12 +8,6 @@ trait HandlesImage
 {
     /**
      * Handle single image upload using public_path.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $fieldName
-     * @param  string  $folderPath  e.g., 'uploads/section-category'
-     * @param  mixed|null  $existingModel
-     * @return string|null
      */
     public function uploadSingleImage(Request $request, string $fieldName, string $folderPath, $existingModel = null): ?string
     {
@@ -38,7 +32,37 @@ trait HandlesImage
             return $folderPath . '/' . $fileName;
         }
 
-        // Keep old image if updating and no new file uploaded
         return $existingModel ? $existingModel->{$fieldName} : null;
+    }
+
+    /**
+     * Handle multiple images upload using public_path.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $fieldName
+     * @param string $folderPath
+     * @return array
+     */
+    public function uploadMultipleImages(Request $request, string $fieldName, string $folderPath): array
+    {
+        $paths = [];
+
+        if ($request->hasFile($fieldName)) {
+            $files = $request->file($fieldName);
+
+            // Make sure folder exists
+            $destination = public_path($folderPath);
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+
+            foreach ($files as $file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move($destination, $fileName);
+                $paths[] = $folderPath . '/' . $fileName;
+            }
+        }
+
+        return $paths;
     }
 }

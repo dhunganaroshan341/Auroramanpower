@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SectionCategoryRequest;
 use App\Models\SectionCategory;
+use App\Models\SectionCategoryImage;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Traits\HandlesImage;
@@ -49,12 +50,14 @@ class SectionCategoryController extends Controller
         $extraJs = array_merge(
             config('js-map.admin.datatable.script'),
             config('js-map.admin.summernote.script'),
+            config('js-map.admin.dropzone.script'),
             config('js-map.admin.buttons.script')
         );
 
         $extraCs = array_merge(
             config('js-map.admin.datatable.style'),
             config('js-map.admin.summernote.style'),
+            config('js-map.admin.dropzone.style'),
             config('js-map.admin.buttons.style')
         );
 
@@ -67,15 +70,47 @@ class SectionCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SectionCategoryRequest $request)
-    {
-        $data = $request->validated();
-        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category');
+ public function store(SectionCategoryRequest $request)
+{
+    $data = $request->validated();
+    $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category');
 
-        SectionCategory::create($data);
+    // First create the category
+    $category = SectionCategory::create($data);
 
-        return response()->json(['success' => true, 'message' => 'Section Category created successfully.']);
+    // Then handle multiple images if any
+    if ($request->hasFile('images')) {
+        $imagePaths = $this->uploadMultipleImages($request, 'images', 'uploads/section-category-images');
+        foreach ($imagePaths as $path) {
+            $category->images()->create(['image' => $path]);
+        }
     }
+
+    return response()->json(['success' => true, 'message' => 'Section Category created successfully.']);
+}
+
+public function update(SectionCategoryRequest $request, string $id)
+{
+    $category = SectionCategory::findOrFail($id);
+    $data = $request->validated();
+    $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category', $category);
+
+    $category->update($data);
+
+    // Handle multiple images
+    if ($request->hasFile('images')) {
+        // Optional: delete old images
+        $category->images()->delete();
+
+        $imagePaths = $this->uploadMultipleImages($request, 'images', 'uploads/section-category-images');
+        foreach ($imagePaths as $path) {
+            $category->images()->create(['image' => $path]);
+        }
+    }
+
+    return response()->json(['success' => true, 'message' => 'Section Category updated successfully.']);
+}
+
 
     /**
      * Display the specified resource.
@@ -89,31 +124,72 @@ class SectionCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SectionCategoryRequest $request, string $id)
-    {
-        $category = SectionCategory::findOrFail($id);
-        $data = $request->validated();
-        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/section-category', $category);
 
-        $category->update($data);
-
-        return response()->json(['success' => true, 'message' => 'Section Category updated successfully.']);
-    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $category = SectionCategory::findOrFail($id);
+public function destroy(string $id)
+{
+    $category = SectionCategory::findOrFail($id);
 
-        // Delete image manually
-        if ($category->image && file_exists(public_path($category->image))) {
-            @unlink(public_path($category->image));
+    // Delete single main image
+    if ($category->image && file_exists(public_path($category->image))) {
+        @unlink(public_path($category->image));
+    }
+
+    // Delete multiple images
+    if ($category->images()->exists()) {
+        foreach ($category->images as $image) {
+            if ($image->image && file_exists(public_path($image->image))) {
+                @unlink(public_path($image->image));
+            }
+        }
+        // Delete image records from the database
+        $category->images()->delete();
+    }
+
+    // Delete the category
+    $category->delete();
+
+    return response()->json(['success' => true, 'message' => 'Section Category deleted successfully.']);
+}
+
+
+// Upload multiple images for a section category
+    public function uploadImages(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:section_categories,id',
+            'file' => 'required|image|max:5120', // max 5MB
+        ]);
+
+        $category = SectionCategory::findOrFail($request->category_id);
+
+        $file = $request->file('file');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $folder = 'uploads/section-category-images';
+        $file->move(public_path($folder), $fileName);
+
+        $image = $category->images()->create([
+            'image' => $folder . '/' . $fileName
+        ]);
+
+        return response()->json(['success' => true, 'id' => $image->id, 'image' => $image->image]);
+    }
+
+    // Delete a single uploaded image
+    public function deleteImage($id)
+    {
+        $image = SectionCategoryImage::findOrFail($id);
+
+        if ($image->image && file_exists(public_path($image->image))) {
+            @unlink(public_path($image->image));
         }
 
-        $category->delete();
+        $image->delete();
 
-        return response()->json(['success' => true, 'message' => 'Section Category deleted successfully.']);
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
     }
+
 }

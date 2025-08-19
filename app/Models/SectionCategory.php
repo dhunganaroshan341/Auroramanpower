@@ -36,4 +36,8 @@ class SectionCategory extends Model
         }
         return null; // no image uploaded
     }
+    public function images()
+    {
+        return $this->hasMany(SectionCategoryImage::class);
+    }
 }

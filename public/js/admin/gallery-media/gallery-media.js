@@ -76,7 +76,7 @@ $(document).on("click", ".imageListPopup", function () {
     let id = $(this).data('id');
     // console.log(id);
     $.ajax({
-        tyoe: "get",
+        type: "get",
         url: "/admin/gallery-media/detail/" + id,
         success: function (response) {
             $(".fetch-gallery-media-data").html("");

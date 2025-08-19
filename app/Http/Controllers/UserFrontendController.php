@@ -134,7 +134,7 @@ $video = BannerSliderVideo::latest()->first();
                     ->take(3)
                     ->get();
 
-    return view('frontend.blog', compact('posts', 'content_title', 'pageBanner', 'categories', 'popularPosts', 'recentPosts'));
+    return view('frontend.blog.blog', compact('posts', 'content_title', 'pageBanner', 'categories', 'popularPosts', 'recentPosts'));
 }
 
 
@@ -268,7 +268,7 @@ public function blogDetail($slug)
         $processedDescription .= ' → ' . Str::words(strip_tags($pageBanner->title), 5, '...');
     }
 
-    return view('frontend.blog-detail', compact(
+    return view('frontend.blog.blogDetails', compact(
         'post',
         'recentPosts',
         'relatedPosts',

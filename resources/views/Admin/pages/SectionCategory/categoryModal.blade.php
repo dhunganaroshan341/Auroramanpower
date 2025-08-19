@@ -34,9 +34,15 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Video</label>
+                            <label class="form-label">Video Url</label>
                             <input type="text" name="video" id="video" class="form-control" />
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Images</label>
+                            <div id="sectionCategoryDropzone" class="dropzone"></div>
+                        </div>
+
+
                         <div class="col-md-12 mt-4 mb-2">
                             <label class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>

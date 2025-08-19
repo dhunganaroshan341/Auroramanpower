@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CallToActionController;
 use App\Http\Controllers\Admin\ItineraryController;
 use App\Http\Controllers\Admin\PriceIncludesController;
+use App\Http\Controllers\Admin\SectionCategoryController;
 use App\Http\Controllers\Admin\ServiceQueryController;
 use App\Http\Controllers\Admin\TourPackageController as AdminTourPackageController;
 use App\Http\Controllers\Admin\PostController;
@@ -87,8 +88,12 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
 // Section Category resource routes
 Route::apiResource('/section-category', AdminSectionCategoryController::class);
-    Route::get('/section-categoy/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('pages.status');
+    Route::get('/section-categoy/status/{id}', [HomeSliderController::class, 'statusToggle'])->name('section-category.status');
+    Route::post('/section-category/images/upload', [SectionCategoryController::class, 'uploadImages'])
+     ->name('sectionCategory.images.upload');
 
+Route::delete('/section-category/images/delete/{id}', [SectionCategoryController::class, 'deleteImage'])
+     ->name('sectionCategory.images.delete');
 // Section Content resource routes
 Route::apiResource('/section-content', AdminSectionContentController::class);
     Route::get('/section-content/status/{id}', [AdminSectionContentController::class, 'statusToggle'])->name('pages.status');
