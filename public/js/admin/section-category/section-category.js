@@ -12,6 +12,8 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 
         init: function () {
+            const dz = this;
+
             // Preload existing images
             existingImages.forEach(image => {
                 let mockFile = { name: image.name || "image", size: image.size || 12345, dataURL: image.image, serverId: image.id };
@@ -70,12 +72,24 @@ $(document).ready(function () {
 
     function resetModal() {
         $('.sectionCategoryForm')[0].reset();
+        $('#previewImg').attr('src', '').addClass('d-none');
         if (sectionCategoryDropzone) {
             sectionCategoryDropzone.destroy();
             $('#sectionCategoryDropzone').html('');
         }
         currentCategoryId = null;
     }
+
+    // Single image preview
+    $('#image').on('change', function() {
+        const file = this.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#previewImg').attr('src', e.target.result).removeClass('d-none');
+        };
+        reader.readAsDataURL(file);
+    });
 
     // ------------------ ADD ------------------
     $(document).on('click', '.addCategoryBtn', function () {
@@ -110,7 +124,11 @@ $(document).ready(function () {
                 $('#slug').val(response.slug);
                 $('#description').val(response.description);
                 $('#description2').val(response.description2);
-                renderImage(response.image, "#imagePreview");
+
+                // single image preview
+                if (response.image) {
+                    $('#previewImg').attr('src', response.image).removeClass('d-none');
+                }
 
                 sectionCategoryDropzone = initSectionCategoryDropzone(id, response.images || []);
             },
@@ -138,7 +156,7 @@ $(document).ready(function () {
                 if (!currentCategoryId && res.id) currentCategoryId = res.id;
                 $('#categoryId').val(currentCategoryId);
 
-                // Upload queued images
+                // Upload queued Dropzone files
                 if (sectionCategoryDropzone && sectionCategoryDropzone.getQueuedFiles().length > 0) {
                     sectionCategoryDropzone.off("queuecomplete");
                     sectionCategoryDropzone.on("queuecomplete", function() {
