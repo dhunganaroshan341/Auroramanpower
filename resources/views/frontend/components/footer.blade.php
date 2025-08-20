@@ -2,75 +2,52 @@
     <div class="widget-section p_relative pt_80 pb_100">
         <div class="auto-container">
             <div class="row clearfix">
+                <!-- About Us -->
                 <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
                     <div class="footer-widget logo-widget mr_30">
-                        <figure class="footer-logo mb_20"><a href="{{ route('index') }}"><img
-                                    src="{{ asset('assets/images/logo-bg.png') }}" alt=""></a></figure>
-                        <p>Since 2018, Aurora has connecting hospitality workers to thousands of business, private
-                            events and universities.</p>
+                        <figure class="footer-logo mb_20">
+                            <a href="{{ route('index') }}">
+                                <img src="{{ asset('assets/images/logo-bg.png') }}" alt="Aurora Logo">
+                            </a>
+                        </figure>
+                        <p>Aurora Human Resource (P) Ltd. is an international manpower agency, one of the pioneers in
+                            recruiting, founded with the core belief of offering true customer-focused solutions in
+                            Human Resource recruiting, backed by a dedicated and experienced team.</p>
+                        <a href="#" class="theme-btn btn-style-one">VIEW MORE</a>
+                    </div>
+                </div>
 
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
+                <!-- Contact Us -->
+                <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
                     <div class="footer-widget links-widget">
                         <div class="widget-title">
-                            <h4>For Workers</h4>
+                            <h4>Contact Us</h4>
                         </div>
                         <div class="widget-content">
                             <ul class="links-list clearfix">
-                                <li><a href="{{ route('index') }}">Find Work</a></li>
-                                <li><a href="{{ route('index') }}">Jobs in Dubai</a></li>
-                                <li><a href="{{ route('index') }}">Jobs in Virginia</a></li>
-                                <li><a href="{{ route('index') }}">Jobs in California</a></li>
-                                <li><a href="{{ route('index') }}">Jobs in Alaska</a></li>
+                                <li><strong>Address:</strong> Kupandol-10, Lalitpur, Nepal</li>
+                                <li><strong>Phone:</strong> +977-01-5261063 | 5260810</li>
+                                <li><strong>Email:</strong> <a
+                                        href="mailto:aurorashrpl@gmail.com">aurorashrpl@gmail.com</a> | <a
+                                        href="mailto:info@auroranepal.com.np">info@auroranepal.com.np</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
+
+                <!-- Recent Vacancies -->
+                <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
                     <div class="footer-widget links-widget">
                         <div class="widget-title">
-                            <h4>For Business</h4>
+                            <h4>Recent Vacancies</h4>
                         </div>
                         <div class="widget-content">
                             <ul class="links-list clearfix">
-                                <li><a href="{{ route('index') }}">Merchandising</a></li>
-                                <li><a href="{{ route('index') }}">Hospitality Staff</a></li>
-                                <li><a href="{{ route('index') }}">General Labour</a></li>
-                                <li><a href="{{ route('index') }}">Car Drivers</a></li>
-                                <li><a href="{{ route('index') }}">Bus Driver</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
-                    <div class="footer-widget links-widget">
-                        <div class="widget-title">
-                            <h4>Company</h4>
-                        </div>
-                        <div class="widget-content">
-                            <ul class="links-list clearfix">
-                                <li><a href="{{ route('about') }}">About Us</a></li>
-                                <li><a href="{{ route('index') }}">Career</a></li>
-                                <li><a href="{{ route('index') }}">Partners</a></li>
-                                <li><a href="{{ route('blog') }}">Blog</a></li>
-                                <li><a href="{{ route('index') }}">Clients</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-12 footer-column">
-                    <div class="footer-widget links-widget">
-                        <div class="widget-title">
-                            <h4>Help & Support</h4>
-                        </div>
-                        <div class="widget-content">
-                            <ul class="links-list clearfix">
-                                <li><a href="{{ route('contact') }}">Contact Us</a></li>
-                                <li><a href="{{ route('faq') }}">General FAQ</a></li>
-                                <li><a href="{{ route('index') }}">Support Center</a></li>
-                                <li><a href="{{ route('index') }}">Privacy Policy</a></li>
-                                <li><a href="{{ route('index') }}">Terms & Conditions</a></li>
+                                <li><a href="#">Vacancy in Qatar</a></li>
+                                <li><a href="#">Vacancy in UAE</a></li>
+                                <li><a href="#">Vacancy in Malaysia</a></li>
+                                <li><a href="#">Vacancy in Saudi</a></li>
+                                <li><a href="#">Vacancy in Japan</a></li>
                             </ul>
                         </div>
                     </div>
@@ -78,20 +55,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer Bottom -->
     <div class="footer-bottom">
         <div class="auto-container">
-            <div class="bottom-inner">
+            <div class="bottom-inner d-flex justify-content-between align-items-center">
                 <div class="copyright">
-                    <p>Copyright &copy; 2025 <a href="{{ route('index') }}">Aurora</a> All rights reserved.</p>
+                    <p>Copyright &copy; 2025 <a href="{{ route('index') }}">Aurora</a>. All rights reserved.</p>
                 </div>
-                <ul class="social-links">
+                <ul class="social-links d-flex">
                     <li>
                         <h5>Follow Us On:</h5>
                     </li>
-                    <li><a href="{{ route('index') }}"><i class="icon-22"></i></a></li>
-                    <li><a href="{{ route('index') }}"><i class="icon-23"></i></a></li>
-                    <li><a href="{{ route('index') }}"><i class="icon-24"></i></a></li>
-                    <li><a href="{{ route('index') }}"><i class="icon-25"></i></a></li>
+                    <li><a href="#"><i class="icon-22"></i></a></li>
+                    <li><a href="#"><i class="icon-23"></i></a></li>
+                    <li><a href="#"><i class="icon-24"></i></a></li>
+                    <li><a href="#"><i class="icon-25"></i></a></li>
                 </ul>
             </div>
         </div>
