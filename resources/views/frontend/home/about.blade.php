@@ -108,16 +108,36 @@
         <div class="bg-color"></div>
         <div class="auto-container">
             <div class="inner-container">
-                @for ($i = 1; $i <= 5; $i++)
-                    <div class="clients-box">
-                        <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                                    src="{{ asset("assets/images/clients/clients-$i.png") }}"
-                                    alt="Client {{ $i }}"></a></figure>
-                        <figure class="overlay-logo"><a href="{{ route('index') }}"><img
-                                    src="{{ asset("assets/images/clients/clients-$i.png") }}"
-                                    alt="Client {{ $i }}"></a></figure>
-                    </div>
-                @endfor
+                <div class="clients-box">
+                    <figure class="clients-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-1.png') }}" alt="Client 1"></a></figure>
+                    <figure class="overlay-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-1.png') }}" alt="Client 1"></a></figure>
+                </div>
+                <div class="clients-box">
+                    <figure class="clients-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-2.png') }}" alt="Client 2"></a></figure>
+                    <figure class="overlay-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-2.png') }}" alt="Client 2"></a></figure>
+                </div>
+                <div class="clients-box">
+                    <figure class="clients-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-3.png') }}" alt="Client 3"></a></figure>
+                    <figure class="overlay-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-3.png') }}" alt="Client 3"></a></figure>
+                </div>
+                <div class="clients-box">
+                    <figure class="clients-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-4.png') }}" alt="Client 4"></a></figure>
+                    <figure class="overlay-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-4.png') }}" alt="Client 4"></a></figure>
+                </div>
+                <div class="clients-box">
+                    <figure class="clients-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-5.png') }}" alt="Client 5"></a></figure>
+                    <figure class="overlay-logo"><a href="{{ route('index') }}"><img
+                                src="{{ asset('assets/images/clients/clients-5.png') }}" alt="Client 5"></a></figure>
+                </div>
             </div>
         </div>
     </section>
@@ -172,16 +192,16 @@
     </section>
     <!-- chooseus-section end -->
 
-    <!-- industries-style-four -->
+    <!-- categories-section -->
     <section class="industries-style-four pt_120 pb_90">
         <div class="auto-container">
             <div class="sec-title centred pb_60 sec-title-animation animation-style2">
-                <span class="sub-title mb_10 title-animation">Industries</span>
-                <h2 class="title-animation">Industries Served by Aurora</h2>
+                <span class="sub-title mb_10 title-animation">Categories</span>
+                <h2 class="title-animation">Categories Served by Aurora</h2>
             </div>
             <div class="row clearfix">
                 @php
-                    $industries = [
+                    $categories = [
                         ['name' => 'Hotel', 'staff' => 2853, 'icon' => 'icon-hotel'],
                         ['name' => 'Hospitality', 'staff' => 2256, 'icon' => 'icon-hospitality'],
                         ['name' => 'Kitchen', 'staff' => 1408, 'icon' => 'icon-kitchen'],
@@ -192,13 +212,13 @@
                         ['name' => 'Caretaker', 'staff' => 1039, 'icon' => 'icon-caretaker'],
                     ];
                 @endphp
-                @foreach ($industries as $industry)
+                @foreach ($categories as $category)
                     <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                         <div class="industries-block-two">
                             <div class="inner-box">
-                                <div class="icon-box"><i class="{{ $industry['icon'] }}"></i></div>
-                                <h3><a href="{{ route('index') }}">{{ $industry['name'] }}</a></h3>
-                                <p>{{ $industry['staff'] }} Staffs</p>
+                                <div class="icon-box"><i class="{{ $category['icon'] }}"></i></div>
+                                <h3><a href="{{ route('index') }}">{{ $category['name'] }}</a></h3>
+                                <p>{{ $category['staff'] }} Staffs</p>
                             </div>
                         </div>
                     </div>
@@ -206,7 +226,7 @@
             </div>
         </div>
     </section>
-    <!-- industries-style-four end -->
+    <!-- categories-section end -->
 
     <!-- team-section -->
     <section class="team-section z_1 centred pt_0 pb_0">
