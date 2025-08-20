@@ -54,7 +54,7 @@
                                         alt=""></figure>
                             </div>
                             <div class="support-box">
-                                <div class="icon-box"><i class="icon-support"></i></div>
+                                <div class="icon-box"><i class="icon-28"></i></div>
                                 <span>Online Support</span>
                                 <h4><a href="tel:912556889">+912 (556) 889</a></h4>
                             </div>
@@ -67,29 +67,29 @@
                             <div class="sec-title pb_40 sec-title-animation animation-style2">
                                 <span class="sub-title mb_10 title-animation">About us</span>
                                 <h2 class="title-animation">The most loved <span>Agency</span></h2>
-                                <p class="title-animation">Voted the fastest solution to implement the easiest way to
-                                    administer your employee & business.</p>
+                                <p class="title-animation">Aurora Agency is committed to delivering intuitive solutions that
+                                    empower your business and streamline your operations.</p>
                             </div>
                             <div class="inner-box clearfix">
                                 <div class="single-item">
-                                    <div class="icon-box"><i class="icon-speed"></i></div>
-                                    <h4><a href="{{ route('jobDetails') }}">Easiest Admin</a></h4>
-                                    <span>Fall 2023</span>
+                                    <div class="icon-box"><i class="icon-29"></i></div>
+                                    <h4><a href="{{ route('jobDetails') }}">Seamless Management</a></h4>
+                                    <span>Aurora 2023</span>
                                 </div>
                                 <div class="single-item">
-                                    <div class="icon-box"><i class="icon-heart"></i></div>
-                                    <h4><a href="{{ route('jobDetails') }}">Users Love Us</a></h4>
-                                    <span>Winter 2023</span>
+                                    <div class="icon-box"><i class="icon-30"></i></div>
+                                    <h4><a href="{{ route('jobDetails') }}">Loved by Users</a></h4>
+                                    <span>Aurora 2023</span>
                                 </div>
                                 <div class="single-item">
-                                    <div class="icon-box"><i class="icon-leader"></i></div>
-                                    <h4><a href="{{ route('jobDetails') }}">Leader</a></h4>
-                                    <span>Winter 2023</span>
+                                    <div class="icon-box"><i class="icon-31"></i></div>
+                                    <h4><a href="{{ route('jobDetails') }}">Trusted Leader</a></h4>
+                                    <span>Aurora 2023</span>
                                 </div>
                                 <div class="single-item">
-                                    <div class="icon-box"><i class="icon-support"></i></div>
-                                    <h4><a href="{{ route('jobDetails') }}">Best Support</a></h4>
-                                    <span>Winter 2023</span>
+                                    <div class="icon-box"><i class="icon-32"></i></div>
+                                    <h4><a href="{{ route('jobDetails') }}">Reliable Support</a></h4>
+                                    <span>Aurora 2023</span>
                                 </div>
                             </div>
                         </div>
@@ -146,16 +146,16 @@
         <div class="auto-container">
             <div class="sec-title light centred pb_60 sec-title-animation animation-style2">
                 <span class="sub-title mb_10 title-animation">Why Us</span>
-                <h2 class="title-animation">Why Choose Us</h2>
+                <h2 class="title-animation">Why Choose Aurora</h2>
             </div>
             <div class="inner-container">
                 <div class="row clearfix">
                     <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
                         <div class="chooseus-block-one">
                             <div class="inner-box">
-                                <div class="icon-box"><i class="icon-speed"></i></div>
-                                <h3><a href="{{ route('index') }}">Retain Top Talent</a></h3>
-                                <p>Providing clear career paths and growth opportunities is key to retaining top talent.</p>
+                                <div class="icon-box"><i class="icon-4"></i></div>
+                                <h3><a href="{{ route('index') }}">Top Talent Retention</a></h3>
+                                <p>We nurture skill development and career progression to keep the best talent onboard.</p>
                                 <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
                                 </div>
                             </div>
@@ -164,9 +164,9 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
                         <div class="chooseus-block-one">
                             <div class="inner-box">
-                                <div class="icon-box"><i class="icon-compliance"></i></div>
-                                <h3><a href="{{ route('index') }}">Stay Compliant</a></h3>
-                                <p>Educate employees about compliance requirements through regular training</p>
+                                <div class="icon-box"><i class="icon-5"></i></div>
+                                <h3><a href="{{ route('index') }}">Compliance Assurance</a></h3>
+                                <p>Our systems ensure your business stays compliant and up-to-date with regulations.</p>
                                 <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
                                 </div>
                             </div>
@@ -175,9 +175,9 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
                         <div class="chooseus-block-one">
                             <div class="inner-box">
-                                <div class="icon-box"><i class="icon-growth"></i></div>
-                                <h3><a href="{{ route('index') }}">Improve Employees</a></h3>
-                                <p>Invest in employee training and development programs to enhance skills and knowledge.</p>
+                                <div class="icon-box"><i class="icon-6"></i></div>
+                                <h3><a href="{{ route('index') }}">Enhanced Productivity</a></h3>
+                                <p>Invest in staff training and development to maximize efficiency and performance.</p>
                                 <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
                                 </div>
                             </div>
@@ -193,79 +193,79 @@
     <section class="industries-style-four pt_120 pb_90">
         <div class="auto-container">
             <div class="sec-title centred pb_60 sec-title-animation animation-style2">
-                <span class="sub-title mb_10 title-animation">Categories</span>
+                <span class="sub-title mb_10 title-animation">Industries</span>
                 <h2 class="title-animation">Industries Served</h2>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-hotel"></i></div>
-                            <h3><a href="{{ route('index') }}">Hotel</a></h3>
-                            <p>2853 Staffs</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
-                    <div class="industries-block-two">
-                        <div class="inner-box">
-                            <div class="icon-box"><i class="icon-hospitality"></i></div>
+                            <div class="icon-box"><i class="icon-9"></i></div>
                             <h3><a href="{{ route('index') }}">Hospitality</a></h3>
-                            <p>2256 Staffs</p>
+                            <p>2853 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-kitchen"></i></div>
-                            <h3><a href="{{ route('index') }}">Kitchen</a></h3>
-                            <p>1408 Staffs</p>
+                            <div class="icon-box"><i class="icon-10"></i></div>
+                            <h3><a href="{{ route('index') }}">Healthcare</a></h3>
+                            <p>2256 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-retail"></i></div>
+                            <div class="icon-box"><i class="icon-11"></i></div>
+                            <h3><a href="{{ route('index') }}">Food Services</a></h3>
+                            <p>1408 Professionals</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                    <div class="industries-block-two">
+                        <div class="inner-box">
+                            <div class="icon-box"><i class="icon-12"></i></div>
                             <h3><a href="{{ route('index') }}">Retail</a></h3>
-                            <p>1740 Staffs</p>
+                            <p>1740 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-events"></i></div>
+                            <div class="icon-box"><i class="icon-13"></i></div>
                             <h3><a href="{{ route('index') }}">Events</a></h3>
-                            <p>3948 Staffs</p>
+                            <p>3948 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-labor"></i></div>
+                            <div class="icon-box"><i class="icon-14"></i></div>
                             <h3><a href="{{ route('index') }}">Labor</a></h3>
-                            <p>2984 Staffs</p>
+                            <p>2984 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-driving"></i></div>
-                            <h3><a href="{{ route('index') }}">Driving</a></h3>
-                            <p>4509 Staffs</p>
+                            <div class="icon-box"><i class="icon-15"></i></div>
+                            <h3><a href="{{ route('index') }}">Transportation</a></h3>
+                            <p>4509 Professionals</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-caretaker"></i></div>
-                            <h3><a href="{{ route('index') }}">Caretaker</a></h3>
-                            <p>1039 Staffs</p>
+                            <div class="icon-box"><i class="icon-16"></i></div>
+                            <h3><a href="{{ route('index') }}">Facility Services</a></h3>
+                            <p>1039 Professionals</p>
                         </div>
                     </div>
                 </div>
@@ -276,13 +276,135 @@
 
     <!-- team-section -->
     <section class="team-section z_1 centred pt_0 pb_0">
-        <!-- Existing Team Section -->
+        <div class="auto-container">
+            <div class="sec-title pb_60 sec-title-animation animation-style2">
+                <span class="sub-title mb_10 title-animation">Our Team</span>
+                <h2 class="title-animation">Meet The Team</h2>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                    <div class="team-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('assets/images/team/team-1.jpg') }}"
+                                        alt=""></figure>
+                                <figure class="overlay-image"><img src="{{ asset('assets/images/team/team-1.jpg') }}"
+                                        alt=""></figure>
+                            </div>
+                            <div class="lower-content">
+                                <h3><a href="{{ route('index') }}">Tom Oliver</a></h3>
+                                <span class="designation">Founder</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                    <div class="team-block-one wow fadeInUp animated" data-wow-delay="200ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('assets/images/team/team-2.jpg') }}"
+                                        alt=""></figure>
+                                <figure class="overlay-image"><img src="{{ asset('assets/images/team/team-2.jpg') }}"
+                                        alt=""></figure>
+                            </div>
+                            <div class="lower-content">
+                                <h3><a href="{{ route('index') }}">Loenard Barnes</a></h3>
+                                <span class="designation">Lead Engineer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                    <div class="team-block-one wow fadeInUp animated" data-wow-delay="400ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('assets/images/team/team-3.jpg') }}"
+                                        alt=""></figure>
+                                <figure class="overlay-image"><img src="{{ asset('assets/images/team/team-3.jpg') }}"
+                                        alt=""></figure>
+                            </div>
+                            <div class="lower-content">
+                                <h3><a href="{{ route('index') }}">Gilbert Sherman</a></h3>
+                                <span class="designation">Sales Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                    <div class="team-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('assets/images/team/team-4.jpg') }}"
+                                        alt=""></figure>
+                                <figure class="overlay-image"><img src="{{ asset('assets/images/team/team-4.jpg') }}"
+                                        alt=""></figure>
+                            </div>
+                            <div class="lower-content">
+                                <h3><a href="{{ route('index') }}">Franklin Bailey</a></h3>
+                                <span class="designation">Art Director</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- team-section end -->
 
     <!-- testimonial-style-two -->
     <section class="testimonial-style-two pt_70 pb_120">
-        <!-- Existing Testimonial Section -->
+        <div class="pattern-layer" style="background-image: url('{{ asset('assets/images/shape/shape-17.png') }}')">
+        </div>
+        <div class="auto-container">
+            <div class="sec-title centred pb_60 sec-title-animation animation-style2">
+                <span class="sub-title mb_10 title-animation">Testimonials</span>
+                <h2 class="title-animation">What Our Clients Say</h2>
+            </div>
+            <div class="two-item-carousel owl-carousel owl-theme owl-nav-none">
+                <div class="testimonial-block-two">
+                    <div class="inner-box">
+                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-11.png') }}" alt="">
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-1.png') }}"
+                                    alt=""></figure>
+                            <h4>Emily Johnson</h4>
+                            <span class="designation">CEO, AuroraTech</span>
+                        </div>
+                        <p>Aurora provided an intuitive platform that streamlined our business processes and boosted team
+                            productivity significantly.</p>
+                    </div>
+                </div>
+                <div class="testimonial-block-two">
+                    <div class="inner-box">
+                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-11.png') }}" alt="">
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-3.png') }}"
+                                    alt=""></figure>
+                            <h4>Michael Smith</h4>
+                            <span class="designation">HR Director, Bright Solutions</span>
+                        </div>
+                        <p>The support from Aurora was exceptional. Their solutions are user-friendly and helped our team
+                            stay organized and efficient.</p>
+                    </div>
+                </div>
+                <div class="testimonial-block-two">
+                    <div class="inner-box">
+                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-11.png') }}" alt="">
+                        </div>
+                        <div class="author-box">
+                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-1.png') }}"
+                                    alt=""></figure>
+                            <h4>Olivia Williams</h4>
+                            <span class="designation">Project Manager, InnovateCorp</span>
+                        </div>
+                        <p>Aurora's platform simplified our operations, allowing us to focus more on strategy and client
+                            engagement rather than administrative tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- testimonial-style-two end -->
 @endsection
