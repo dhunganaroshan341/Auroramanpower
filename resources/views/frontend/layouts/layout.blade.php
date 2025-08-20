@@ -3,6 +3,30 @@
 
 <head>
     @include('frontend.components.head')
+    <style>
+        .page-title {
+            position: relative;
+            background: gradient(red, blue);
+            background: linear-gradient(to right, #733d0a5e, #3fa7e31c);
+            color: white;
+            box-shadow: 2px 2px 8px 2px #a3a8ad73;
+            align-items: centerr;
+        }
+
+        .page-title h1 {
+            position: relative;
+            display: block;
+            font-size: 56px;
+            line-height: 60px;
+            margin-bottom: 12px;
+        }
+
+        .page-title .content-box {
+            position: relative;
+            display: block;
+            padding: 16px;
+        }
+    </style>
     @stack('styles')
 </head>
 
