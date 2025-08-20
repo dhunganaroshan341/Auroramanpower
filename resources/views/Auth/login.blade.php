@@ -35,7 +35,7 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo text-center">
-                                <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+                                <img src="{{ $logo ?? asset('assets/images/logo.png') }}" alt="logo">
                                 <h4>{{ $title ?? 'Aurora' }}</h4>
                             </div>
 
