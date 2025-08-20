@@ -251,26 +251,6 @@
 @endpush
 
 @section('content')
-    n
-
-
-    <!-- preloader -->
-    {{-- @include('frontend.components.preloader') --}}
-    <!-- preloader end -->
-
-    <!-- page-direction -->
-    @include('frontend.components.pageDirection')
-    <!-- page-direction end -->
-
-    <!--Search Popup-->
-    @include('frontend.components.searchPopup')
-
-
-
-    <!-- Mobile Menu  -->
-    @include('frontend.components.mobilemenu')
-    <!-- End Mobile Menu -->
-
     <!-- banner-section -->
     <section class="banner-section banner-style-two p_relative">
         <div class="shape" style="background-image: url('{{ asset('assets/images/shape/shape-5.png') }}')">
