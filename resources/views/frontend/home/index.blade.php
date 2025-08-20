@@ -47,6 +47,7 @@
         '" rel="stylesheet">';
 
     $title = 'Home';
+    $subTitle = '';
 @endphp
 @push('styles')
     <style>
