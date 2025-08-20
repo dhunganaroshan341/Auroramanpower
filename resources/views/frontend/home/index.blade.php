@@ -45,6 +45,8 @@
             <link href="' .
         asset('assets/css/module-css/footer.css') .
         '" rel="stylesheet">';
+
+    $title = 'Home';
 @endphp
 @push('styles')
     <style>
@@ -248,7 +250,6 @@
 @endpush
 
 @section('content')
-
     n
 
 
@@ -1031,11 +1032,4 @@
         </div>
     </section>
     <!-- news-section end -->
-
-    <!-- subscribe-style-two -->
-    @include('frontend.components.subscribeStyleTwo')
-    <!-- subscribe-style-two end -->
-
-
-
-    @endsection
+@endsection
