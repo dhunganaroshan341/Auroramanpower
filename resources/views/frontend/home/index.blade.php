@@ -459,16 +459,30 @@
                             <div class="content-box mr_80">
                                 <div class="sec-title pb_20 sec-title-animation animation-style2">
                                     <span class="sub-title mb_10 title- text-aurora-red">About us</span>
-                                    <h2 class="title-animation">The Leading Human Resource <span>Company</span>
-                                    </h2>
+                                    <h2 class="title-animation">Aurora Human Resource <span>(P) Ltd.</span></h2>
                                 </div>
                                 <div class="text-box">
-                                    <p>Aurora staffing platform provides access to a diverse pool of qualified
-                                        candidates
-                                        with specialized skills in areas such as hospitality management.</p>
+                                    <p>Aurora Human Resource (P) Ltd., an international manpower agency, is one of the
+                                        pioneers in manpower recruiting. Established with the core belief of providing
+                                        true customer-focused solutions in the field of Human Resource recruiting,
+                                        Aurora
+                                        is backed by a team of highly dedicated and experienced professionals,
+                                        ultra-modern resources, and a centrally located workplace at Kupondole,
+                                        Lalitpur.
+                                        Over the years, we have successfully established ourselves as a trusted brand in
+                                        Nepal’s manpower market.</p>
+                                    <p>We have proudly deployed more than <strong>10,000 unskilled, semi-skilled, and
+                                            skilled
+                                            personnel</strong> to Asian, European, and Gulf countries. Our primary
+                                        objective is
+                                        to enable Nepalese citizens to earn a decent living abroad while contributing to
+                                        the country’s economy through remittances, ultimately helping to reduce
+                                        unemployment.</p>
                                     <ul class="list-style-one clearfix">
-                                        <li>Aurora helps businesses maintain service excellence</li>
-                                        <li>Aurora scalability allows businesses to adjust staffing</li>
+                                        <li>Successfully deployed 10,000+ professionals worldwide</li>
+                                        <li>Dedicated to reducing unemployment in Nepal</li>
+                                        <li>Supplying all categories of human resources in the shortest time</li>
+                                        <li>Strong presence in Asian, European, and Gulf markets</li>
                                     </ul>
                                 </div>
                             </div>
@@ -481,8 +495,9 @@
                                     style="background-image: url('{{ asset('assets/images/resource/video-4.jpg') }}')">
                                     <div class="video-content">
                                         <div class="curve-text">
-                                            <span
-                                                class="curved-circle">watch&nbsp;&nbsp;the&nbsp;&nbsp;video&nbsp;&nbsp;right&nbsp;&nbsp;now&nbsp;&nbsp;</span>
+                                            <span class="curved-circle">
+                                                watch&nbsp;&nbsp;the&nbsp;&nbsp;video&nbsp;&nbsp;right&nbsp;&nbsp;now&nbsp;&nbsp;
+                                            </span>
                                         </div>
                                         <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
                                             class="lightbox-image video-btn" data-caption=""><i
@@ -495,6 +510,7 @@
                 </div>
             </div>
         </section>
+
         <!-- about-style-two end -->
 
         <!-- chooseus-section -->
@@ -546,22 +562,31 @@
         </section>
         <!-- chooseus-section end -->
 
-        <!-- industries-style-two -->
+        <!-- services-style -->
         <section class="industries-style-two pt_120 pb_90">
             <div class="pattern-layer"
                 style="background-image: url('{{ asset('assets/images/shape/shape-3.png') }}')"></div>
             <div class="auto-container">
                 <div class="sec-title light centred pb_60 sec-title-animation animation-style2">
-                    <span class="sub-title mb_10 title-animation">Categories</span>
-                    <h2 class="title-animation">Industries Served</h2>
+                    <span class="sub-title mb_10 title-animation">Our Expertise</span>
+                    <h2 class="title-animation">Services We Provide</h2>
                 </div>
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                         <div class="industries-block-two">
                             <div class="inner-box">
-                                <div class="icon-box"><i class="icon-9"></i></div>
-                                <h3><a href="{{ route('index') }}">Hotel</a></h3>
-                                <p>2853 Staffs</p>
+                                <div class="icon-box"><i class="icon-15"></i></div>
+                                <h3><a href="{{ route('index') }}">Logistics</a></h3>
+                                <p>Drivers, Operators, Mechanics</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                        <div class="industries-block-two">
+                            <div class="inner-box">
+                                <div class="icon-box"><i class="icon-14"></i></div>
+                                <h3><a href="{{ route('index') }}">Construction</a></h3>
+                                <p>Engineers, Surveyors, Technicians</p>
                             </div>
                         </div>
                     </div>
@@ -570,7 +595,7 @@
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-10"></i></div>
                                 <h3><a href="{{ route('index') }}">Hospitality</a></h3>
-                                <p>2256 Staffs</p>
+                                <p>Managers, Waiters, Housekeepers</p>
                             </div>
                         </div>
                     </div>
@@ -578,44 +603,8 @@
                         <div class="industries-block-two">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-11"></i></div>
-                                <h3><a href="{{ route('index') }}">Kitchen</a></h3>
-                                <p>1408 Staffs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
-                        <div class="industries-block-two">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-12"></i></div>
-                                <h3><a href="{{ route('index') }}">Retail</a></h3>
-                                <p>1740 Staffs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
-                        <div class="industries-block-two">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-13"></i></div>
-                                <h3><a href="{{ route('index') }}">Events</a></h3>
-                                <p>3948 Staffs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
-                        <div class="industries-block-two">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-14"></i></div>
-                                <h3><a href="{{ route('index') }}">Labor</a></h3>
-                                <p>2984 Staffs</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
-                        <div class="industries-block-two">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-15"></i></div>
-                                <h3><a href="{{ route('index') }}">Driving</a></h3>
-                                <p>4509 Staffs</p>
+                                <h3><a href="{{ route('index') }}">Technicians</a></h3>
+                                <p>A/C, Plant, Duct, Chiller Experts</p>
                             </div>
                         </div>
                     </div>
@@ -623,15 +612,25 @@
                         <div class="industries-block-two">
                             <div class="inner-box">
                                 <div class="icon-box"><i class="icon-16"></i></div>
-                                <h3><a href="{{ route('index') }}">Caretaker</a></h3>
-                                <p>1039 Staffs</p>
+                                <h3><a href="{{ route('index') }}">Security</a></h3>
+                                <p>Officers, Supervisors, Guards</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                        <div class="industries-block-two">
+                            <div class="inner-box">
+                                <div class="icon-box"><i class="icon-13"></i></div>
+                                <h3><a href="{{ route('index') }}">Manufacturing</a></h3>
+                                <p>Production Operators, Factory Labour</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- industries-style-two end -->
+        <!-- services-style end -->
+
 
         <!-- dueal-section -->
         <section class="dueal-section pt_120 pb_120">
@@ -642,95 +641,168 @@
                             <div class="content-box mr_100">
                                 <div class="sec-title pb_35 sec-title-animation animation-style2">
                                     <span class="sub-title mb_10 title-animation">The Process</span>
-                                    <h2 class="title-animation">How it Works</h2>
+                                    <h2 class="title-animation">How It Works</h2>
                                 </div>
                                 <div class="inner-box">
+
+                                    <!-- Malaysia Requirements -->
                                     <div class="single-item">
                                         <span class="count-text">1</span>
-                                        <h3><a href="{{ route('index') }}">Sign up, It's Free!</a></h3>
-                                        <p>Our team will set up your account and help you build job to easy-to-use web
-                                            dashboard.</p>
+                                        <h3><a href="{{ route('index') }}">For Malaysia</a></h3>
+                                        <p>The following documents are required from foreign employers to process
+                                            recruitment through Aurora HR PVT. LTD.:</p>
+                                        <ul>
+                                            <li>KDN Approval (From Labor Ministry)</li>
+                                            <li>Translation Letter (From Labor or Home Ministry)</li>
+                                            <li>Demand Letter</li>
+                                            <li>Power of Attorney</li>
+                                            <li>Agency Agreement</li>
+                                            <li>Employment Contract</li>
+                                            <li>Notary Public</li>
+                                            <li>Letter from Nepal Embassy to Labor Department Nepal</li>
+                                            <li>ID copy of authorized employer company representative</li>
+                                            <li>His Excellency Letter (from employer company to Malaysian consulate in
+                                                Nepal)</li>
+                                        </ul>
                                     </div>
+
+                                    <!-- GCC & Japan Requirements -->
                                     <div class="single-item">
                                         <span class="count-text">2</span>
-                                        <h3><a href="{{ route('index') }}">Find best Deals and Invest</a></h3>
-                                        <p>Create and post anywhere from 1-100 job openings with just a few clicks.
-                                            customize your own.</p>
+                                        <h3><a href="{{ route('index') }}">For Japan, Qatar, Kuwait, Bahrain, Oman &
+                                                UAE</a></h3>
+                                        <p>The following documents are required to recruit human resources from Nepal:
+                                        </p>
+                                        <ul>
+                                            <li>Demand Letter</li>
+                                            <li>Power of Attorney</li>
+                                            <li>Agency Agreement</li>
+                                            <li>Employment Contract</li>
+                                            <li>Guarantee Letter</li>
+                                        </ul>
                                     </div>
+
+                                    <!-- Note Section -->
                                     <div class="single-item">
                                         <span class="count-text">3</span>
-                                        <h3><a href="{{ route('index') }}">Get you profit back</a></h3>
-                                        <p>View bios, reviews, and rosters before workers arrive on the job, and post
-                                            reviews and pay, effortlessly.</p>
+                                        <h3><a href="{{ route('index') }}">Important Note</a></h3>
+                                        <p>All documents must be attested by the Nepalese Consulate & Notary Public or
+                                            Chambers of Commerce
+                                            of the host country before submission to Aurora HR PVT. LTD. for government
+                                            formalities.</p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                         <div class="content_block_three">
                             <div class="content-box">
                                 <div class="sec-title pb_30 sec-title-animation animation-style2">
-                                    <span class="sub-title mb_10 title-animation">General Faqs</span>
-                                    <h2 class="title-animation">Frequently Asked Questions</h2>
+                                    <span class="sub-title mb_10 title-animation">Recruitment</span>
+                                    <h2 class="title-animation">Recruitment Procedure</h2>
                                 </div>
                                 <ul class="accordion-box">
+
                                     <li class="accordion block active-block">
                                         <div class="acc-btn active">
                                             <div class="icon-box"><i class="icon-21"></i></div>
-                                            <h4>How Can I Prepare for an Interview?</h4>
+                                            <h4>Pre-Labor Approval</h4>
                                         </div>
                                         <div class="acc-content current">
                                             <div class="content">
-                                                <p>To prepare for an interview, research the company, understand the job
-                                                    role and responsibilities, and prepare questions to ask the
-                                                    interviewer.</p>
+                                                <p>After receiving the Demand Letter from the respective company, the
+                                                    documents are
+                                                    presented to the Department of Labor in Nepal for approval. Once
+                                                    approved, the
+                                                    recruitment process can move forward.</p>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="accordion block">
                                         <div class="acc-btn">
                                             <div class="icon-box"><i class="icon-21"></i></div>
-                                            <h4>Hiring Managers and Candidates?</h4>
+                                            <h4>Advertisement</h4>
                                         </div>
                                         <div class="acc-content">
                                             <div class="content">
-                                                <p>To prepare for an interview, research the company, understand the job
-                                                    role and responsibilities, and prepare questions to ask the
-                                                    interviewer.</p>
+                                                <p>The approved demand letter is published in national newspapers and
+                                                    announced via
+                                                    internet, SMS, and phone calls. Candidates may apply directly or
+                                                    through sub-agents
+                                                    and marketing executives.</p>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="accordion block">
                                         <div class="acc-btn">
                                             <div class="icon-box"><i class="icon-21"></i></div>
-                                            <h4>Clarifying Recruitment Concepts?</h4>
+                                            <h4>Candidate Screening / Interview</h4>
                                         </div>
                                         <div class="acc-content">
                                             <div class="content">
-                                                <p>To prepare for an interview, research the company, understand the job
-                                                    role and responsibilities, and prepare questions to ask the
-                                                    interviewer.</p>
+                                                <p>Aurora HR shortlists candidates based on merit and employer criteria.
+                                                    Final interviews
+                                                    are conducted by the employer, ensuring the most suitable candidates
+                                                    are selected.</p>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="accordion block">
                                         <div class="acc-btn">
                                             <div class="icon-box"><i class="icon-21"></i></div>
-                                            <h4>Employers look for in candidates?</h4>
+                                            <h4>Communications</h4>
                                         </div>
                                         <div class="acc-content">
                                             <div class="content">
-                                                <p>To prepare for an interview, research the company, understand the job
-                                                    role and responsibilities, and prepare questions to ask the
-                                                    interviewer.</p>
+                                                <p>Our computerized and networked system ensures efficient communication
+                                                    between
+                                                    candidates, clients, and our team to provide prompt and quality
+                                                    manpower services.</p>
                                             </div>
                                         </div>
                                     </li>
+
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <div class="icon-box"><i class="icon-21"></i></div>
+                                            <h4>Medical Checkup</h4>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="content">
+                                                <p>Selected candidates undergo full medical examinations at authorized
+                                                    centers. Only
+                                                    medically fit candidates proceed to sign employment contracts and
+                                                    visa procedures.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <div class="icon-box"><i class="icon-21"></i></div>
+                                            <h4>Visa Processing</h4>
+                                        </div>
+                                        <div class="acc-content">
+                                            <div class="content">
+                                                <p>All required documents, including passport copies, medical reports,
+                                                    photos, and
+                                                    experience certificates, are submitted for visa processing through
+                                                    the employer.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+
                                 </ul>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>

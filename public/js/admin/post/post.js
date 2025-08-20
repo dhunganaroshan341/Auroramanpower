@@ -110,7 +110,7 @@ function populateCategorySelect(selectedCategoryIds = []) {
         let id = $(this).data('id');
         // console.log(id);
         $.ajax({
-            tyoe: "get",
+            type: "get",
             url: "/admin/post/detail/" + id,
             success: function (response) {
                 $(".fetch-post-image-data").html("");
