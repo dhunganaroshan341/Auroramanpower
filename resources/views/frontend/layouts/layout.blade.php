@@ -3,6 +3,7 @@
 
 <head>
     @include('frontend.components.head')
+    @stack('styles')
 </head>
 
 <body>
@@ -51,6 +52,7 @@
 
     {{-- Scripts --}}
     @include('frontend.components.script')
+    @stack('scripts')
 
 </body>
 
