@@ -33,9 +33,9 @@
             $currentUrl = url()->current();
         @endphp
 
-        {{-- @if (!isset($breadcrumb) && !in_array($currentRoute, ['home']) && !in_array($currentUrl, [url('/'), url('/home')]))
+        @if (!isset($breadcrumb) && !in_array($currentRoute, ['home']) && !in_array($currentUrl, [url('/'), url('/home')]))
             @include('frontend.components.breadcrumb')
-        @endif --}}
+        @endif
 
 
         {{-- Page Content --}}
