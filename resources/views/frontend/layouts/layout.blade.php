@@ -10,7 +10,6 @@
     <div class="boxed_wrapper ltr">
 
         {{-- Preloader --}}
-        @include('frontend.components.preloader')
 
         {{-- Page Direction --}}
         @include('frontend.components.pageDirection')
