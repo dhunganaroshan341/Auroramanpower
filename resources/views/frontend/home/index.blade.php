@@ -415,17 +415,19 @@
             </div>
             <div class="outer-container">
                 <div class="content-box">
-                    <h2>Creative to Hiring with <span>Thousands Workers</span></h2>
-                    <p>Implementing a robust employee referral program can be a creative and effective way to recruit at
-                        scale.</p>
+                    <h2>Empowering Global Careers with <span>Aurora HR</span></h2>
+                    <p>Connecting Nepalese talent with trusted international opportunities while helping employers
+                        find the right workforce across Asia, Europe, and the Gulf.</p>
                     <div class="btn-box">
-                        <a href="{{ route('index') }}" class="theme-btn btn-one mr_20"><span>Find Works</span></a>
-                        <a href="{{ route('index') }}" class="theme-btn banner-btn">Hire Talents Now</a>
+                        <a href="{{ route('index') }}" class="theme-btn btn-one mr_20"><span>Explore
+                                Opportunities</span></a>
+                        <a href="{{ route('index') }}" class="theme-btn banner-btn">Partner With Us</a>
                     </div>
                 </div>
             </div>
         </section>
         <!-- banner-section end -->
+
 
         <!-- clients-style-two -->
         <section class="clients-style-two centred pt_110 pb_120">
