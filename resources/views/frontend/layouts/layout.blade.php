@@ -9,6 +9,7 @@
             background: gradient(red, blue);
             background: linear-gradient(to right, #733d0a5e, #3fa7e31c);
             color: white;
+
             box-shadow: 2px 2px 8px 2px #a3a8ad73;
             align-items: centerr;
         }
@@ -19,6 +20,7 @@
             font-size: 56px;
             line-height: 60px;
             margin-bottom: 12px;
+            color: white;
         }
 
         .page-title .content-box {
