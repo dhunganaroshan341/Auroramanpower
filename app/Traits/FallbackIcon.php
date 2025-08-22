@@ -25,25 +25,30 @@ trait FallbackIcon
     /**
      * Override the getAttribute method
      */
-    public function getAttribute($key)
-    {
-        $value = parent::getAttribute($key);
+   public function getAttribute($key)
+{
+    $value = parent::getAttribute($key);
 
-        if (array_key_exists($key, $this->fallbackFields)) {
-            // Use fallback if empty
-            if (!$value) {
-                return asset($this->fallbackFields[$key]);
-            }
-
-            // If value already looks like a URL (starts with http/https or /), don't prepend uploads
-            if (filter_var($value, FILTER_VALIDATE_URL) || str_starts_with($value, '/')) {
-                return asset($value);
-            }
-
-            // Otherwise prepend uploads
-            return asset('/uploads/' . ltrim($value, '/'));
+    if (array_key_exists($key, $this->fallbackFields)) {
+        // Use fallback if empty
+        if (!$value) {
+            return asset($this->fallbackFields[$key]);
         }
 
-        return $value;
+        // If value already looks like a URL (starts with http/https) or absolute path, don't prepend
+        if (filter_var($value, FILTER_VALIDATE_URL) || str_starts_with($value, '/')) {
+            return asset($value);
+        }
+
+        // Only prepend uploads if not already present
+        if (!str_starts_with($value, 'uploads/')) {
+            $value = 'uploads/' . ltrim($value, '/');
+        }
+
+        return asset($value);
     }
+
+    return $value;
+}
+
 }
