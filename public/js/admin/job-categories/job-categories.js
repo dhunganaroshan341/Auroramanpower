@@ -92,11 +92,11 @@ $(document).ready(function () {
 
             const formData = new FormData($("#jobCategoryForm")[0]);
             $.ajax({
-                type: "post",
-                url: Routes.admin.job_categories.update(id),
-                data: formData,
-                contentType: false,
-                processData: false,
+               type: "PUT",
+    url: Routes.admin.job_categories.update(id),
+    data: formData,
+    contentType: false,
+    processData: false,
                 success: function (res) {
                     if (res.success) {
                         Swal.fire({ icon: "success", title: "Updated!", text: "Job Category Updated Successfully", showConfirmButton: false, timer: 1000 });
