@@ -162,12 +162,12 @@
                             @endif
                         </div>
 
-                        {{-- Pagination --}}
                         @if (isset($posts) && $posts != null)
                             <div class="pagination-wrapper">
-                                {{ $posts->links('vendor.pagination.custom') }}
+                                {{ $posts->links('pagination::bootstrap-5') }}
                             </div>
                         @endif
+
                     </div>
                 </div>
 
