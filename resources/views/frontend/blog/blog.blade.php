@@ -163,7 +163,7 @@
                         </div>
 
                         {{-- Pagination --}}
-                        @if ($posts->links)
+                        @if ($posts && $posts->links)
                             <div class="pagination-wrapper">
                                 {{ $posts->links('vendor.pagination.custom') }}
                             </div>
