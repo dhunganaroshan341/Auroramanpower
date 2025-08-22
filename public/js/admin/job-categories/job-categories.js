@@ -76,13 +76,13 @@ $(document).ready(function () {
 
         const id = $(this).data("id");
         $.get(Routes.admin.job_categories.update(id), function (res) {
-            $("#name").val(res.message.name);
-            $("#icon_class").val(res.message.icon_class);
-            $("#slug").val(res.message.slug);
-            $("#jobCategoryDescription").summernote('code', res.message.description);
+            $("#name").val(res.data.name);
+            $("#icon_class").val(res.data.icon_class);
+            $("#slug").val(res.data.slug);
+            $("#jobCategoryDescription").summernote('code', res.data.description);
 
-            if (res.message.image) {
-                $("#jobCategoryImagePreview").html(`<img src="${res.message.image}" alt="Category Image" width="100" height="100" onerror="this.src='/defaultimage/defaultimage.webp';">`);
+            if (res.data.image) {
+                $("#jobCategoryImagePreview").html(`<img src="${res.data.image}" alt="Category Image" width="100" height="100" onerror="this.src='/defaultimage/defaultimage.webp';">`);
             }
         });
 
