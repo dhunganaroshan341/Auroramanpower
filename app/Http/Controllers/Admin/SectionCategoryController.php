@@ -57,6 +57,7 @@ class SectionCategoryController extends Controller
             config('js-map.admin.datatable.script'),
             config('js-map.admin.summernote.script'),
             config('js-map.admin.dropzone.script'),
+           [ asset('js/admin/section-content/section-content.js') ], // wrap in array
             config('js-map.admin.buttons.script')
         );
 
