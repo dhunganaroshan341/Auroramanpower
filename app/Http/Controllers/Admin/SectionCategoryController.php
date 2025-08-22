@@ -32,7 +32,7 @@ class SectionCategoryController extends Controller
                     </td>';
                 })
                ->addColumn('action', function ($item) {
-    $viewUrl = route('section-content.category', $item->id); // generates the URL for this category
+    $viewUrl = route('admin.section-content.category', $item->id); // generates the URL for this category
 
     return '
         <div class="d-flex gap-1">
