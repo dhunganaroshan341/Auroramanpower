@@ -7,6 +7,7 @@ use App\Http\Requests\JobCategoryRequest;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
 use App\Traits\HandlesImage;
+use Termwind\Components\Dd;
 use Yajra\DataTables\Facades\DataTables;
 
 class JobCategoryController extends Controller
@@ -73,6 +74,7 @@ $extraJs = array_merge(
 {
     try {
         $category = JobCategory::findOrFail($id);
+        dd($category);
         return response()->json([
             'success' => true,
             'message' => 'Category fetched successfully',
