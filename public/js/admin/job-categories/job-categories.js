@@ -108,6 +108,8 @@ $(document).ready(function () {
             e.preventDefault();
             $(".updateBtn").prop("disabled", true);
 
+// Append the ID so Laravel knows which record is being updated
+formData.append("id", $("#jobCategoryForm").data("id"));
             const formData = new FormData($("#jobCategoryForm")[0]);
             formData.append('_method', 'PUT'); // Tell Laravel it's a PUT request
             $.ajax({

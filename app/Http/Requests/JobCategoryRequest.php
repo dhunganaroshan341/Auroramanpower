@@ -12,15 +12,19 @@ class JobCategoryRequest extends FormRequest
     }
 
     public function rules(): array
-    {
-        return [
-            'name'        => 'required|string|max:255',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'icon_class'  => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'slug'        => 'required|string|max:255|unique:job_categories,slug,' . $this->id,
-        ];
-    }
+{
+    $jobCategoryId = $this->isMethod('put') ? $this->input('id') : null;
+
+
+    return [
+        'name'        => 'required|string|max:255',
+        'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'icon_class'  => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'slug'        => 'required|string|max:255|unique:job_categories,slug,' . $jobCategoryId,
+    ];
+}
+
 
     public function messages(): array
     {
