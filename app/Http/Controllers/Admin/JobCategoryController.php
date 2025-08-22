@@ -24,7 +24,7 @@ class JobCategoryController extends Controller
             return DataTables::of($categories)
                 ->addIndexColumn()
                 ->addColumn('image', function ($item) {
-                    $image = $item->image ? asset($item->image) : asset('defaultImage/defaultimage.webp');
+                    $image = $item->image ? asset($item->image) : asset('/user.png');
                     return '<td class="py-1">
                                 <img src="' . $image . '" width="50" height="50" onerror="this.src=\'' . asset('defaultImage/defaultimage.webp') . '\'"/>
                             </td>';
