@@ -37,7 +37,7 @@ function initSectionCategoryDropzone(categoryId = null, existingImages = []) {
                 }).appendTo('#sectionCategoryForm');
 
                 $.ajax({
-                    url: '/section-category/images/delete/' + file.serverId,
+                    url: '/admin/section-category/images/delete/' + file.serverId,
                     type: 'DELETE',
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     success: res => console.log('Deleted:', res),
