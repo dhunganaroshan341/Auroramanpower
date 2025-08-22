@@ -55,7 +55,7 @@
                                         <option value="{{ $tag->id }}"> {{ $tag->name }}</option>
                                     @endforeach
                                 </select>
-                                <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple tags.</small>
+                                <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple.</small>
                             </div>
 
 
