@@ -2,10 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
-$categories = [
+class CategorySeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $categories = [
     'Career Advice',
     'Industry Insights',
     'Employee Management',
@@ -22,4 +30,7 @@ foreach ($categories as $category) {
             'status' => 'Active', // adjust if your schema uses 1/0
         ]
     );
+}
+
+    }
 }
