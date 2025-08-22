@@ -26,7 +26,7 @@ class JobCategoryController extends Controller
                 ->addColumn('image', function ($item) {
                     $image = $item->image;
                     return '<td class="py-1">
-                                <img src="' . $image . '" width="50" height="50" onerror="this.src=\'' . asset('defaultImage/defaultimage.webp') . '\'"/>
+                                <img src="' . $image . '" width="50" height="50" onerror="this.src=\'' . asset('user.png') . '\'"/>
                             </td>';
                 })
                 ->addColumn('action', function ($data) {
