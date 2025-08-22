@@ -66,15 +66,17 @@ class JobController extends Controller
             ->make(true);
     }
 
-    $extraJs = array_merge(
-        config('js-map.admin.datatable.script'),
-        config('js-map.admin.buttons.script')
-    );
+   $extraJs = array_merge(
+            config('js-map.admin.datatable.script'),
+            config('js-map.admin.summernote.script'),
+            config('js-map.admin.buttons.script'),
+        );
 
-    $extraCs = array_merge(
-        config('js-map.admin.datatable.style'),
-        config('js-map.admin.buttons.style')
-    );
+        $extraCs = array_merge(
+            config('js-map.admin.datatable.style'),
+            config('js-map.admin.summernote.style'),
+            config('js-map.admin.buttons.style'),
+        );
 
     return view('Admin.pages.Job.jobIndex', [
         'extraJs' => $extraJs,
