@@ -5,8 +5,7 @@ namespace App\Traits;
 trait FallbackIcon
 {
     /**
-     * Array of columns that should have fallback icons.
-     * Example: ['image' => '/user.png', 'avatar' => '/default-avatar.png']
+     * Columns with their fallback paths
      *
      * @var array
      */
@@ -31,7 +30,13 @@ trait FallbackIcon
         $value = parent::getAttribute($key);
 
         if (array_key_exists($key, $this->fallbackFields)) {
-            return $value ? asset($value) : asset($this->fallbackFields[$key]);
+            if ($value) {
+                // If value exists, prepend uploads/ and wrap with asset()
+                return asset('uploads/' . ltrim($value, '/'));
+            } else {
+                // Use fallback
+                return asset($this->fallbackFields[$key]);
+            }
         }
 
         return $value;
