@@ -52,7 +52,7 @@ $(document).ready(function () {
                     $("#jobCategoryForm")[0].reset();
                     $("#jobCategoryModal").modal("hide");
                 } else {
-                    Swal.fire({ icon: "warning", title: "Something went wrong!", text: "Please try again!" });
+                   Swal.fire({ icon: "warning", title: "Something went wrong!", text: response.message });
                 }
             },
             error: function (xhr) {
