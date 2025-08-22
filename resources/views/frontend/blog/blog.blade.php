@@ -71,21 +71,23 @@
                                 <h3>Latest Posts</h3>
                             </div>
                             <div class="post-inner">
-                                @foreach ($recentPosts as $post)
-                                    <div class="post">
-                                        <figure class="post-thumb">
-                                            <a href="{{ route('blogDetails', $post->slug) }}">
-                                                <img src="{{ $post->first_image_url }}" alt="{{ $post->title }}">
-                                            </a>
-                                        </figure>
-                                        <h6>
-                                            <a href="{{ route('blogDetails', $post->slug) }}">
-                                                {{ Str::limit($post->title, 40) }}
-                                            </a>
-                                        </h6>
-                                        <span class="post-date">{{ $post->created_at->format('j M Y') }}</span>
-                                    </div>
-                                @endforeach
+                                @if (isset($recentPosts) && $recentPosts != null)
+                                    @foreach ($recentPosts as $post)
+                                        <div class="post">
+                                            <figure class="post-thumb">
+                                                <a href="{{ route('blogDetails', $post->slug) }}">
+                                                    <img src="{{ $post->first_image_url }}" alt="{{ $post->title }}">
+                                                </a>
+                                            </figure>
+                                            <h6>
+                                                <a href="{{ route('blogDetails', $post->slug) }}">
+                                                    {{ Str::limit($post->title, 40) }}
+                                                </a>
+                                            </h6>
+                                            <span class="post-date">{{ $post->created_at->format('j M Y') }}</span>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
 
@@ -96,12 +98,15 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="tags-list clearfix">
-                                    @foreach ($popularPosts as $post)
-                                        @foreach ($post->tags as $tag)
-                                            <li><a href="{{ route('blog', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>
-                                            </li>
+                                    @if (isset($popularPosts) && $popularPosts != null)
+                                        @foreach ($popularPosts as $post)
+                                            @foreach ($post->tags as $tag)
+                                                <li><a
+                                                        href="{{ route('blog', ['tag' => $tag->id]) }}">{{ $tag->name }}</a>
+                                                </li>
+                                            @endforeach
                                         @endforeach
-                                    @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
