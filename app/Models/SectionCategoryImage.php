@@ -18,4 +18,17 @@ class SectionCategoryImage extends Model
     {
         return $this->belongsTo(SectionCategory::class);
     }
+    public function getImageAttribute($value)
+{
+    if ($value) {
+        // Remove "admin/" if it appears anywhere in the beginning
+        $cleanPath = preg_replace('#^admin/#', '', $value);
+
+        // Return the full URL using Laravel's asset() helper
+        return asset($cleanPath);
+    }
+
+    return null;
+}
+
 }
