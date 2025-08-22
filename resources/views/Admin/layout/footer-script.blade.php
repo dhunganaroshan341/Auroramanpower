@@ -18,6 +18,27 @@
 @endisset
 
 
+{{-- routes --}}
+<script>
+    window.Routes = {
+        admin: {
+            job_categories: {
+                index: '/admin/job-categories',
+                store: '/admin/job-categories',
+                update: (id) => `/admin/job-categories/${id}`,
+                destroy: (id) => `/admin/job-categories/${id}`,
+                status: (id) => `/admin/job-categories/status/${id}`,
+            },
+            jobs: {
+                index: '/admin/jobs',
+                store: '/admin/jobs',
+            }
+        }
+    };
+</script>
+{{-- endo of routes --}}
+
+
 @php
     $path = Request::path();
     $dir_path = public_path() . '/js/' . $path;
