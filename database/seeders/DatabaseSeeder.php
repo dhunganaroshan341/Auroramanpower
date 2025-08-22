@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             // GallerySeeder::class,
             CallToActionSeeder::class,
             CategorySeeder::class,
+            TagSeeder::class,
             PostSeeder::class,
             PostImageSeeder::class,
             ServiceSeeder::class,

@@ -12,27 +12,9 @@ class TagSeeder extends Seeder
 {
     public function run(): void
     {
-        $tags = [
-            'Adventure',
-            'Backpacking',
-            'Himalayas',
-            'Trekking Tips',
-            'Cultural Tours',
-            'Nature Trails',
-            'Budget Travel',
-            'Mountain Climbing',
-            'Wildlife',
-            'Photography',
-            'Camping',
-            'Eco Travel',
-            'Local Cuisine',
-            'Hidden Gems',
-            'Travel Guide',
-            'High Altitude',
-            'Tea House Trek',
-            'Travel Safety',
-            'Base Camp',
-            'Best Seasons'
+          $tags = [
+            'Nepal', 'Gulf Jobs', 'Skilled Workers', 'Manpower', 'Recruitment',
+            'Construction', 'Healthcare', 'Hospitality', 'Technology', 'Consulting'
         ];
 
         foreach ($tags as $tag) {
