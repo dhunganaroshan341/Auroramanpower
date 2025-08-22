@@ -52,13 +52,15 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="category-list clearfix">
-                                    @foreach ($categories as $category)
-                                        <li>
-                                            <a href="{{ route('blog', ['category' => $category->id]) }}">
-                                                {{ $category->name }} <span>({{ $category->posts_count }})</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
+                                    @if (isset($categories) && $categories != null)
+                                        @foreach ($categories as $category)
+                                            <li>
+                                                <a href="{{ route('blog', ['category' => $category->id]) }}">
+                                                    {{ $category->name }} <span>({{ $category->posts_count }})</span>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
