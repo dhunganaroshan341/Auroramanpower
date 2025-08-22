@@ -4,6 +4,7 @@ namespace App\Traits;
 
 trait FallbackIcon
 {
+    //
     /**
      * Columns with their fallback paths
      *
