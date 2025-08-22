@@ -35,6 +35,11 @@
             }
         }
     };
+
+    // Place this at the top of your main JS file (or in a separate helpers.js included globally)
+    window.previewImage = function(url, width = 100, height = 100, fallback = '/user.png') {
+        return `<img src="${url}" alt="Image Preview" width="${width}" height="${height}" onerror="this.src='${fallback}';">`;
+    };
 </script>
 {{-- endo of routes --}}
 

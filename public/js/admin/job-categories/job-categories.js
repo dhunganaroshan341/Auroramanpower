@@ -33,9 +33,7 @@ $(document).ready(function () {
         $("#jobCategoryForm")[0].reset();
     }
 
-    function previewImage(url) {
-        return `<img src="${url}" alt="Category Image" width="100" height="100" onerror="this.src='/user.png';">`;
-    }
+
 
     // -------------------- ADD MODAL --------------------
     $(document).on("click", ".addJobCategoryBtn", function () {
@@ -97,7 +95,7 @@ $(document).on("click", ".editUserButton", function () {
             $("#icon_class").val(data.icon_class);
             $("#slug").val(data.slug);
             $("#jobCategoryDescription").summernote('code', data.description);
-            if (data.image) $("#jobCategoryImagePreview").html(previewImage(data.image));
+            if (data.image) $("#jobCategoryImagePreview").html(previewImage(data.image));;
         } else {
             Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
         }
