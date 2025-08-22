@@ -21,9 +21,8 @@
 
                         <!-- Image -->
                         <div class="col-md-12">
-                            <label class="form-label fw-bold">Image <span class="text-danger">*</span></label>
-                            <input type="file" name="image" id="image" class="form-control" accept="image/*"
-                                required />
+                            <label class="form-label fw-bold">Image <span class="text-danger"></span></label>
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*" />
                             <div id="imagePreview" class="mt-2">
                                 <img src="" alt="Image Preview" id="previewImg" class="img-thumbnail d-none"
                                     style="max-width: 150px;">
