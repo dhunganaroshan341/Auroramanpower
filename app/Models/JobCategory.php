@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FallbackIcon;
 use App\Traits\HasImageUrl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ class JobCategory extends Model
 {
     use HasFactory;
      use HasImageUrl;
+     use FallbackIcon;
 
     // Optional: if you want multiple image fields dynamically
     protected $imageFields = ['image'];
@@ -20,6 +22,13 @@ class JobCategory extends Model
     /**
      * The jobs that belong to this category.
      */
+      public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        // Specify which field needs fallback
+        $this->fallbackField('image');
+    }
     public function jobs()
     {
         return $this->belongsToMany(Job::class, 'job_category_job', 'job_category_id', 'job_id')
