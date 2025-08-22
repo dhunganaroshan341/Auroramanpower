@@ -118,48 +118,56 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="blog-grid-content">
                         <div class="row clearfix">
-                            @foreach ($posts as $post)
-                                <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                                    <div class="news-block-two wow fadeInUp animated" data-wow-delay="0ms"
-                                        data-wow-duration="1500ms">
-                                        <div class="inner-box">
-                                            <div class="image-box">
-                                                <figure class="image">
-                                                    <a href="{{ route('blogDetails', $post->slug) }}">
-                                                        <img src="{{ $post->first_image_url }}" alt="{{ $post->title }}">
-                                                    </a>
-                                                </figure>
-                                                <figure class="overlay-image">
-                                                    <a href="{{ route('blogDetails', $post->slug) }}">
-                                                        <img src="{{ $post->first_image_url }}" alt="{{ $post->title }}">
-                                                    </a>
-                                                </figure>
-                                            </div>
-                                            <div class="lower-content">
-                                                @if ($post->categories->count())
-                                                    <span class="category">{{ $post->categories->first()->name }}</span>
-                                                @endif
-                                                <h3>
-                                                    <a href="{{ route('blogDetails', $post->slug) }}">
-                                                        {{ Str::limit($post->title, 60) }}
-                                                    </a>
-                                                </h3>
-                                                <ul class="post-info">
-                                                    <li>By <a href="#">{{ $post->createdBy->name ?? 'Admin' }}</a>
-                                                    </li>
-                                                    <li><span>{{ $post->created_at->format('F j, Y') }}</span></li>
-                                                </ul>
+                            @if (isset($posts) && $posts != null)
+                                @foreach ($posts as $post)
+                                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
+                                        <div class="news-block-two wow fadeInUp animated" data-wow-delay="0ms"
+                                            data-wow-duration="1500ms">
+                                            <div class="inner-box">
+                                                <div class="image-box">
+                                                    <figure class="image">
+                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                            <img src="{{ $post->first_image_url }}"
+                                                                alt="{{ $post->title }}">
+                                                        </a>
+                                                    </figure>
+                                                    <figure class="overlay-image">
+                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                            <img src="{{ $post->first_image_url }}"
+                                                                alt="{{ $post->title }}">
+                                                        </a>
+                                                    </figure>
+                                                </div>
+                                                <div class="lower-content">
+                                                    @if ($post->categories->count())
+                                                        <span
+                                                            class="category">{{ $post->categories->first()->name }}</span>
+                                                    @endif
+                                                    <h3>
+                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                            {{ Str::limit($post->title, 60) }}
+                                                        </a>
+                                                    </h3>
+                                                    <ul class="post-info">
+                                                        <li>By <a
+                                                                href="#">{{ $post->createdBy->name ?? 'Admin' }}</a>
+                                                        </li>
+                                                        <li><span>{{ $post->created_at->format('F j, Y') }}</span></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div>
 
                         {{-- Pagination --}}
-                        <div class="pagination-wrapper">
-                            {{ $posts->links('vendor.pagination.custom') }}
-                        </div>
+                        @if ($posts->links)
+                            <div class="pagination-wrapper">
+                                {{ $posts->links('vendor.pagination.custom') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
 
