@@ -55,18 +55,22 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="category-list clearfix">
-                                    @if (!empty($categories) && $categories->isNotEmpty())
-                                        @foreach ($categories as $category)
-                                            <li>
-                                                <a href="{{ route('blog', ['category' => $category->id ?? 0]) }}">
-                                                    {{ $category->name ?? 'Uncategorized' }}
-                                                    <span>({{ $category->posts_count ?? 0 }})</span>
-                                                </a>
-                                            </li>
-                                        @endforeach
+                                    @isset($categories)
+                                        @if ($categories->isNotEmpty())
+                                            @foreach ($categories as $category)
+                                                <li>
+                                                    <a href="{{ route('blog', ['category' => $category->id ?? 0]) }}">
+                                                        {{ $category->name ?? 'Uncategorized' }}
+                                                        <span>({{ $category->posts_count ?? 0 }})</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <li>No categories available</li>
+                                        @endif
                                     @else
                                         <li>No categories available</li>
-                                    @endif
+                                    @endisset
                                 </ul>
                             </div>
                         </div>
@@ -77,49 +81,55 @@
                                 <h3>Latest Posts</h3>
                             </div>
                             <div class="post-inner">
-                                @if (!empty($recentPosts) && $recentPosts->isNotEmpty())
-                                    @foreach ($recentPosts as $recent)
-                                        <div class="post">
-                                            <figure class="post-thumb">
-                                                <a href="{{ route('blogDetail', $recent->slug ?? '#') }}">
-                                                    <img src="{{ $recent->firstImageUrl ?? asset('assets/images/default.jpg') }}"
-                                                        alt="{{ $recent->title ?? 'Untitled' }}">
-                                                </a>
-                                            </figure>
-                                            <h6>
-                                                <a href="{{ route('blogDetail', $recent->slug ?? '#') }}">
-                                                    {{ Str::limit($recent->title ?? 'Untitled', 50) }}
-                                                </a>
-                                            </h6>
-                                            <span
-                                                class="post-date">{{ optional($recent->created_at)->format('j M Y') ?? '' }}</span>
-                                        </div>
-                                    @endforeach
+                                @isset($recentPosts)
+                                    @if ($recentPosts->isNotEmpty())
+                                        @foreach ($recentPosts as $recent)
+                                            <div class="post">
+                                                <figure class="post-thumb">
+                                                    <a href="{{ route('blogDetail', $recent->slug ?? '#') }}">
+                                                        <img src="{{ $recent->firstImageUrl ?? asset('assets/images/default.jpg') }}"
+                                                            alt="{{ $recent->title ?? 'Untitled' }}">
+                                                    </a>
+                                                </figure>
+                                                <h6>
+                                                    <a href="{{ route('blogDetail', $recent->slug ?? '#') }}">
+                                                        {{ Str::limit($recent->title ?? 'Untitled', 50) }}
+                                                    </a>
+                                                </h6>
+                                                <span
+                                                    class="post-date">{{ optional($recent->created_at)->format('j M Y') ?? '' }}</span>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p>No recent posts</p>
+                                    @endif
                                 @else
                                     <p>No recent posts</p>
-                                @endif
+                                @endisset
                             </div>
                         </div>
 
                         <!-- Tags -->
-                        @if (!empty($tags) && $tags->isNotEmpty())
-                            <div class="sidebar-widget tags-widget mb_45">
-                                <div class="widget-title mb_20">
-                                    <h3>Popular Tags</h3>
+                        @isset($tags)
+                            @if ($tags->isNotEmpty())
+                                <div class="sidebar-widget tags-widget mb_45">
+                                    <div class="widget-title mb_20">
+                                        <h3>Popular Tags</h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <ul class="tags-list clearfix">
+                                            @foreach ($tags as $tag)
+                                                <li>
+                                                    <a href="{{ route('blog', ['tag' => $tag->id ?? 0]) }}">
+                                                        {{ $tag->name ?? 'Tag' }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="widget-content">
-                                    <ul class="tags-list clearfix">
-                                        @foreach ($tags as $tag)
-                                            <li>
-                                                <a href="{{ route('blog', ['tag' => $tag->id ?? 0]) }}">
-                                                    {{ $tag->name ?? 'Tag' }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
+                            @endif
+                        @endisset
 
                     </div>
                 </div>
@@ -127,77 +137,84 @@
                 <!-- Blog Content -->
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="blog-details-content">
-                        <div class="news-block-two">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image">
-                                        <img src="{{ $post->firstImageUrl ?? asset('assets/images/default.jpg') }}"
-                                            alt="{{ $post->title ?? 'Blog Image' }}">
-                                    </figure>
-                                </div>
-                                <div class="lower-content">
-                                    @if (!empty($post->categories) && $post->categories->isNotEmpty())
-                                        <span
-                                            class="category">{{ $post->categories->pluck('name')->join(', ') ?? 'Uncategorized' }}</span>
-                                    @endif
-                                    <h3>{{ $post->title ?? 'Untitled Post' }}</h3>
-                                    <ul class="post-info">
-                                        <li>By <a href="#">{{ $post->createdBy->name ?? 'Admin' }}</a></li>
-                                        <li><span>{{ optional($post->created_at)->format('j M Y') ?? '' }}</span></li>
-                                    </ul>
-                                </div>
-                                <div class="text-box pt_25 mb_50">
-                                    {!! $post->description ?? '<p>No content available</p>' !!}
+
+                        @isset($post)
+                            <div class="news-block-two">
+                                <div class="inner-box">
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <img src="{{ $post->firstImageUrl ?? asset('assets/images/default.jpg') }}"
+                                                alt="{{ $post->title ?? 'Blog Image' }}">
+                                        </figure>
+                                    </div>
+                                    <div class="lower-content">
+                                        @if (!empty($post->categories) && $post->categories->isNotEmpty())
+                                            <span
+                                                class="category">{{ $post->categories->pluck('name')->join(', ') ?? 'Uncategorized' }}</span>
+                                        @endif
+                                        <h3>{{ $post->title ?? 'Untitled Post' }}</h3>
+                                        <ul class="post-info">
+                                            <li>By <a href="#">{{ $post->createdBy->name ?? 'Admin' }}</a></li>
+                                            <li><span>{{ optional($post->created_at)->format('j M Y') ?? '' }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-box pt_25 mb_50">
+                                        {!! $post->description ?? '<p>No content available</p>' !!}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <p>No post data available</p>
+                        @endisset
 
                         <!-- Related Posts -->
-                        @if (!empty($relatedPosts) && $relatedPosts->isNotEmpty())
-                            <div class="related-posts mb_50">
-                                <h4>Related Posts</h4>
-                                <div class="row clearfix">
-                                    @foreach ($relatedPosts as $related)
-                                        <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                                            <div class="news-block-two">
-                                                <div class="inner-box">
-                                                    <div class="image-box">
-                                                        <figure class="image">
-                                                            <a href="{{ route('blogDetail', $related->slug ?? '#') }}">
-                                                                <img src="{{ $related->firstImageUrl ?? asset('assets/images/default.jpg') }}"
-                                                                    alt="{{ $related->title ?? 'Untitled' }}">
-                                                            </a>
-                                                        </figure>
-                                                    </div>
-                                                    <div class="lower-content">
-                                                        <span
-                                                            class="category">{{ $related->categories->pluck('name')->join(', ') ?? 'Uncategorized' }}</span>
-                                                        <h5>
-                                                            <a href="{{ route('blogDetail', $related->slug ?? '#') }}">
-                                                                {{ Str::limit($related->title ?? 'Untitled', 50) }}
-                                                            </a>
-                                                        </h5>
+                        @isset($relatedPosts)
+                            @if ($relatedPosts->isNotEmpty())
+                                <div class="related-posts mb_50">
+                                    <h4>Related Posts</h4>
+                                    <div class="row clearfix">
+                                        @foreach ($relatedPosts as $related)
+                                            <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                                                <div class="news-block-two">
+                                                    <div class="inner-box">
+                                                        <div class="image-box">
+                                                            <figure class="image">
+                                                                <a href="{{ route('blogDetail', $related->slug ?? '#') }}">
+                                                                    <img src="{{ $related->firstImageUrl ?? asset('assets/images/default.jpg') }}"
+                                                                        alt="{{ $related->title ?? 'Untitled' }}">
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                        <div class="lower-content">
+                                                            <span
+                                                                class="category">{{ $related->categories->pluck('name')->join(', ') ?? 'Uncategorized' }}</span>
+                                                            <h5>
+                                                                <a href="{{ route('blogDetail', $related->slug ?? '#') }}">
+                                                                    {{ Str::limit($related->title ?? 'Untitled', 50) }}
+                                                                </a>
+                                                            </h5>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
+                        @endisset
 
                         <!-- Navigation -->
                         <div class="post-navigation mt_50">
-                            @if (!empty($previousPost))
+                            @isset($previousPost)
                                 <a href="{{ route('blogDetail', $previousPost->slug ?? '#') }}" class="prev-post">
                                     Previous: {{ Str::limit($previousPost->title ?? 'Untitled', 30) }}
                                 </a>
-                            @endif
-                            @if (!empty($nextPost))
+                            @endisset
+                            @isset($nextPost)
                                 <a href="{{ route('blogDetail', $nextPost->slug ?? '#') }}" class="next-post">
                                     Next: {{ Str::limit($nextPost->title ?? 'Untitled', 30) }}
                                 </a>
-                            @endif
+                            @endisset
                         </div>
 
                     </div>
