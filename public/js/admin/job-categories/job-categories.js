@@ -41,7 +41,7 @@ $(document).ready(function () {
         let formData = new FormData(this);
         $.ajax({
             type: "post",
-            url: "/admin/job-categories/store",
+            url: "/admin/job-categories/",
             data: formData,
             contentType: false,
             processData: false,
