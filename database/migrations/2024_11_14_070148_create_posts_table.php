@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique()->nullable();
             $table->longText('description');
             $table->json('tags')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->default('admin');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->enum('status',['Active','Inactive'])->default('Active');
             $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade');
