@@ -74,7 +74,6 @@ $extraJs = array_merge(
 {
     try {
         $category = JobCategory::findOrFail($id);
-        dd($category);
         return response()->json([
             'success' => true,
             'message' => 'Category fetched successfully',
