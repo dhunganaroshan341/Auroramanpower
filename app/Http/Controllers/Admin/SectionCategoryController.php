@@ -31,18 +31,24 @@ class SectionCategoryController extends Controller
                     <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\''.$defaultImage.'\'"/>
                     </td>';
                 })
-                ->addColumn('action', function ($item) {
-                    return '
-                        <div class="d-flex gap-1">
-                            <button class="btn btn-sm btn-warning editCategoryBtn" data-id="' . $item->id . '">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger deleteCategoryBtn" data-id="' . $item->id . '">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    ';
-                })
+               ->addColumn('action', function ($item) {
+    $viewUrl = route('section-content.category', $item->id); // generates the URL for this category
+
+    return '
+        <div class="d-flex gap-1">
+            <a href="' . $viewUrl . '" class="btn btn-sm btn-info" title="View this category">
+                <i class="fas fa-eye"></i>
+            </a>
+            <button class="btn btn-sm btn-warning editCategoryBtn" data-id="' . $item->id . '">
+                <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger deleteCategoryBtn" data-id="' . $item->id . '">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    ';
+})
+
                 ->rawColumns(['action','image'])
                 ->make(true);
         }
