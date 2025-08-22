@@ -1,8 +1,16 @@
 $(document).ready(function () {
-    // Initialize Summernote
+
+    // -------------------- CSRF SETUP --------------------
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // -------------------- SUMMERNOTE --------------------
     $(".summernote").summernote({ height: 300 });
 
-    // Initialize DataTable
+    // -------------------- DATATABLE --------------------
     const table = $("#show-job-category-data").DataTable({
         processing: true,
         serverSide: true,
@@ -17,7 +25,7 @@ $(document).ready(function () {
         ]
     });
 
-    // Clear modal helper
+    // -------------------- HELPERS --------------------
     function clearModal() {
         $("#jobCategoryImagePreview").html("");
         $("#validationErrors").addClass("d-none").html("");
@@ -25,7 +33,11 @@ $(document).ready(function () {
         $("#jobCategoryForm")[0].reset();
     }
 
-    // Show add modal
+    function previewImage(url) {
+        return `<img src="${url}" alt="Category Image" width="100" height="100" onerror="this.src='/user.png';">`;
+    }
+
+    // -------------------- ADD MODAL --------------------
     $(document).on("click", ".addJobCategoryBtn", function () {
         clearModal();
         $("#jobCategoryModal").modal("show");
@@ -33,25 +45,26 @@ $(document).ready(function () {
         $(".updateBtn").hide();
     });
 
-    // Store Job Category
+    // -------------------- STORE --------------------
     $(document).off("submit", "#jobCategoryForm").on("submit", "#jobCategoryForm", function (e) {
         e.preventDefault();
         $(".submitBtn").prop("disabled", true);
+
         const formData = new FormData(this);
 
         $.ajax({
-            type: "post",
+            type: "POST",
             url: Routes.admin.job_categories.store,
             data: formData,
             contentType: false,
             processData: false,
             success: function (res) {
                 if (res.success) {
-                    Swal.fire({ icon: "success", title: "Success", text: "Job Category Created Successfully", showConfirmButton: false, timer: 1000 });
+                    Swal.fire({ icon: "success", title: "Created!", text: res.message, showConfirmButton: false, timer: 1000 });
                     table.draw();
                     $("#jobCategoryModal").modal("hide");
                 } else {
-                    Swal.fire({ icon: "warning", title: "Something went wrong!", text: res.message });
+                    Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
                 }
             },
             error: function (xhr) {
@@ -67,7 +80,7 @@ $(document).ready(function () {
         });
     });
 
-    // Edit Job Category
+    // -------------------- EDIT / UPDATE --------------------
     $(document).on("click", ".editUserButton", function () {
         clearModal();
         $("#jobCategoryModal").modal("show");
@@ -75,35 +88,41 @@ $(document).ready(function () {
         $(".updateBtn").show();
 
         const id = $(this).data("id");
-        $.get(Routes.admin.job_categories.update(id), function (res) {
-            $("#name").val(res.data.name);
-            $("#icon_class").val(res.data.icon_class);
-            $("#slug").val(res.data.slug);
-            $("#jobCategoryDescription").summernote('code', res.data.description);
 
-            if (res.data.image) {
-                $("#jobCategoryImagePreview").html(`<img src="${res.data.image}" alt="Category Image" width="100" height="100" onerror="this.src='/defaultimage/defaultimage.webp';">`);
+        // FETCH DATA
+        $.get(Routes.admin.job_categories.update(id), function (res) {
+            if (res.success) {
+                const data = res.data;
+                $("#name").val(data.name);
+                $("#icon_class").val(data.icon_class);
+                $("#slug").val(data.slug);
+                $("#jobCategoryDescription").summernote('code', data.description);
+                if (data.image) $("#jobCategoryImagePreview").html(previewImage(data.image));
+            } else {
+                Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
             }
         });
 
+        // UPDATE
         $(".updateBtn").off("click").on("click", function (e) {
             e.preventDefault();
             $(".updateBtn").prop("disabled", true);
 
             const formData = new FormData($("#jobCategoryForm")[0]);
+
             $.ajax({
-               type: "PUT",
-    url: Routes.admin.job_categories.update(id),
-    data: formData,
-    contentType: false,
-    processData: false,
+                type: "POST", // Laravel doesn't allow PUT in FormData directly, so POST with _method
+                url: Routes.admin.job_categories.update(id),
+                data: formData,
+                contentType: false,
+                processData: false,
                 success: function (res) {
                     if (res.success) {
-                        Swal.fire({ icon: "success", title: "Updated!", text: "Job Category Updated Successfully", showConfirmButton: false, timer: 1000 });
+                        Swal.fire({ icon: "success", title: "Updated!", text: res.message, showConfirmButton: false, timer: 1000 });
                         table.draw();
                         $("#jobCategoryModal").modal("hide");
                     } else {
-                        Swal.fire({ icon: "warning", title: "Something went wrong!", text: res.message });
+                        Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
                     }
                 },
                 error: function () {
@@ -114,7 +133,7 @@ $(document).ready(function () {
         });
     });
 
-    // Delete Job Category
+    // -------------------- DELETE --------------------
     $(document).on("click", ".deleteJobCategory", function () {
         const id = $(this).data("id");
         Swal.fire({
@@ -132,10 +151,11 @@ $(document).ready(function () {
                         Swal.fire({ icon: "success", title: "Deleted!", showConfirmButton: false, timer: 1500 });
                         table.draw();
                     } else {
-                        Swal.fire({ icon: "warning", title: "Something went wrong!", text: res.message });
+                        Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
                     }
                 }).fail(() => Swal.fire({ icon: "warning", title: "Something went wrong!", showConfirmButton: false, timer: 1500 }));
             }
         });
     });
+
 });
