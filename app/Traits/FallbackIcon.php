@@ -4,7 +4,6 @@ namespace App\Traits;
 
 trait FallbackIcon
 {
-    //
     /**
      * Columns with their fallback paths
      *
@@ -31,13 +30,18 @@ trait FallbackIcon
         $value = parent::getAttribute($key);
 
         if (array_key_exists($key, $this->fallbackFields)) {
-            if ($value) {
-                // If value exists, prepend uploads/ and wrap with asset()
-                return asset('uploads/' . ltrim($value, '/'));
-            } else {
-                // Use fallback
+            // Use fallback if empty
+            if (!$value) {
                 return asset($this->fallbackFields[$key]);
             }
+
+            // If value already looks like a URL (starts with http/https or /), don't prepend uploads
+            if (filter_var($value, FILTER_VALIDATE_URL) || str_starts_with($value, '/')) {
+                return asset($value);
+            }
+
+            // Otherwise prepend uploads
+            return asset('/uploads/' . ltrim($value, '/'));
         }
 
         return $value;
