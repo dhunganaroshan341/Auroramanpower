@@ -72,7 +72,7 @@ public function blogsByCategory($title)
                         ->take(3)
                         ->get();
 
-    return view('frontend.blog', compact(
+    return view('frontend.blog.blog', compact(
         'posts',
         'category_title',
         'content_title',
