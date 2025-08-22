@@ -16,7 +16,7 @@ Route::controller(HomeController::class)->group(function () {
 Route::prefix('blog')->group(function () {
     Route::controller(BlogController::class)->group(function () {
             Route::get('/blog','blog')->name('blog');
-            Route::get('/blog-2','blog2')->name('blog2');
+            Route::get('/blog/category/{slug}','blogsByCategory')->name('blogsByCategory');
             Route::get('/blog-details','blogDetails')->name('blogDetails');
     });
 });

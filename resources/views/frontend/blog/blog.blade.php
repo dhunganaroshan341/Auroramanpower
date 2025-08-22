@@ -55,7 +55,7 @@
                                     @if (isset($categories) && $categories != null)
                                         @foreach ($categories as $category)
                                             <li>
-                                                <a href="{{ route('blog', ['category' => $category->id]) }}">
+                                                <a href="{{ route('blogsByCategory', ['slug' => $category->slug]) }}">
                                                     {{ $category->name }} <span>({{ $category->posts_count }})</span>
                                                 </a>
                                             </li>
