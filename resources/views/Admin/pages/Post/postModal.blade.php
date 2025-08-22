@@ -41,11 +41,7 @@
                                 <div class="postImageData"></div>
                             </div>
 
-                            <div class="mb-3 mb-4">
-                                <label for="" class="form-label">Description<span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control summernote" name="post_description" id="post_description" rows="3"></textarea>
-                            </div>
+
 
                             <!-- TAG SELECT -->
                             <div class="col-md-12 mb-4">
@@ -57,7 +53,11 @@
                                 </select>
                                 <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple.</small>
                             </div>
-
+                            <div class="mb-3 mb-4">
+                                <label for="" class="form-label">Description<span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control summernote" name="post_description" id="post_description" rows="3"></textarea>
+                            </div>
 
 
                         </div>
