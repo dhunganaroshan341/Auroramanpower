@@ -109,7 +109,7 @@ $(document).ready(function () {
             $(".updateBtn").prop("disabled", true);
 
             const formData = new FormData($("#jobCategoryForm")[0]);
-
+            formData.append('_method', 'PUT'); // Tell Laravel it's a PUT request
             $.ajax({
                 type: "POST", // Laravel doesn't allow PUT in FormData directly, so POST with _method
                 url: Routes.admin.job_categories.update(id),
