@@ -80,60 +80,72 @@ $(document).ready(function () {
         });
     });
 
-    // -------------------- EDIT / UPDATE --------------------
-    $(document).on("click", ".editUserButton", function () {
-        clearModal();
-        $("#jobCategoryModal").modal("show");
-        $(".submitBtn").hide();
-        $(".updateBtn").show();
+ // -------------------- EDIT / UPDATE --------------------
+$(document).on("click", ".editUserButton", function () {
+    clearModal();
+    $("#jobCategoryModal").modal("show");
+    $(".submitBtn").hide();
+    $(".updateBtn").show();
 
-        const id = $(this).data("id");
+    const id = $(this).data("id");
 
-        // FETCH DATA
-        $.get(Routes.admin.job_categories.update(id), function (res) {
-            if (res.success) {
-                const data = res.data;
-                $("#name").val(data.name);
-                $("#icon_class").val(data.icon_class);
-                $("#slug").val(data.slug);
-                $("#jobCategoryDescription").summernote('code', data.description);
-                if (data.image) $("#jobCategoryImagePreview").html(previewImage(data.image));
-            } else {
-                Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
-            }
-        });
+    // FETCH DATA
+    $.get(Routes.admin.job_categories.update(id), function (res) {
+        if (res.success) {
+            const data = res.data;
+            $("#name").val(data.name);
+            $("#icon_class").val(data.icon_class);
+            $("#slug").val(data.slug);
+            $("#jobCategoryDescription").summernote('code', data.description);
+            if (data.image) $("#jobCategoryImagePreview").html(previewImage(data.image));
+        } else {
+            Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
+        }
+    });
 
-        // UPDATE
-        $(".updateBtn").off("click").on("click", function (e) {
-            e.preventDefault();
-            $(".updateBtn").prop("disabled", true);
+    // UPDATE
+    $(".updateBtn").off("click").on("click", function (e) {
+        e.preventDefault();
+        $(".updateBtn").prop("disabled", true);
 
-// Append the ID so Laravel knows which record is being updated
-formData.append("id", $("#jobCategoryForm").data("id"));
-            const formData = new FormData($("#jobCategoryForm")[0]);
-            formData.append('_method', 'PUT'); // Tell Laravel it's a PUT request
-            $.ajax({
-                type: "POST", // Laravel doesn't allow PUT in FormData directly, so POST with _method
-                url: Routes.admin.job_categories.update(id),
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    if (res.success) {
-                        Swal.fire({ icon: "success", title: "Updated!", text: res.message, showConfirmButton: false, timer: 1000 });
-                        table.draw();
-                        $("#jobCategoryModal").modal("hide");
-                    } else {
-                        Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
-                    }
-                },
-                error: function () {
-                    Swal.fire({ icon: "warning", title: "Something went wrong!", showConfirmButton: false, timer: 1500 });
-                },
-                complete: () => $(".updateBtn").prop("disabled", false)
-            });
+        // First declare formData
+        const formData = new FormData($("#jobCategoryForm")[0]);
+        formData.append("id", id);           // Append the ID for Laravel
+        formData.append('_method', 'PUT');   // Tell Laravel it's a PUT request
+
+        $.ajax({
+            type: "POST", // Laravel will interpret PUT via _method
+            url: Routes.admin.job_categories.update(id),
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated!",
+                        text: res.message,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    table.draw();
+                    $("#jobCategoryModal").modal("hide");
+                } else {
+                    Swal.fire({ icon: "warning", title: "Oops!", text: res.message });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Something went wrong!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            },
+            complete: () => $(".updateBtn").prop("disabled", false)
         });
     });
+});
 
     // -------------------- DELETE --------------------
     $(document).on("click", ".deleteJobCategory", function () {
