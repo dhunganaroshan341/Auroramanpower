@@ -28,7 +28,7 @@
                             <input type="text" name="slug" id="slug" class="form-control" />
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Image</label>
+                            <label class="form-label">Main Image</label>
                             <input type="file" name="image" id="image" class="form-control" accept="image/*" />
                             <div id="imagePreview" class="mt-2">
                                 <img src="" alt="Image Preview" id="previewImg" class="img-thumbnail d-none"
@@ -40,7 +40,7 @@
                             <input type="text" name="video" id="video" class="form-control" />
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Images</label>
+                            <label class="form-label">Multiple Images</label>
                             <div id="sectionCategoryDropzone" class="dropzone"></div>
                         </div>
 
