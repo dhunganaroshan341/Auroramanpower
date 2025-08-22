@@ -68,7 +68,7 @@ $(document).ready(function () {
     });
 
     // Edit Job Category
-    $(document).on("click", ".editJobCategoryBtn", function () {
+    $(document).on("click", ".editUserButton", function () {
         clearModal();
         $("#jobCategoryModal").modal("show");
         $(".submitBtn").hide();
