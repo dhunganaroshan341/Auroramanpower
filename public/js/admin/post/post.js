@@ -7,6 +7,11 @@ $(document).ready(function () {
     allowClear: true,
       dropdownParent: $("#formModal"),
     width: '100%'
+}); $('.tag_ids').select2({
+    placeholder: "Select categories",
+    allowClear: true,
+      dropdownParent: $("#formModal"),
+    width: '100%'
 });
 
 
