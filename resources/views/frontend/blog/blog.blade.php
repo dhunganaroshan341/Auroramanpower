@@ -118,7 +118,6 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="blog-grid-content">
                         <div class="row clearfix">
-                            @dd($posts)
                             @if (isset($posts) && $posts != null)
                                 @foreach ($posts as $post)
                                     <div class="col-lg-6 col-md-6 col-sm-12 news-block">
