@@ -69,15 +69,23 @@ $extraJs = array_merge(
     /**
      * Display the specified resource
      */
-    public function show(string $id)
-    {
-        try {
-            $category = JobCategory::findOrFail($id);
-            return response()->json(['success' => true, 'data' => $category]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
-        }
+   public function show(string $id)
+{
+    try {
+        $category = JobCategory::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Category fetched successfully',
+            'data' => $category
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
     }
+}
+
 
     /**
      * Update the specified resource in storage
