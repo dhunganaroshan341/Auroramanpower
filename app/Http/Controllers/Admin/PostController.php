@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
@@ -34,6 +35,7 @@ class PostController extends Controller
 
         // Load categories for filter or post creation
         $categories = Category::all();
+        $tags = Tag::all();
 
         return view('Admin.pages.Post.post', compact('categories', 'extraJs', 'extraCs'));
     }
@@ -195,7 +197,7 @@ private function processTags(string $rawTags=null): array
 public function getDetail($id)
 {
     try {
-        $data = Post::with(['categories', 'postImages'])->findOrFail($id);
+        $data = Post::with(['categories', 'postImages','tags'])->findOrFail($id);
 
         // Handle tags safely: decode if JSON, otherwise wrap string into array
         $tags = $data->tags;

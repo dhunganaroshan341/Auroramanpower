@@ -47,11 +47,17 @@
                                 <textarea class="form-control summernote" name="post_description" id="post_description" rows="3"></textarea>
                             </div>
 
-                            {{-- <div class="col-md-12 mb-4">
-                                <label for="tags" class="form-label">Tags (separate with comma)</label>
-                                <input type="text" id="tags" name="tags" class="form-control"
-                                    placeholder="e.g. trekking, adventure, mountains">
-                            </div> --}}
+                            <!-- TAG SELECT -->
+                            <div class="col-md-12 mb-4">
+                                <label for="tag_id" class="form-label">Select Tags</label>
+                                <select class="form-select tag_ids" name="tag_ids[]" id="tag_id" multiple>
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}"> {{ $tag->name }}</option>
+                                    @endforeach
+                                </select>
+                                <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple tags.</small>
+                            </div>
+
 
 
                         </div>
