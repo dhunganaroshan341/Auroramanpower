@@ -33,17 +33,17 @@
                     @guest
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Full Name</label>
+                                <label class="form-label">Full Name * </label>
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Email</label>
+                                <label class="form-label">Email * </label>
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                <label class="form-label">Phone</label>
+                                <label class="form-label">Phone * </label>
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Upload Resume (PDF, DOC, DOCX)</label>
+                        <label class="form-label">Upload Resume (PDF, DOC, DOCX) </label>
                         <input type="file" class="form-control" name="resume_file" accept=".pdf,.doc,.docx" required>
                     </div>
 
