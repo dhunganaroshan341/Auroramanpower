@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobSeekerProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -65,7 +66,8 @@ Route::prefix('pages')->group(function () {
             Route::get('/signup','signup')->name('signup');
             Route::get('/team','team')->name('team');
             Route::get('/testimonial','testimonial')->name('testimonial');
-        });
+            // Show the form (same blade, will use @guest / @auth to adapt)
+
 });
 
 //  portfoliyo
@@ -81,3 +83,10 @@ Route::prefix('solutions')->group(function () {
         });
 });
 
+Route::get('/cv-upload', [JobSeekerProfileController::class, 'create'])
+    ->name('jobseeker.create');
+
+// Handle form submission
+Route::post('/cv-upload', [JobSeekerProfileController::class, 'store'])
+    ->name('jobseeker.store');
+        });
