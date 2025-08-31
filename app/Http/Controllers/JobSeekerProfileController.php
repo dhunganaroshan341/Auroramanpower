@@ -10,7 +10,7 @@ class JobSeekerProfileController extends Controller
     public function create()
     {
         // Just return the blade (it will handle guest/auth display)
-        return view('frontend.jobseeker.create');
+        return view('frontend.pages.jobseeker.upload-resume');
     }
 
     public function store(Request $request)
