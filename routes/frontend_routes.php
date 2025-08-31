@@ -83,10 +83,11 @@ Route::prefix('solutions')->group(function () {
         });
 });
 
+
+        });
 Route::get('/cv-upload', [JobSeekerProfileController::class, 'create'])
     ->name('jobseeker.create');
 
 // Handle form submission
 Route::post('/cv-upload', [JobSeekerProfileController::class, 'store'])
     ->name('jobseeker.store');
-        });
