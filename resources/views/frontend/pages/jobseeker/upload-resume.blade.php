@@ -24,15 +24,14 @@
     <section class="sign-section pt_110 pb_120">
         <div class="pattern-layer" style="background-image: url('{{ asset('assets/images/shape/shape-25.png') }}')"></div>
         <div class="auto-container">
-            <div class="form-inner shadow-lg p-4 rounded bg-white">
+            <div class="form-inner shadow-lg p-4 rounded bg-white mx-auto" style="max-width: 800px;">
                 <h3 class="mb-4 text-center">Submit Your Profile</h3>
 
                 <form method="post" action="{{ route('jobseeker.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="row">
-                        @guest
-                            <!-- Guest info -->
+                    @guest
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Full Name</label>
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
@@ -47,10 +46,9 @@
                                 <label class="form-label">Phone</label>
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
                             </div>
-                        @endguest
-                    </div>
+                        </div>
+                    @endguest
 
-                    <!-- Profile Details -->
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label class="form-label">Bio</label>
@@ -73,7 +71,6 @@
                         </div>
                     </div>
 
-                    <!-- File Upload -->
                     <div class="mb-3">
                         <label class="form-label">Upload Resume (PDF, DOC, DOCX)</label>
                         <input type="file" class="form-control" name="resume_file" accept=".pdf,.doc,.docx" required>
@@ -83,12 +80,6 @@
                         <button type="submit" class="theme-btn btn-one px-5">Submit CV</button>
                     </div>
                 </form>
-
-                @guest
-                    <div class="lower-text centred mt-3">
-                        <p>Already registered? <a href="{{ route('login') }}">Login Here</a></p>
-                    </div>
-                @endguest
             </div>
         </div>
     </section>
