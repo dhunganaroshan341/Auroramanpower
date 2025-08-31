@@ -24,6 +24,9 @@ return new class extends Migration
             $table->text('experience')->nullable();
             $table->text('education')->nullable();
             $table->string('resume_file')->nullable();
+              $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }
