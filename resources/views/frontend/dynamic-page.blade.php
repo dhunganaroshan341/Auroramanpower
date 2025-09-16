@@ -34,5 +34,7 @@
 @endphp
 
 @section('content')
-    {!! $content->content ?? '' !!}
+    <Section>
+        {!! $content->content ?? '' !!}
+    </Section>
 @endsection
