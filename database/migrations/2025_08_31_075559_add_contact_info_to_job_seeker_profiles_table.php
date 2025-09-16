@@ -9,8 +9,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('job_seeker_profiles', function (Blueprint $table) {
-            $table->string('email')->nullable()->after('name');
-            $table->string('phone')->nullable()->after('email');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
         });
     }
 
