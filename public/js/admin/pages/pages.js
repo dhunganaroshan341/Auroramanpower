@@ -123,15 +123,15 @@ $(".addNewPageBtn").on("click", function () {
 });
 
  $("#addPageBtn").on("click", function () {
-        clear();
-        $("#formModal").modal("show");
-        $(".submitBtn").show();
-        $(".updateBtn").hide();
-        $("#formModalLabel").text("Add Page");
-        $(".formPage").attr('id', "addPage");
-        $("#addPage")[0].reset();
-    });
-    // Edit page
+    clear();
+    $("#formModal").modal("show");   // works if Bootstrap 4 is loaded
+    $(".submitBtn").show();
+    $(".updateBtn").hide();
+    $("#formModalLabel").text("Add Page");
+    $(".formPage")[0].reset();       // reset form safely
+});
+
+// edit the page
 
     $(document).on("click", ".editUserButton", function () {
         clearModal();
