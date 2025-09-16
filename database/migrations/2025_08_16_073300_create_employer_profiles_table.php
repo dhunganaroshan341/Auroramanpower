@@ -12,9 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employer_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    $table->id();
+    $table->unsignedBigInteger('user_id')->nullable(); // if you want to link employer to login
+    $table->string('company_name');
+    $table->string('contact_person');
+    $table->string('email');
+    $table->string('phone')->nullable();
+    $table->string('country')->nullable();
+    $table->string('city')->nullable();
+    $table->text('company_details')->nullable();
+    $table->timestamps();
+
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+});
+
     }
 
     /**

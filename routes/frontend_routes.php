@@ -37,7 +37,7 @@ Route::prefix('pages')->group(function () {
     Route::prefix('job')->group(function () {
         Route::controller(PagesController::class)->group(function () {
             Route::get('/job','job')->name('job');
-            Route::get('/job-2','job2')->name('job2');
+            Route::get('/job-2','job2')->name('job2'); //kinda like job grid
             Route::get('/job-3','job3')->name('job3');
             Route::get('/job-4','job4')->name('job4');
             Route::get('/job-details','jobDetails')->name('jobDetails');
