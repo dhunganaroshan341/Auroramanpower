@@ -1,8 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @php
-    $title = 'About Us';
-    $subTitle = 'About Us';
+
     $css =
         '<link href="' .
         asset('assets/css/module-css/page-title.css') .
@@ -31,6 +30,8 @@
             <link href="' .
         asset('assets/css/module-css/footer.css') .
         '" rel="stylesheet">';
+    $title = $content->title ?? 'Aurora Nepal';
+    $subTitle = $content->content_sub_heading ?? 'Nepal\'s leading manpower company';
 @endphp
 
 @section('content')
