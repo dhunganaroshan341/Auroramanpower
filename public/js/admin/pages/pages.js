@@ -122,14 +122,14 @@ $(".addNewPageBtn").on("click", function () {
     $(".updateBtn").hide(); // Hide the update button
 });
 
- $("#addPageBtn").on("click", function () {
-    clear();
-    $("#formModal").modal("show");   // works if Bootstrap 4 is loaded
+$("#addPageBtn").on("click", function () {
+    $("#formModal").modal("show");
     $(".submitBtn").show();
     $(".updateBtn").hide();
     $("#formModalLabel").text("Add Page");
-    $(".formPage")[0].reset();       // reset form safely
+    $(".formPage")[0].reset();
 });
+
 
 // edit the page
 
