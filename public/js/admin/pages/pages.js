@@ -122,7 +122,15 @@ $(".addNewPageBtn").on("click", function () {
     $(".updateBtn").hide(); // Hide the update button
 });
 
-
+ $("#addPageBtn").on("click", function () {
+        clear();
+        $("#formModal").modal("show");
+        $(".submitBtn").show();
+        $(".updateBtn").hide();
+        $("#formModalLabel").text("Add Page");
+        $(".formPage").attr('id', "addPage");
+        $("#addPage")[0].reset();
+    });
     // Edit page
 
     $(document).on("click", ".editUserButton", function () {

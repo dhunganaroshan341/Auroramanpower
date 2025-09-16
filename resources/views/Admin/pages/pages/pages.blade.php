@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <button class="btn btn-primary mb-4 mt-4">Pages</button>
+        <button class="btn btn-primary mb-4 mt-4 " id  = "addPageBtn">Pages</button>
 
 
 

@@ -3,7 +3,7 @@
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <form id="pageForm" enctype="multipart/form-data">
+            <form class = "formPage"form id="pageForm" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" id="page_id">
 
