@@ -36,7 +36,7 @@
 
     // If dynamic title exists, check for subtitle
     if (!empty($content->title)) {
-        $subTitle = $content->content_sub_heading ?? '';
+        $subTitle = $content->content_sub_heading ?? $title;
     } else {
         $subTitle = "Nepal's leading manpower company";
     }
