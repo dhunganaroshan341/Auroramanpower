@@ -94,7 +94,7 @@ Route::post('/cv-upload', [JobSeekerProfileController::class, 'store'])
     ->name('jobseeker.store');
 // Dynamic pages
 Route::get('/company-overview', [DynamicPageController::class,'companyOverview'])->name('company-overview');
-Route::get('/message-from-the-chairman', [DynamicPageController::class,'messageFromChairman'])->name('message-from-chairman');
+Route::get('/message-from-chairman', [DynamicPageController::class,'messageFromChairman'])->name('message-from-chairman');
 Route::get('/license-certificates', [DynamicPageController::class,'licenseCertificates'])->name('license-certificates');
 Route::get('/organizational-chart', [DynamicPageController::class,'organizationalChart'])->name('organizational-chart');
 

@@ -16,8 +16,8 @@ class DynamicPageController extends Controller
 
     public function messageFromChairman()
     {
-        $content = Page::where('slug', 'message-from-the-chairman')->firstOrFail();
-        return view('frontend.dynamic-page', compact('content'));
+        $content = Page::where('slug', 'message-from-chairman')->firstOrFail();
+        return view('frontend.message-from-chairman', compact('content'));
     }
 
     public function licenseCertificates()
