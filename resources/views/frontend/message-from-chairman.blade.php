@@ -46,20 +46,21 @@
     <!-- Chairman's Message Section -->
     <section class="py-5 bg-light">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-stretch">
 
                 <!-- Chairman Message (Left) -->
-                <div class="col-md-8 mb-4 mb-md-0">
-                    <h2 class="fw-bold mb-3">Message from the Chairman</h2>
-                    <div class="text-muted" style="line-height: 1.8;">
+                <div class="col-md-8 d-flex">
+                    <div class="my-auto text-muted" style="line-height: 1.8;">
                         {!! $content->content !!}
                     </div>
                 </div>
 
                 <!-- Chairman Image (Right) -->
-                <div class="col-md-4 text-center">
-                    <img src="{{ $content->image1 }}" alt="Chairman" class="img-fluid rounded shadow-lg"
-                        style="max-height: 350px; object-fit: cover;">
+                <div class="col-md-4 d-flex">
+                    <div class="my-auto w-100 text-center">
+                        <img src="{{ $content->image1 }}" alt="Chairman" class="img-fluid rounded shadow-lg h-100"
+                            style="object-fit: cover; max-height: 100%;">
+                    </div>
                 </div>
 
             </div>
