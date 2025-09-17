@@ -58,7 +58,7 @@
 
                 <!-- Chairman Image (Right) -->
                 <div class="col-md-4 text-center">
-                    <img src="{{ asset('uploads/' . $content->image1) }}" alt="Chairman" class="img-fluid rounded shadow-lg"
+                    <img src="{{ $content->image1 }}" alt="Chairman" class="img-fluid rounded shadow-lg"
                         style="max-height: 350px; object-fit: cover;">
                 </div>
 
