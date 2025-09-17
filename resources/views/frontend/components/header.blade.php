@@ -52,6 +52,7 @@
                                 <li class="homeCurrent"><a href="{{ route('index') }}">Home</a></li>
                                 <li><a href="{{ route('about') }}">About</a></li>
                                 <li><a href="{{ route('index') }}">Category</a></li>
+                                <li><a href="{{ route('job') }}">Hire Workers</a></li>
                                 <li><a href="{{ route('job') }}">Find Jobs</a></li>
                                 <li><a href="{{ route('index') }}">Credentials</a></li>
                                 <li><a href="{{ route('blog') }}">Blog</a></li>
