@@ -45,6 +45,12 @@ Route::prefix('pages')->group(function () {
         });
     });
 });
+    Route::controller(PagesController::class)->group(function(){
+            Route::get('/jobs','job3')->name('jobs');
+
+            Route::get('/hire','job')->name('hire');
+            });
+
 
 //  portfoliyo
 Route::prefix('pages')->group(function () {

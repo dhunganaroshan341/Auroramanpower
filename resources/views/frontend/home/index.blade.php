@@ -429,7 +429,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-14"></i></div>
+                            <div class="icon-box"><i class="icon-11"></i></div>
                             <h3><a href="{{ route('index') }}">Construction</a></h3>
                             <p>Engineers, Surveyors, Technicians</p>
                         </div>
@@ -465,8 +465,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
-                            <div class="icon-box"><i class="icon-13"></i></div>
-                            <h3><a href="{{ route('index') }}">Manufacturing</a></h3>
+                            <div class="icon-box"><i class="icon-11"></i></div>
+                            <h3><a href="{{ route('index') }}">production</a></h3>
                             <p>Production Operators, Factory Labour</p>
                         </div>
                     </div>

@@ -29,4 +29,13 @@
     <link href="{{ asset('assets/css/module-css/header.css') }}" rel="stylesheet">
     <?php echo isset($css) ? $css : ''; ?>
     <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+
+    <!-- jQuery (required for DataTables) -->
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
 </head>
