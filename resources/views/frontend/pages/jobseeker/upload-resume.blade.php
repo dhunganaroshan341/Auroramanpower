@@ -64,38 +64,48 @@
                     <!-- Education & Skills -->
                     <div class="col-lg-6 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
-                            <div class="title-box">
-                                <div class="icon-box"><i class="icon-40"></i></div>
+                            <div class="title-box mb-4">
+                                <div class="icon-box mb-2">
+                                    <i class="fas fa-graduation-cap fa-lg text-primary"></i>
+                                </div>
                                 <h3>Education & Skills</h3>
-                                <p>Provide your education, experience, and skills.</p>
+                                <p class="text-muted">Provide your education, experience, and skills.</p>
                             </div>
-                            <div class="row clearfix">
+
+                            <div class="row clearfix g-3">
+                                <!-- Education -->
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="education" placeholder="Education"
-                                        value="{{ old('education') }}" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="skills" placeholder="IT,Doctor,Carpenter,Engineer"
-                                        value="{{ old('skills') }}" required>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="experience" placeholder="2years"
-                                        value="{{ old('experience') }}" required>
+                                        value="{{ old('education') }}" class="form-control" required>
                                 </div>
 
+                                <!-- Skills -->
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="skills" placeholder="IT, Doctor, Carpenter, Engineer"
+                                        value="{{ old('skills') }}" class="form-control" required>
+                                </div>
 
-                                <!-- Upload Resume -->
+                                <!-- Experience -->
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="experience" placeholder="2 years"
+                                        value="{{ old('experience') }}" class="form-control" required>
+                                </div>
+
+                                <!-- Upload Resume (Main Emphasis) -->
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <div class="upload-box">
-                                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-24.png') }}"
-                                                alt="Upload Icon"></div>
-                                        <input type="file" name="resume_file" accept=".pdf,.doc,.docx" required>
-                                        <button type="button">Upload CV (pdf,word file)</button>
+                                    <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
+                                    <div class="upload-box d-flex align-items-center border rounded p-3 bg-light">
+                                        <i class="fas fa-upload fa-2x text-primary me-3"></i>
+                                        <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
+                                            required class="form-control-file flex-grow-1">
+                                        <span class="btn btn-primary ms-3">Choose File</span>
                                     </div>
+                                    <small class="form-text text-muted">Accepted formats: PDF, Word (.doc, .docx)</small>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Additional Information -->
                     <div class="col-lg-12 col-md-12 col-sm-12 form-column">
