@@ -46,39 +46,80 @@
             <!-- Grid View -->
             <div id="gridView" class="inner-container">
                 <div class="row">
-                    @for ($i = 1; $i <= 6; $i++)
+                    @php
+                        $vacancies = [
+                            [
+                                'country' => 'Japan',
+                                'company' => 'ABC Manpower',
+                                'jobs' => [
+                                    ['title' => 'Factory Worker', 'openings' => 25],
+                                    ['title' => 'Driver', 'openings' => 15],
+                                ],
+                            ],
+                            [
+                                'country' => 'Malaysia',
+                                'company' => 'XYZ Pvt. Ltd.',
+                                'jobs' => [
+                                    ['title' => 'IT Technician', 'openings' => 10],
+                                    ['title' => 'Chef', 'openings' => 8],
+                                ],
+                            ],
+                            [
+                                'country' => 'Saudi Arabia',
+                                'company' => 'Gulf Recruiters',
+                                'jobs' => [
+                                    ['title' => 'Nurse', 'openings' => 12],
+                                    ['title' => 'Welder', 'openings' => 20],
+                                ],
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach ($vacancies as $index => $vacancy)
                         <div class="col-12 mb-4">
                             <div class="job-block-one h-100">
                                 <div class="upper-box">
                                     <ul class="job-info">
-                                        <li><i class="icon-43"></i>Posted by <span>{{ rand(1, 12) }} months ago</span>
+                                        <li><i class="icon-43"></i>Posted
+                                            <span>{{ rand(1, 12) }} days ago</span>
                                         </li>
-                                        <li>Job Code: <span>02225{{ $i }}</span></li>
+                                        <li>Vacancy Code: <span>VC{{ 1000 + $index }}</span></li>
                                     </ul>
                                 </div>
-                                <div class="inner-box text-truncate-wrapper">
+
+                                <div class="inner-box">
                                     <div class="title-box">
-                                        <div class="icon-box"><i class="icon-44"></i></div>
-                                        <h3 class="job-title">Software Engineer {{ $i }}</h3>
-                                        <span class="job-location">San Francisco, California</span>
+
+                                        <h3 class="job-title">
+                                            Vacancy in {{ $vacancy['country'] }}
+                                        </h3>
+                                        <span class="job-subheading">{{ $vacancy['company'] }}</span>
                                     </div>
-                                    <div class="salary-box">
-                                        <h5>Salary</h5>
-                                        <span>$200 - $300 Per Month</span>
+
+                                    <div class="jobs-list-box">
+                                        <ul>
+                                            @foreach ($vacancy['jobs'] as $job)
+                                                <li>
+                                                    <strong>{{ $job['title'] }}</strong>
+                                                    – {{ $job['openings'] }} openings
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    <div class="experience-box">
-                                        <h5>Experience needed</h5>
-                                        <span>2 - 3 Yrs</span>
-                                    </div>
-                                    <div class="btn-box">
-                                        <a href="{{ route('jobDetails') }}" class="theme-btn btn-one">View Details</a>
+
+                                    <div class="btn-box mt-3">
+                                        <a href="{{ route('jobDetails') }}" class="theme-btn btn-one">
+                                            View Details
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
+
+
 
             <!-- Table View -->
             <div id="tableView" class="pt_30 d-none">
