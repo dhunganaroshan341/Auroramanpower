@@ -31,91 +31,74 @@
 
             <form method="post" action="{{ route('jobseeker.store') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="row clearfix">
+                <div class="row g-4">
+
+                    <!-- Upload CV (Main Emphasis) -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                        <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
+                        <div class="upload-box d-flex align-items-center border rounded p-3 bg-primary text-white">
+                            <i class="fas fa-upload fa-2x me-3"></i>
+                            <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx" required
+                                class="form-control-file flex-grow-1">
+                            <span class="btn btn-light ms-3">Choose File</span>
+                        </div>
+                        <small class="form-text text-light">Accepted formats: PDF, Word (.doc, .docx)</small>
+                    </div>
 
                     <!-- Basic Information -->
                     <div class="col-lg-6 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
-                            <div class="title-box">
-                                <div class="icon-box"><i class="icon-39"></i></div>
-                                <h3>Basic Information</h3>
-                                <p>Enter your personal details below.</p>
-                            </div>
-                            <div class="row clearfix">
+                            <h3>Basic Information</h3>
+                            <p class="text-muted">Enter your personal details below.</p>
+                            <div class="row g-3">
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="name" placeholder="Full Name" value="{{ old('name') }}"
-                                        required>
+                                        class="form-control" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
-                                        required>
+                                        class="form-control" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}"
-                                        required>
+                                        class="form-control" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="address" placeholder="Address" value="{{ old('address') }}">
+                                    <input type="text" name="address" placeholder="Address" value="{{ old('address') }}"
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Education & Skills -->
-                    <!-- Education & Skills -->
                     <div class="col-lg-6 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
-                            <div class="title-box mb-4">
-                                <h3>Education & Skills</h3>
-                                <p class="text-muted">Provide your education, experience, and skills.</p>
-                            </div>
-
-                            <div class="row clearfix g-3">
-                                <!-- Upload Resume (Main Emphasis) -->
-                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
-                                    <div
-                                        class="upload-box d-flex align-items-center border rounded p-3 bg-primary text-white">
-                                        <i class="fas fa-upload fa-2x me-3"></i>
-                                        <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
-                                            required class="form-control-file flex-grow-1">
-                                        <span class="btn btn-light ms-3">Choose File</span>
-                                    </div>
-                                    <small class="form-text text-light">Accepted formats: PDF, Word (.doc, .docx)</small>
-                                </div>
-
-                                <!-- Education -->
+                            <h3>Education & Skills</h3>
+                            <p class="text-muted">Provide your education, experience, and skills.</p>
+                            <div class="row g-3">
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="education" placeholder="Education"
                                         value="{{ old('education') }}" class="form-control" required>
                                 </div>
-
-                                <!-- Skills -->
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="skills" placeholder="IT, Doctor, Carpenter, Engineer"
                                         value="{{ old('skills') }}" class="form-control" required>
                                 </div>
-
-                                <!-- Experience -->
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="experience" placeholder="Experience: 2 years"
                                         value="{{ old('experience') }}" class="form-control" required>
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-
-
                     <!-- Additional Information -->
                     <div class="col-lg-12 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
-                            <div class="form-group">
-                                <textarea name="bio" placeholder="Additional Information..." rows="4">{{ old('bio') }}</textarea>
-                            </div>
-                            <div class="form-group message-btn centred">
-                                <button type="submit" class="theme-btn btn-one">Submit CV</button>
+                            <textarea name="bio" placeholder="Additional Information..." rows="4" class="form-control">{{ old('bio') }}</textarea>
+                            <div class="form-group message-btn centred mt-3">
+                                <button type="submit" class="theme-btn btn-one w-100">Submit CV</button>
                             </div>
                         </div>
                     </div>
