@@ -51,7 +51,7 @@
                             <ul class="navigation clearfix">
                                 <li class="homeCurrent"><a href="{{ route('index') }}">Home</a></li>
                                 <li><a href="{{ route('about') }}">About</a></li>
-                                <li><a href="{{ route('index') }}">Category</a></li>
+                                <li><a href="{{ route('dynamic-categories') }}">Category</a></li>
                                 <li><a href="{{ route('hire') }}">Hire Workers</a></li>
                                 <li><a href="{{ route('jobs') }}">Vacancies</a></li>
                                 <li><a href="{{ route('index') }}">Credentials</a></li>

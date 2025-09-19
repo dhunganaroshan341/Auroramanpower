@@ -11,6 +11,9 @@ class PagesController extends Controller
     public function about()
     {
         return view('home/about');
+    } public function categories()
+    {
+        return view('frontend.pages.categories');
     }
     public function job()
     {

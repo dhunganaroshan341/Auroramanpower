@@ -106,3 +106,5 @@ Route::get('/organizational-chart', [DynamicPageController::class,'organizationa
 
 Route::get('/required-documents', [DynamicPageController::class,'requiredDocuments'])->name('required-documents');
 Route::get('/recruitment-process', [DynamicPageController::class,'recruitmentProcess'])->name('recruitment-process');
+// Route::get('/categories', [DynamicPageController::class,'categories'])->name('dynamic-categories');
+ Route::get('/categories', [PagesController::class,'categories'])->name('dynamic-categories');
