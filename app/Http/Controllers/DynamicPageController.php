@@ -40,13 +40,13 @@ class DynamicPageController extends Controller
     public function requiredDocuments()
     {
         $content = Page::where('slug', 'required-documents')->firstOrFail();
-        return view('raw-dynamic', compact('content'));
+        return view('frontend.pages.required-documents', compact('content'));
     }
 
     public function recruitmentProcess()
     {
         $content = Page::where('slug', 'recruitment-process')->firstOrFail();
-        return view('raw-dynamic', compact('content'));
+        return view('frontend.pages.recruitment-procedure', compact('content'));
     }
 
     public function ourClients()
