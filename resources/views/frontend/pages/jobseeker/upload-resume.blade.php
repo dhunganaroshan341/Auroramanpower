@@ -82,10 +82,7 @@
                                     <input type="text" name="experience" placeholder="Experience"
                                         value="{{ old('experience') }}" required>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="qualities" placeholder="Qualities / Strengths"
-                                        value="{{ old('qualities') }}">
-                                </div>
+
 
                                 <!-- Upload Resume -->
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
