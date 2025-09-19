@@ -90,7 +90,7 @@
                                         <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-24.png') }}"
                                                 alt="Upload Icon"></div>
                                         <input type="file" name="resume_file" accept=".pdf,.doc,.docx" required>
-                                        <button type="button">Upload CV</button>
+                                        <button type="button">Upload CV (pdf,word file)</button>
                                     </div>
                                 </div>
                             </div>
