@@ -1,86 +1,120 @@
 @extends('frontend.layouts.layout')
 
 @php
-    $css =
-        '
-        <link href="' .
-        asset('assets/css/module-css/page-title.css') .
-        '" rel="stylesheet">
-        <link href="' .
-        asset('assets/css/module-css/login.css') .
-        '" rel="stylesheet">
-        <link href="' .
-        asset('assets/css/module-css/subscribe.css') .
-        '" rel="stylesheet">
-        <link href="' .
-        asset('assets/css/module-css/footer.css') .
-        '" rel="stylesheet">
-    ';
     $title = 'Upload CV';
     $subTitle = 'Submit Your Profile';
+    $css =
+        '<link href="' .
+        asset('assets/css/module-css/page-title.css') .
+        '" rel="stylesheet">
+         <link href="' .
+        asset('assets/css/module-css/job.css') .
+        '" rel="stylesheet">
+         <link href="' .
+        asset('assets/css/module-css/subscribe.css') .
+        '" rel="stylesheet">
+         <link href="' .
+        asset('assets/css/module-css/footer.css') .
+        '" rel="stylesheet">';
 @endphp
 
 @section('content')
-    <section class="sign-section pt_110 pb_120">
-        <div class="pattern-layer" style="background-image: url('{{ asset('assets/images/shape/shape-25.png') }}')"></div>
+    <!-- Upload CV Form Section -->
+    <section class="job-form-section dark-section pt_110 pb_90">
         <div class="auto-container">
-            <div class="form-inner shadow-lg p-4 rounded bg-white mx-auto" style="max-width: 800px;">
-                <h3 class="mb-4 text-center">Submit Your Profile</h3>
-
-                <form method="post" action="{{ route('jobseeker.store') }}" enctype="multipart/form-data">
-                    @csrf
-
-                    @guest
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Full Name * </label>
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Email * </label>
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-                            </div>
-
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label">Phone * </label>
-                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
-                            </div>
-                        </div>
-                    @endguest
-
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Bio</label>
-                            <textarea class="form-control" name="bio" rows="3" required>{{ old('bio') }}</textarea>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Skills</label>
-                            <textarea class="form-control" name="skills" rows="3" required>{{ old('skills') }}</textarea>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Experience</label>
-                            <textarea class="form-control" name="experience" rows="3" required>{{ old('experience') }}</textarea>
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Education</label>
-                            <textarea class="form-control" name="education" rows="3" required>{{ old('education') }}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Upload Resume (PDF, DOC, DOCX) </label>
-                        <input type="file" class="form-control" name="resume_file" accept=".pdf,.doc,.docx" required>
-                    </div>
-
-                    <div class="form-group text-center">
-                        <button type="submit" class="theme-btn btn-one px-5">Submit CV</button>
-                    </div>
-                </form>
+            <!-- Section Title -->
+            <div class="sec-title centred pb_70 sec-title-animation animation-style2">
+                <span class="sub-title mb_10 title-animation">SHARE YOUR PROFILE</span>
+                <h2 class="title-animation">Upload Your CV</h2>
+                <p class="title-animation">Provide your details and CV so we can match you with suitable opportunities.</p>
             </div>
+
+            <form method="post" action="{{ route('jobseeker.store') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row clearfix">
+
+                    <!-- Basic Information -->
+                    <div class="col-lg-6 col-md-12 col-sm-12 form-column">
+                        <div class="form-inner">
+                            <div class="title-box">
+                                <div class="icon-box"><i class="icon-39"></i></div>
+                                <h3>Basic Information</h3>
+                                <p>Enter your personal details below.</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="name" placeholder="Full Name" value="{{ old('name') }}"
+                                        required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
+                                        required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}"
+                                        required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="address" placeholder="Address" value="{{ old('address') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education & Skills -->
+                    <div class="col-lg-6 col-md-12 col-sm-12 form-column">
+                        <div class="form-inner">
+                            <div class="title-box">
+                                <div class="icon-box"><i class="icon-40"></i></div>
+                                <h3>Education & Skills</h3>
+                                <p>Provide your education, experience, and skills.</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="education" placeholder="Education"
+                                        value="{{ old('education') }}" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="skills" placeholder="Skills" value="{{ old('skills') }}"
+                                        required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="experience" placeholder="Experience"
+                                        value="{{ old('experience') }}" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="qualities" placeholder="Qualities / Strengths"
+                                        value="{{ old('qualities') }}">
+                                </div>
+
+                                <!-- Upload Resume -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <div class="upload-box">
+                                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-24.png') }}"
+                                                alt="Upload Icon"></div>
+                                        <input type="file" name="resume_file" accept=".pdf,.doc,.docx" required>
+                                        <button type="button">Upload CV</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 form-column">
+                        <div class="form-inner">
+                            <div class="form-group">
+                                <textarea name="bio" placeholder="Additional Information..." rows="4">{{ old('bio') }}</textarea>
+                            </div>
+                            <div class="form-group message-btn centred">
+                                <button type="submit" class="theme-btn btn-one">Submit CV</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </section>
+    <!-- Upload CV Form Section End -->
 @endsection

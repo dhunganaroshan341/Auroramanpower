@@ -56,17 +56,15 @@
                                 <li><a href="{{ route('jobs') }}">Vacancies</a></li>
                                 <li><a href="{{ route('index') }}">Credentials</a></li>
                                 <li><a href="{{ route('blog') }}">Blog</a></li>
-                                <li><a href="{{ route('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
                 <div class="menu-right-content">
-                    <div class="search-btn mr_20">
-                        <button class="search-toggler"><i class="icon-1"></i></button>
+
+                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">upload CV</a></div>
+                    <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
                     </div>
-                    <div class="link-box mr_20"><a href="{{ route('login') }}">Log In</a></div>
-                    <div class="btn-box"><a href="{{ route('index') }}" class="theme-btn btn-one">Get Started</a></div>
                 </div>
             </div>
         </div>

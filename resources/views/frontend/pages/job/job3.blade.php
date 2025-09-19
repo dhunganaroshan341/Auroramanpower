@@ -122,13 +122,13 @@
 
 
             <!-- Table View -->
-            <div id="tableView" class="pt_30 d-none">
+            <div id="tableView" class="pt_30">
                 <div class="text-box mb-3">
                     <h2>Job <span>Listings</span></h2>
                 </div>
-                <div class="table-responsive mb-5">
+                <div class="mb-5">
                     <table id="jobsTable" class="table table-bordered text-center align-middle"
-                        style="border-color: var(--secondary-color);">
+                        style="border-color: var(--secondary-color); width: 100%;">
                         <thead>
                             <tr>
                                 <th>Country</th>
@@ -164,6 +164,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- job-section end -->
