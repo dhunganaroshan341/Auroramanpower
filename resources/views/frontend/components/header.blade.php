@@ -56,7 +56,7 @@
                                         <li><a href="{{ route('company-overview') }}">Company Overview</a></li>
                                         <li><a href="{{ route('message-from-chairman') }}">Message from Chairman</a>
                                         </li>
-                                        <li><a href="{{ route('lisence-certificates') }}">License & Certificates</a>
+                                        <li><a href="{{ route('license-certificates') }}">License & Certificates</a>
                                         </li>
                                         <li><a href="{{ route('orginazational-chart') }}">Organizational Chart</a>
                                         </li>
