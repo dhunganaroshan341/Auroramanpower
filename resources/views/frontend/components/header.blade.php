@@ -53,11 +53,13 @@
                                 <li class="dropdown">
                                     <a href="{{ route('about') }}">About</a>
                                     <ul class="submenu">
-                                        <li><a href="{{ route('companyOverview') }}">Company Overview</a></li>
-                                        <li><a href="{{ route('chairmanMessage') }}">Message from Chairman</a></li>
-                                        <li><a href="{{ route('licenseCertificates') }}">License & Certificates</a>
+                                        <li><a href="{{ route('company-overview') }}">Company Overview</a></li>
+                                        <li><a href="{{ route('message-from-chairman') }}">Message from Chairman</a>
                                         </li>
-                                        <li><a href="{{ route('organizationalChart') }}">Organizational Chart</a></li>
+                                        <li><a href="{{ route('lisence-certificates') }}">License & Certificates</a>
+                                        </li>
+                                        <li><a href="{{ route('orginazational-chart') }}">Organizational Chart</a>
+                                        </li>
                                     </ul>
                                 </li>
 
