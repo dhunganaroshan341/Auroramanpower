@@ -58,7 +58,7 @@
                                         </li>
                                         <li><a href="{{ route('license-certificates') }}">License & Certificates</a>
                                         </li>
-                                        <li><a href="{{ route('orginazational-chart') }}">Organizational Chart</a>
+                                        <li><a href="{{ route('organizational-chart') }}">Organizational Chart</a>
                                         </li>
                                     </ul>
                                 </li>
