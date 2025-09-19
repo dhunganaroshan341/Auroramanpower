@@ -62,17 +62,28 @@
                     </div>
 
                     <!-- Education & Skills -->
+                    <!-- Education & Skills -->
                     <div class="col-lg-6 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
                             <div class="title-box mb-4">
-                                <div class="icon-box mb-2">
-                                    <i class="fas fa-graduation-cap fa-lg text-white"></i>
-                                </div>
                                 <h3>Education & Skills</h3>
                                 <p class="text-muted">Provide your education, experience, and skills.</p>
                             </div>
 
                             <div class="row clearfix g-3">
+                                <!-- Upload Resume (Main Emphasis) -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                    <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
+                                    <div
+                                        class="upload-box d-flex align-items-center border rounded p-3 bg-primary text-white">
+                                        <i class="fas fa-upload fa-2x me-3"></i>
+                                        <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
+                                            required class="form-control-file flex-grow-1">
+                                        <span class="btn btn-light ms-3">Choose File</span>
+                                    </div>
+                                    <small class="form-text text-light">Accepted formats: PDF, Word (.doc, .docx)</small>
+                                </div>
+
                                 <!-- Education -->
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="education" placeholder="Education"
@@ -87,24 +98,14 @@
 
                                 <!-- Experience -->
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="experience" placeholder="2 years"
+                                    <input type="text" name="experience" placeholder="Experience: 2 years"
                                         value="{{ old('experience') }}" class="form-control" required>
                                 </div>
 
-                                <!-- Upload Resume (Main Emphasis) -->
-                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                    <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
-                                    <div class=" icon-box upload-box d-flex align-items-center border rounded p-3 bg-light">
-                                        <i class="fas fa-upload fa-2x  me-3"></i>
-                                        <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
-                                            required class="form-control-file flex-grow-1">
-                                        <span class="btn btn-white ms-3">Choose File</span>
-                                    </div>
-                                    <small class="form-text text-muted">Accepted formats: PDF, Word (.doc, .docx)</small>
-                                </div>
                             </div>
                         </div>
                     </div>
+
 
 
                     <!-- Additional Information -->
