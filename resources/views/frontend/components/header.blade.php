@@ -54,7 +54,14 @@
                                 <li><a href="{{ route('dynamic-categories') }}">Category</a></li>
                                 <li><a href="{{ route('hire') }}">Hire Workers</a></li>
                                 <li><a href="{{ route('jobs') }}">Vacancies</a></li>
-                                <li><a href="{{ route('index') }}">Credentials</a></li>
+                                <li class="dropdown">
+                                    <a href="{{ route('index') }}">Procedures</a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ route('required-documents') }}">Required Documents</a></li>
+                                        <li><a href="{{ route('recruitment-process') }}">Recruitment Process</a></li>
+                                    </ul>
+                                </li>
+
                                 <li><a href="{{ route('blog') }}">Blog</a></li>
                             </ul>
                         </div>
