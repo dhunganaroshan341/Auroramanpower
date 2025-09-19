@@ -10,8 +10,8 @@ class DynamicPageController extends Controller
     //
     public function companyOverview()
     {
-        $content = Page::where('slug', 'company-overview')->firstOrFail();
-        return view('frontend.dynamic-page', compact('content'));
+        // $content = Page::where('slug', 'company-overview')->firstOrFail();
+        return view('frontend.home.company-overview', compact('content'));
     }
  public function categories()
     {

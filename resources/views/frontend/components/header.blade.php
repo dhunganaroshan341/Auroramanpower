@@ -50,7 +50,17 @@
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
                                 <li class="homeCurrent"><a href="{{ route('index') }}">Home</a></li>
-                                <li><a href="{{ route('about') }}">About</a></li>
+                                <li class="dropdown">
+                                    <a href="{{ route('about') }}">About</a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ route('companyOverview') }}">Company Overview</a></li>
+                                        <li><a href="{{ route('chairmanMessage') }}">Message from Chairman</a></li>
+                                        <li><a href="{{ route('licenseCertificates') }}">License & Certificates</a>
+                                        </li>
+                                        <li><a href="{{ route('organizationalChart') }}">Organizational Chart</a></li>
+                                    </ul>
+                                </li>
+
                                 <li><a href="{{ route('dynamic-categories') }}">Category</a></li>
                                 <li><a href="{{ route('hire') }}">Hire Workers</a></li>
                                 <li><a href="{{ route('jobs') }}">Vacancies</a></li>
