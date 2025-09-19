@@ -1,5 +1,5 @@
     <!-- jequery plugins -->
-    <script src="{{ asset('assets/js/jquery.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/jquery.js') }}"></script> --}}
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/owl.js') }}"></script>
     <script src="{{ asset('assets/js/wow.js') }}"></script>
@@ -17,9 +17,9 @@
     <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('assets/js/lenis.min.js') }}"></script>
     <script src="{{ asset('assets/js/odometer.js') }}"></script>
-    <?php echo (isset($script) ? $script   : '')?>
+    <?php echo isset($script) ? $script : ''; ?>
     <script src="{{ asset('assets/js/jquery.lettering.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.circleType.js') }}"></script>
-    
+
     <!-- main-js -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
