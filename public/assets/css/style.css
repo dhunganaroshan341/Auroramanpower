@@ -79,7 +79,15 @@
 }
 
 
+.bg-theme-primary{
+    background-color: var(--theme-color) !important;
+    color: #fff !important;
+}
 
+.bg-theme-secondary{
+    background-color: var(--secondary-color) !important;
+    color: #fff !important;
+}
 
 
 body {
