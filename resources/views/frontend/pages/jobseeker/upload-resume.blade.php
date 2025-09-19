@@ -66,7 +66,7 @@
                         <div class="form-inner">
                             <div class="title-box mb-4">
                                 <div class="icon-box mb-2">
-                                    <i class="fas fa-graduation-cap fa-lg text-primary"></i>
+                                    <i class="fas fa-graduation-cap fa-lg text-white"></i>
                                 </div>
                                 <h3>Education & Skills</h3>
                                 <p class="text-muted">Provide your education, experience, and skills.</p>
@@ -95,10 +95,10 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
                                     <div class="upload-box d-flex align-items-center border rounded p-3 bg-light">
-                                        <i class="fas fa-upload fa-2x text-primary me-3"></i>
+                                        <i class="fas fa-upload fa-2x text-white me-3"></i>
                                         <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
                                             required class="form-control-file flex-grow-1">
-                                        <span class="btn btn-primary ms-3">Choose File</span>
+                                        <span class="btn btn-white ms-3">Choose File</span>
                                     </div>
                                     <small class="form-text text-muted">Accepted formats: PDF, Word (.doc, .docx)</small>
                                 </div>
