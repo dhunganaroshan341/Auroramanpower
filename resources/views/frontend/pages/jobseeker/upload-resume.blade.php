@@ -75,11 +75,11 @@
                                         value="{{ old('education') }}" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="skills" placeholder="Skills" value="{{ old('skills') }}"
-                                        required>
+                                    <input type="text" name="skills" placeholder="IT,Doctor,Carpenter,Engineer"
+                                        value="{{ old('skills') }}" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="experience" placeholder="Experience"
+                                    <input type="text" name="experience" placeholder="2years"
                                         value="{{ old('experience') }}" required>
                                 </div>
 
