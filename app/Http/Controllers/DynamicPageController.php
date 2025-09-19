@@ -33,19 +33,24 @@ class DynamicPageController extends Controller
 
     public function organizationalChart()
     {
-        $content = Page::where('slug', 'organizational-chart')->firstOrFail();
+        // $content = Page::where('slug', 'organizational-chart')->firstOrFail();
+        $content = "hello";
+
         return view('frontend.dynamic-page', compact('content'));
     }
 
     public function requiredDocuments()
     {
-        $content = Page::where('slug', 'required-documents')->firstOrFail();
+        // $content = Page::where('slug', 'required-documents')->firstOrFail();
+        $content = "hello";
         return view('frontend.pages.required-documents', compact('content'));
     }
 
     public function recruitmentProcess()
     {
-        $content = Page::where('slug', 'recruitment-process')->firstOrFail();
+        // $content = Page::where('slug', 'recruitment-process')->firstOrFail();
+        $content = "hello";
+
         return view('frontend.pages.recruitment-procedure', compact('content'));
     }
 
