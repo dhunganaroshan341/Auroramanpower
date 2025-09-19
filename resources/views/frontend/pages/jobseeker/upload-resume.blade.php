@@ -94,8 +94,8 @@
                                 <!-- Upload Resume (Main Emphasis) -->
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <label for="resume_file" class="form-label fw-bold">Upload Your CV</label>
-                                    <div class="upload-box d-flex align-items-center border rounded p-3 bg-light">
-                                        <i class="fas fa-upload fa-2x text-white me-3"></i>
+                                    <div class=" icon-box upload-box d-flex align-items-center border rounded p-3 bg-light">
+                                        <i class="fas fa-upload fa-2x  me-3"></i>
                                         <input type="file" id="resume_file" name="resume_file" accept=".pdf,.doc,.docx"
                                             required class="form-control-file flex-grow-1">
                                         <span class="btn btn-white ms-3">Choose File</span>
