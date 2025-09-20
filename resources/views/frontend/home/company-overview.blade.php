@@ -42,10 +42,10 @@
                 </div>
                 <!-- Intro Image -->
                 <div class="col-lg-4 col-md-5 col-sm-12 text-center">
-                    <figure class="image-box">
+                    <div class="image-box">
                         <img src="{{ asset('assets/images/aurora_hr_office.jpg') }}" alt="Aurora HR Office"
                             class="img-fluid rounded shadow">
-                    </figure>
+                    </div>
                 </div>
             </div>
 
