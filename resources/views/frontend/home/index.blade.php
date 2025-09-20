@@ -417,7 +417,7 @@
                 <h2 class="title-animation">Services We Provide</h2>
             </div>
             <div class="row clearfix">
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-15"></i></div>
@@ -426,7 +426,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-11"></i></div>
@@ -435,7 +435,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-10"></i></div>
@@ -444,7 +444,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-11"></i></div>
@@ -453,7 +453,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-16"></i></div>
@@ -462,7 +462,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 industries-block">
+                <div class="col-lg-4 col-md-6 col-sm-12 industries-block">
                     <div class="industries-block-two">
                         <div class="inner-box">
                             <div class="icon-box"><i class="icon-11"></i></div>
