@@ -29,14 +29,26 @@
                     <div class="service-sidebar mr_40">
                         <div class="category-widget mb_40">
                             <ul class="category-list clearfix">
-                                <li><a href="{{ route('companyOverview') }}" class="current">Company Overview <i
-                                            class="icon-42"></i></a></li>
-                                <li><a href="{{ route('chairmanMessage') }}">Message from Chairman <i
-                                            class="icon-42"></i></a></li>
-                                <li><a href="{{ route('licenseCertificates') }}">License & Certificates <i
-                                            class="icon-42"></i></a></li>
-                                <li><a href="{{ route('organizationalChart') }}">Organizational Chart <i
-                                            class="icon-42"></i></a></li>
+                                <li><a href="{{ route('company-overview') }}"
+                                        class="{{ request()->routeIs('company-overview') ? 'current' : '' }}">
+                                        Company Overview <i class="icon-42"></i></a>
+                                </li>
+
+                                <li><a href="{{ route('message-from-chairman') }}"
+                                        class="{{ request()->routeIs('message-from-chairman') ? 'current' : '' }}">
+                                        Message from Chairman <i class="icon-42"></i></a>
+                                </li>
+
+                                <li><a href="{{ route('license-certificates') }}"
+                                        class="{{ request()->routeIs('license-certificates') ? 'current' : '' }}">
+                                        License & Certificates <i class="icon-42"></i></a>
+                                </li>
+
+                                <li><a href="{{ route('organizational-chart') }}"
+                                        class="{{ request()->routeIs('organizational-chart') ? 'current' : '' }}">
+                                        Organizational Chart <i class="icon-42"></i></a>
+                                </li>
+
                             </ul>
                         </div>
                         <div class="download-widget">
