@@ -87,21 +87,49 @@
                         </figure>
 
                         <!-- Mission & Vision -->
-                        <div class="row mb_70">
+                        <div class="row mb-5">
+                            <!-- Mission -->
                             <div class="col-md-6 mb-4">
-                                <div class="card text-center p-4 h-100 shadow-sm">
-                                    <h4 class="mb-3">Our Mission</h4>
-                                    <p>To provide distinctive services by connecting screened, shortlisted, and deserving
-                                        candidates with reputed employers, ensuring cost-effective and value-added services
-                                        that maintain market goodwill and brand reputation.</p>
+                                <div class="card text-center shadow border-0 h-100">
+                                    <div class="card-body p-5">
+                                        <div class="mb-3">
+                                            <span
+                                                class="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle"
+                                                style="width:60px;height:60px;">
+                                                <i class="fa fa-bullseye fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="fw-bold mb-3">Our Mission</h4>
+                                        <p class="text-muted">
+                                            To provide distinctive services by connecting screened, shortlisted, and
+                                            deserving
+                                            candidates with reputed employers, ensuring cost-effective and value-added
+                                            services
+                                            that maintain market goodwill and brand reputation.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Vision -->
                             <div class="col-md-6 mb-4">
-                                <div class="card text-center p-4 h-100 shadow-sm">
-                                    <h4 class="mb-3">Our Vision</h4>
-                                    <p>To build reliable connections abroad and help address unemployment in Nepal, while
-                                        deploying potential Nepali manpower to the best international employers worldwide.
-                                    </p>
+                                <div class="card text-center shadow border-0 h-100">
+                                    <div class="card-body p-5">
+                                        <div class="mb-3">
+                                            <span
+                                                class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
+                                                style="width:60px;height:60px;">
+                                                <i class="fa fa-lightbulb-o fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="fw-bold mb-3">Our Vision</h4>
+                                        <p class="text-muted">
+                                            To build reliable connections abroad and help address unemployment in Nepal,
+                                            while
+                                            deploying potential Nepali manpower to the best international employers
+                                            worldwide.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
