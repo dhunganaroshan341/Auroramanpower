@@ -119,7 +119,7 @@
                                             <span
                                                 class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
                                                 style="width:60px;height:60px;">
-                                                <i class="fa fa-lightbulb-o fa-lg"></i>
+                                                <i class="fas fa-eye fa-lg"></i>
                                             </span>
                                         </div>
                                         <h4 class="fw-bold mb-3">Our Vision</h4>
