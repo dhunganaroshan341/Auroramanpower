@@ -72,6 +72,10 @@
                         <div class="mb-4 d-flex gap-3">
                             <button class="theme-btn toggle-btn active" id="imageViewBtn">Job Openings</button>
                             <button class="theme-btn toggle-btn" id="descriptionViewBtn">More Detail</button>
+                            <button class="theme-btn toggle-btn" id="descriptionViewBtn">
+                                Apply Now <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+
                         </div>
 
                         <!-- Image View -->
