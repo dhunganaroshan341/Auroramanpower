@@ -17,7 +17,7 @@ class PagesController extends Controller
     }
     public function job()
     {
-        return view('frontend.pages/job/job');
+        return view('frontend.pages/job/hire');
     }
     public function job2()
     {

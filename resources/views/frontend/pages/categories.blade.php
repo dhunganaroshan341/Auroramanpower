@@ -38,7 +38,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}" alt="Logistics">
+                                <figure class="image"><img src="{{ asset('assets/images/logistic.jpg') }}" alt="Logistics">
                                 </figure>
                             </div>
                             <div class="lower-content">
