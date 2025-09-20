@@ -38,7 +38,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-1.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Logistics"></figure>
                             </div>
                             <div class="lower-content">
@@ -54,7 +54,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-2.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Construction Engineer"></figure>
                             </div>
                             <div class="lower-content">
@@ -71,7 +71,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-3.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Hospitality"></figure>
                             </div>
                             <div class="lower-content">
@@ -88,7 +88,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-4.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Technician"></figure>
                             </div>
                             <div class="lower-content">
@@ -105,7 +105,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-5.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Security Guards"></figure>
                             </div>
                             <div class="lower-content">
@@ -121,7 +121,7 @@
                     <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/service/service-6.jpg') }}"
+                                <figure class="image"><img src="{{ asset('assets/images/architect.png') }}"
                                         alt="Manufacturing"></figure>
                             </div>
                             <div class="lower-content">
