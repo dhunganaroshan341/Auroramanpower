@@ -2,7 +2,7 @@
 
 @php
     $title = 'Place Your Job';
-    $subTitle = 'Place Your Job';
+    $subTitle = 'Hire';
     $css =
         '<link href="' .
         asset('assets/css/module-css/header.css') .
