@@ -83,7 +83,7 @@
                         </div>
 
                         <figure class="image-box mb_30">
-                            <img src="{{ asset('assets/images/company/company-overview.jpg') }}" alt="Aurora HR Office">
+                            <img src="{{ asset('assets/images/aurora_hr_office.jpg') }}" alt="Aurora HR Office">
                         </figure>
 
                         <!-- Mission & Vision -->
