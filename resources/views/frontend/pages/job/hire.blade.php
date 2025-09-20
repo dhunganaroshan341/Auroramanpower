@@ -31,55 +31,6 @@
 @endphp
 
 @section('content')
-    <!-- about-style-three -->
-    <section class="about-style-three about-style-five">
-        <div class="auto-container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 col-sm-12 video-column">
-                    <div class="video_block_two">
-                        <div class="video-box p_relative pb_100 pr_150 mr_30">
-                            <figure class="image image-1"><img src="{{ asset('assets/images/resource/about-1.jpg') }}"
-                                    alt=""></figure>
-                            <figure class="image image-2 z_1 p_absolute r_0 b_0"><img
-                                    src="{{ asset('assets/images/resource/about-2.jpg') }}" alt=""></figure>
-                            <div class="shape"
-                                style="background-image: url('{{ asset('assets/images/shape/shape-22.png') }}')"></div>
-                            <div class="video-content">
-                                <div class="curve-text z_2">
-                                    <span
-                                        class="curved-circle">watch&nbsp;&nbsp;the&nbsp;&nbsp;video&nbsp;&nbsp;right&nbsp;&nbsp;now&nbsp;&nbsp;</span>
-                                </div>
-                                <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
-                                    class="lightbox-image video-btn" data-caption=""><i class="icon-8"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                    <div class="content_block_one">
-                        <div class="content-box mr_80">
-                            <div class="sec-title pb_20">
-                                <span class="sub-title mb_10">Hire Talents with Aurora HR</span>
-                                <h2>Get Skilled Professionals Fast</h2>
-                            </div>
-                            <div class="text-box">
-                                <p>
-                                    Aurora HR connects you with vetted professionals from Nepal and abroad.
-                                    Fill out the form below to request talents or collaborate with us.
-                                </p>
-                            </div>
-                            <div class="btn-box">
-                                <a href="#job-form-section" class="theme-btn btn-one"><span>Hire Now</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- about-style-three end -->
-
     <!-- job-form-section -->
     <section class="job-form-section pt_120 pb_120">
         <div class="auto-container">
@@ -184,8 +135,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                            <input type="text" name="post" placeholder="Position hiring for"
-                                                required>
+                                            <input type="text" name="post" placeholder="Position hiring for" required>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                             <div class="select-box">
