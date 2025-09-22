@@ -4,36 +4,36 @@ $(document).ready(function () {
     });
 
     // Data Table
-    var table = $("#show-job-data").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "/admin/jobs",
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-       order: [[1, 'asc']],
+ var table = $("#show-job-data").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "/admin/jobs",
+    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    order: [[1, 'asc']],   // ✅ fixed
+    columns: [
+        { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+        { data: "image", name: "image", orderable: false, searchable: false },
+        { data: "title", name: "title" },
+        { data: "employer", name: "employer.name" },
+        { data: "location", name: "location" },
+        { data: "salary", name: "salary" },
+        { data: "status", name: "status", orderable: false, searchable: false },
+        { data: "action", name: "action", orderable: false, searchable: false }
+    ],
+    buttons: [
+        {
+            extend: 'print',
+            exportOptions: { columns: [0, 2, 3, 4, 5, 6] }
+        },
+        {
+            extend: 'excel',
+            title: '',
+            exportOptions: { columns: [0, 2, 3, 4, 5, 6] }
+        }
+    ],
+    dom: '<"toolbar">Blfrtip'
+});
 
-        columns: [
-            { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
-            { data: "image", name: "image", orderable: false, searchable: false },
-            { data: "title", name: "title" },
-            { data: "employer", name: "employer.name" },
-            { data: "location", name: "location" },
-            { data: "salary", name: "salary" },
-            { data: "status", name: "status", orderable: false, searchable: false },
-            { data: "action", name: "action", orderable: false, searchable: false }
-        ],
-        dom: 'Blfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                exportOptions: { columns: [0, 2, 3, 4, 5, 6] }
-            }, {
-                extend: 'excel',
-                title: '',
-                exportOptions: { columns: [0, 2, 3, 4, 5, 6] }
-            }
-        ],
-        dom: '<"toolbar">lfrtip',
-    });
 
     $("div.toolbar").html(`
         <span id="btnPrint" class="btn btn-primary mdi mdi-printer mdi-icon"></span>
