@@ -46,13 +46,17 @@ $(document).ready(function () {
     }
 
     // ========== ADD JOB ==========
-    $(document).on("click", ".addJobBtn", function () {
-        clearModal();
-        $("#JobFormModal").modal("show");
-        $(".submitBtn").show();
-        $(".updateBtn").hide();
-        $("#JobFormModal form").attr("id", "addForm");
-    });
+ $(document).on("click", ".addJobBtn", function () {
+    clearModal();
+    $(".submitBtn").show();
+    $(".updateBtn").hide();
+    $("#JobFormModal form").attr("id", "addForm");
+
+    // Show modal using Bootstrap 5 API
+    var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
+    jobModal.show();
+});
+
 
     $(document).off("submit", "#addForm").on("submit", "#addForm", function (e) {
         e.preventDefault();
