@@ -1,5 +1,7 @@
 @extends('Admin.layout.master')
 @section('content')
+    @include('Admin.pages.Job.jobModal')
+
     <div class="container-fluid">
         <button class="btn btn-primary addJobBtn mb-4 mt-4">Add Job</button>
 
@@ -20,5 +22,4 @@
             </table>
         </div>
     </div>
-    @include('Admin.pages.Job.jobModal')
 @endsection
