@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <button class="btn btn-primary addJobBtn mb-4 mt-4">Add Job</button>
-        @include('Admin.pages.Job.jobModal')
+
 
         <div class="table-responsive">
             <table class="table table-striped" id="show-job-data">
@@ -20,4 +20,5 @@
             </table>
         </div>
     </div>
+    @include('Admin.pages.Job.jobModal')
 @endsection
