@@ -15,36 +15,13 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+public function index(Request $request)
 {
     if ($request->ajax()) {
-        $search = $request->input('search.value');
-        $columns = $request->input('columns');
-        $pageSize = $request->input('length');
-        $order = $request->input('order')[0];
-        $orderColumnIndex = $order['column'];
-        $orderBy = $order['dir'];
-        $start = $request->input('start');
-
         $jobs = Job::query();
 
-        // Apply search
-        if ($search) {
-            $jobs->where(function ($query) use ($search) {
-                $query->where('title', 'LIKE', "%$search%")
-                      ->orWhere('salary', 'LIKE', "%$search%");
-            });
-        }
-
-        // Apply ordering and pagination
-        $jobs = $jobs
-            ->orderBy($columns[$orderColumnIndex]['data'], $orderBy)
-            ->offset($start)
-            ->limit($pageSize)
-            ->get();
-
-        return DataTables::of($jobs)
-            ->addIndexColumn()
+        return DataTables::eloquent($jobs)
+            ->addIndexColumn() // DT_RowIndex
             ->addColumn('action', function ($data) {
                 return view('Admin.Button.button', compact('data'))->render();
             })
@@ -54,7 +31,7 @@ class JobController extends Controller
                 return '<img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'"/>';
             })
             ->addColumn('status', function ($status) {
-                $checked = $status->status == 'Active' ? 'checked' : '';
+                $checked = $status->status === 'Active' ? 'checked' : '';
                 return '<div class="form-check form-switch">
                     <input class="form-check-input statusIdData d-flex mx-auto"
                            type="checkbox" data-id="' . $status->id . '" role="switch" ' . $checked . '>
@@ -64,6 +41,7 @@ class JobController extends Controller
             ->make(true);
     }
 
+    // Extra JS & CSS files
     $extraJs = array_merge(
         config('js-map.admin.datatable.script'),
         config('js-map.admin.summernote.script'),
@@ -81,6 +59,7 @@ class JobController extends Controller
         'extraCs' => $extraCs
     ]);
 }
+
 
 
     /**
