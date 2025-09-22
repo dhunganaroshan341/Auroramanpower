@@ -1,19 +1,21 @@
 $(document).ready(function () {
-
-
     // Summernote Init
     $(".summernote").summernote({ height: 300 });
-// ========== ADD JOB ==========
- $(document).on("click", ".addJobBtn", function () {
-    clearModal();
-    $(".submitBtn").show();
-    $(".updateBtn").hide();
-    $("#JobFormModal form").attr("id", "addForm");
 
-    // Show modal using Bootstrap 5 API
+    // Bootstrap 5 Modal instance
     var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
-    jobModal.show();
-});
+
+    // ========== ADD JOB ==========
+    $(document).on("click", ".addJobBtn", function () {
+        clearModal();
+        $(".submitBtn").show();
+        $(".updateBtn").hide();
+        $("#JobFormModal form").attr("id", "addForm");
+
+        // Show modal
+        jobModal.show();
+    });
+
     // DataTable Init
     var table = $("#show-job-data").DataTable({
         processing: true,
@@ -54,17 +56,16 @@ $(document).ready(function () {
         $("#validationErrors").addClass("d-none").html("");
         $("#jobDescription").summernote("code", "");
         $("#jobRequirements").summernote("code", "");
-        $("#JobFormModal form")[0].reset(); // ✅ safe reset
+        $("#JobFormModal form")[0].reset();
     }
 
-
-
-
+    // ========== SUBMIT ADD FORM ==========
     $(document).off("submit", "#addForm").on("submit", "#addForm", function (e) {
         e.preventDefault();
         $(".submitBtn").prop("disabled", true);
 
         let formdata = new FormData(this);
+        formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
 
         $.ajax({
             type: "POST",
@@ -76,7 +77,7 @@ $(document).ready(function () {
                 if (res.success) {
                     Swal.fire({ icon: "success", title: "Success", text: "Job Created", showConfirmButton: false, timer: 1000 });
                     table.draw();
-                    $("#JobFormModal").modal("hide");
+                    jobModal.hide();
                 } else {
                     Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
                 }
@@ -97,13 +98,13 @@ $(document).ready(function () {
     // ========== EDIT JOB ==========
     $(document).on("click", ".editJobButton", function () {
         clearModal();
-        $("#JobFormModal").modal("show");
         $(".submitBtn").hide();
         $(".updateBtn").show();
         $("#JobFormModal form").attr("id", "updateForm");
 
         var id = $(this).data("id");
 
+        // Load job
         $.get("/admin/jobs/" + id, function (res) {
             $("#title").val(res.message.title);
             $("#location").val(res.message.location);
@@ -119,6 +120,9 @@ $(document).ready(function () {
             if (res.message.pdf) {
                 $("#jobPdf").html(`<a href="/uploads/${res.message.pdf}" target="_blank" class="btn btn-sm btn-info">View PDF</a>`);
             }
+
+            // Show modal after data loaded
+            jobModal.show();
         });
 
         // submit update
@@ -127,7 +131,8 @@ $(document).ready(function () {
             $(".updateBtn").prop("disabled", true);
 
             let formdata = new FormData(this);
-            formdata.append("_method", "PUT"); // ✅ important for Laravel
+            formdata.append("_method", "PUT");
+            formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
 
             $.ajax({
                 type: "POST",
@@ -139,7 +144,7 @@ $(document).ready(function () {
                     if (res.success) {
                         Swal.fire({ icon: "success", title: "Updated", showConfirmButton: false, timer: 1000 });
                         table.draw();
-                        $("#JobFormModal").modal("hide");
+                        jobModal.hide();
                     } else {
                         Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
                     }
