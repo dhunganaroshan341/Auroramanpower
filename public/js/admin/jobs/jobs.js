@@ -42,16 +42,16 @@ $(document).ready(function () {
         $("#validationErrors").addClass("d-none").html("");
         $("#jobDescription").summernote("code", "");
         $("#jobRequirements").summernote("code", "");
-        $("#formModal form")[0].reset(); // ✅ safe reset
+        $("#JobFormModal form")[0].reset(); // ✅ safe reset
     }
 
     // ========== ADD JOB ==========
     $(document).on("click", ".addJobBtn", function () {
         clearModal();
-        $("#formModal").modal("show");
+        $("#JobFormModal").modal("show");
         $(".submitBtn").show();
         $(".updateBtn").hide();
-        $("#formModal form").attr("id", "addForm");
+        $("#JobFormModal form").attr("id", "addForm");
     });
 
     $(document).off("submit", "#addForm").on("submit", "#addForm", function (e) {
@@ -70,7 +70,7 @@ $(document).ready(function () {
                 if (res.success) {
                     Swal.fire({ icon: "success", title: "Success", text: "Job Created", showConfirmButton: false, timer: 1000 });
                     table.draw();
-                    $("#formModal").modal("hide");
+                    $("#JobFormModal").modal("hide");
                 } else {
                     Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
                 }
@@ -91,10 +91,10 @@ $(document).ready(function () {
     // ========== EDIT JOB ==========
     $(document).on("click", ".editJobButton", function () {
         clearModal();
-        $("#formModal").modal("show");
+        $("#JobFormModal").modal("show");
         $(".submitBtn").hide();
         $(".updateBtn").show();
-        $("#formModal form").attr("id", "updateForm");
+        $("#JobFormModal form").attr("id", "updateForm");
 
         var id = $(this).data("id");
 
@@ -133,7 +133,7 @@ $(document).ready(function () {
                     if (res.success) {
                         Swal.fire({ icon: "success", title: "Updated", showConfirmButton: false, timer: 1000 });
                         table.draw();
-                        $("#formModal").modal("hide");
+                        $("#JobFormModal").modal("hide");
                     } else {
                         Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
                     }
