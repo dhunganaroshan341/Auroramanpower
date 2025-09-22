@@ -1,7 +1,19 @@
 $(document).ready(function () {
+
+
     // Summernote Init
     $(".summernote").summernote({ height: 300 });
+// ========== ADD JOB ==========
+ $(document).on("click", ".addJobBtn", function () {
+    clearModal();
+    $(".submitBtn").show();
+    $(".updateBtn").hide();
+    $("#JobFormModal form").attr("id", "addForm");
 
+    // Show modal using Bootstrap 5 API
+    var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
+    jobModal.show();
+});
     // DataTable Init
     var table = $("#show-job-data").DataTable({
         processing: true,
@@ -45,17 +57,7 @@ $(document).ready(function () {
         $("#JobFormModal form")[0].reset(); // ✅ safe reset
     }
 
-    // ========== ADD JOB ==========
- $(document).on("click", ".addJobBtn", function () {
-    clearModal();
-    $(".submitBtn").show();
-    $(".updateBtn").hide();
-    $("#JobFormModal form").attr("id", "addForm");
 
-    // Show modal using Bootstrap 5 API
-    var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
-    jobModal.show();
-});
 
 
     $(document).off("submit", "#addForm").on("submit", "#addForm", function (e) {
