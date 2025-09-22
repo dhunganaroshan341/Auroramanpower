@@ -9,7 +9,8 @@ $(document).ready(function () {
         serverSide: true,
         ajax: "/admin/jobs",
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        order: [1, 'asc'],
+       order: [[1, 'asc']],
+
         columns: [
             { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
             { data: "image", name: "image", orderable: false, searchable: false },
