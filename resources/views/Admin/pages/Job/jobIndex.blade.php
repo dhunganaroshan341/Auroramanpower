@@ -8,12 +8,13 @@
             <table class="table table-striped" id="show-job-data">
                 <thead>
                     <tr>
-                        <th scope="col">S.N</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Salary</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th>S.N</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Salary</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
             </table>

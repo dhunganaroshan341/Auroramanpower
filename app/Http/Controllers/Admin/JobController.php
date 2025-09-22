@@ -27,62 +27,61 @@ class JobController extends Controller
         $start = $request->input('start');
 
         $jobs = Job::query();
-        $totalJobs = $jobs->count();
 
-        // search
-        $searchJobs = $jobs->when($search, function ($query) use ($search) {
-            $query->where('title', 'LIKE', "%$search%")
-                ->orWhere('salary', 'LIKE', "%$search%");
-        });
+        // Apply search
+        if ($search) {
+            $jobs->where(function ($query) use ($search) {
+                $query->where('title', 'LIKE', "%$search%")
+                      ->orWhere('salary', 'LIKE', "%$search%");
+            });
+        }
 
-        $searchCount = $searchJobs->count();
-
-        $response = $searchJobs->orderBy($columns[$orderColumnIndex]['data'], $orderBy)
+        // Apply ordering and pagination
+        $jobs = $jobs
+            ->orderBy($columns[$orderColumnIndex]['data'], $orderBy)
             ->offset($start)
-            ->limit($pageSize);
+            ->limit($pageSize)
+            ->get();
 
-        return DataTables::of($response)
+        return DataTables::of($jobs)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-                return view('Admin.Button.button', compact('data'));
+                return view('Admin.Button.button', compact('data'))->render();
             })
             ->addColumn('image', function ($item) {
                 $dataimage = asset('uploads/' . $item->image);
                 $defaultImage = asset('defaultImage/defaultimage.webp');
-                return '<td class="py-1">
-                    <img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'"/>
-                </td>';
+                return '<img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'"/>';
             })
             ->addColumn('status', function ($status) {
                 $checked = $status->status == 'Active' ? 'checked' : '';
                 return '<div class="form-check form-switch">
-                    <input class="form-check-input statusIdData d-flex mx-auto" type="checkbox" data-id="' . $status->id . '" role="switch" ' . $checked . '>
+                    <input class="form-check-input statusIdData d-flex mx-auto"
+                           type="checkbox" data-id="' . $status->id . '" role="switch" ' . $checked . '>
                 </div>';
             })
-            ->with('recordsTotal', $totalJobs)
-            ->with('recordsFiltered', $searchCount)
-
             ->rawColumns(['action', 'image', 'status'])
             ->make(true);
     }
 
-   $extraJs = array_merge(
-            config('js-map.admin.datatable.script'),
-            config('js-map.admin.summernote.script'),
-            config('js-map.admin.buttons.script'),
-        );
+    $extraJs = array_merge(
+        config('js-map.admin.datatable.script'),
+        config('js-map.admin.summernote.script'),
+        config('js-map.admin.buttons.script')
+    );
 
-        $extraCs = array_merge(
-            config('js-map.admin.datatable.style'),
-            config('js-map.admin.summernote.style'),
-            config('js-map.admin.buttons.style'),
-        );
+    $extraCs = array_merge(
+        config('js-map.admin.datatable.style'),
+        config('js-map.admin.summernote.style'),
+        config('js-map.admin.buttons.style')
+    );
 
     return view('Admin.pages.Job.jobIndex', [
         'extraJs' => $extraJs,
         'extraCs' => $extraCs
     ]);
 }
+
 
     /**
      * Store a newly created resource in storage.
