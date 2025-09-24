@@ -104,6 +104,13 @@
                             <h6 class="fw-bold mb-3">Vacancy Details</h6>
 
                             <div class="mb-3">
+                                <label for="vacancy_image" class="form-label">Vacancy Image</label>
+                                <input type="file" class="form-control" name="vacancy_image" id="vacancy_image"
+                                    accept="image/*">
+                                <div class="form-text">Upload an image related to this vacancy (optional).</div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="form-label">Description <span class="text-danger">*</span></label>
                                 <textarea name="description" class="form-control summernote" required></textarea>
                             </div>
