@@ -2,7 +2,8 @@
     aria-labelledby="jobModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="formId" class="form">
+            <form id="jobForm" class="form">
+                @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="jobModalTitle">Add Job</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,7 +14,7 @@
                         <span class="mt-2 mb-4"><span class="text-danger">Note:</span> (<span
                                 class="text-danger">*</span>) symbol represent that the field is required</span>
 
-                        @csrf
+
                         <div class="col-md-6">
                             <label class="form-label">Title<span class="text-danger">*</span></label>
                             <input type="text" name="title" id="title" class="form-control" placeholder="">
