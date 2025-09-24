@@ -78,9 +78,15 @@
                             <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
                                 data-bs-target="#applyJobModal">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
-
                                 Apply Now
                             </button>
+
+                            <!-- Smart Apply Note -->
+                            <p class="mt-2 small text-muted">
+                                🔑 Already have an account?
+                                <a href="{{ route('login') }}" class="text-decoration-underline">Login for Smart Apply</a>
+                            </p>
+
 
 
                         </div>
