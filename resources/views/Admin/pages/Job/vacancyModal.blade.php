@@ -78,6 +78,7 @@
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Category</label>
                                         <select name="category" class="form-select">
+                                            <option value="">Select Cateogry</option>
                                             <option value="factory">Factory</option>
                                             <option value="logistic">Logistic</option>
                                             <option value="construction">Construction</option>
