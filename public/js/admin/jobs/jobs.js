@@ -4,23 +4,71 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+s
     // Summernote Init
     $(".summernote").summernote({ height: 300 });
 
     // Bootstrap 5 Modal instance
     var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
 
-    // ========== ADD JOB ==========
-    $(document).on("click", ".addJobBtn", function () {
-        clearModal();
-        $(".submitBtn").show();
-        $(".updateBtn").hide();
-        $("#JobFormModal form").attr("id", "addForm");
+   // ========== ADD JOB ==========
+$(document).on("click", ".addJobBtn", function () {
+    clearModal();
+    $(".submitBtn").show();
+    $(".updateBtn").hide();
+    $("#jobForm").data("action", "add"); // mark as add
+    jobModal.show();
+});
 
-        // Show modal
-        jobModal.show();
+// ========== EDIT JOB ==========
+$(document).on("click", ".editJobButton", function () {
+    clearModal();
+    $(".submitBtn").hide();
+    $(".updateBtn").show();
+    $("#jobForm").data("action", "update").data("id", $(this).data("id"));
+    jobModal.show();
+});
+
+// ========== SUBMIT FORM (common handler) ==========
+$(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
+    e.preventDefault();
+
+    let action = $(this).data("action");
+    let id     = $(this).data("id") || "";
+
+    let formdata = new FormData(this);
+    formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
+    if (action === "update") {
+        formdata.append("_method", "PUT");
+    }
+
+    $.ajax({
+        type: "POST",
+        url: action === "add" ? "/admin/jobs/store" : "/admin/jobs/" + id,
+        data: formdata,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+            if (res.success) {
+                Swal.fire({ icon: "success", title: action === "add" ? "Created" : "Updated", showConfirmButton: false, timer: 1000 });
+                table.draw();
+                jobModal.hide();
+            } else {
+                Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
+            }
+        },
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                let html = "<ul>";
+                $.each(errors, (k, v) => (html += `<li>${v[0]}</li>`));
+                html += "</ul>";
+                $("#validationErrors").removeClass("d-none").html(html);
+            }
+        }
     });
+});
+
 
     // DataTable Init
     var table = $("#show-job-data").DataTable({
@@ -65,100 +113,7 @@ $(document).ready(function () {
         $("#JobFormModal form")[0].reset();
     }
 
-    // ========== SUBMIT ADD FORM ==========
-    $(document).off("submit", "#addForm").on("submit", "#addForm", function (e) {
-        e.preventDefault();
-        $(".submitBtn").prop("disabled", true);
 
-        let formdata = new FormData(this);
-        formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
-
-        $.ajax({
-            type: "POST",
-            url: "/admin/jobs/store",
-            data: formdata,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                if (res.success) {
-                    Swal.fire({ icon: "success", title: "Success", text: "Job Created", showConfirmButton: false, timer: 1000 });
-                    table.draw();
-                    jobModal.hide();
-                } else {
-                    Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
-                }
-            },
-            error: function (xhr) {
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    let html = "<ul>";
-                    $.each(errors, (k, v) => (html += `<li>${v[0]}</li>`));
-                    html += "</ul>";
-                    $("#validationErrors").removeClass("d-none").html(html);
-                }
-            },
-            complete: () => $(".submitBtn").prop("disabled", false)
-        });
-    });
-
-    // ========== EDIT JOB ==========
-    $(document).on("click", ".editJobButton", function () {
-        clearModal();
-        $(".submitBtn").hide();
-        $(".updateBtn").show();
-        $("#JobFormModal form").attr("id", "updateForm");
-
-        var id = $(this).data("id");
-
-        // Load job
-        $.get("/admin/jobs/" + id, function (res) {
-            $("#title").val(res.message.title);
-            $("#location").val(res.message.location);
-            $("#salary").val(res.message.salary);
-            $("#link").val(res.message.link);
-            $("#icon_class").val(res.message.icon_class);
-            $("#jobDescription").summernote("code", res.message.description);
-            $("#jobRequirements").summernote("code", res.message.requirements);
-
-            if (res.message.image) {
-                $("#jobImage").html(`<img src="/uploads/${res.message.image}" width="100" height="100" onerror="this.src='/defaultimage/defaultimage.webp';">`);
-            }
-            if (res.message.pdf) {
-                $("#jobPdf").html(`<a href="/uploads/${res.message.pdf}" target="_blank" class="btn btn-sm btn-info">View PDF</a>`);
-            }
-
-            // Show modal after data loaded
-            jobModal.show();
-        });
-
-        // submit update
-        $(document).off("submit", "#updateForm").on("submit", "#updateForm", function (e) {
-            e.preventDefault();
-            $(".updateBtn").prop("disabled", true);
-
-            let formdata = new FormData(this);
-            formdata.append("_method", "PUT");
-            formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
-
-            $.ajax({
-                type: "POST",
-                url: "/admin/jobs/" + id,
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function (res) {
-                    if (res.success) {
-                        Swal.fire({ icon: "success", title: "Updated", showConfirmButton: false, timer: 1000 });
-                        table.draw();
-                        jobModal.hide();
-                    } else {
-                        Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
-                    }
-                },
-                complete: () => $(".updateBtn").prop("disabled", false)
-            });
-        });
-    });
 
     // ========== TOGGLE STATUS ==========
     $(document).on("change", ".statusIdData", function () {
