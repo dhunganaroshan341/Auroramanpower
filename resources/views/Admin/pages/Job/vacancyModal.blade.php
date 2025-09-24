@@ -222,3 +222,15 @@
         });
     });
 </script>
+@push('styles')
+    <style>
+        /* Make multi-select height similar to input fields */
+        select[multiple] {
+            height: calc(1.5em + .75rem + 2px);
+            /* matches Bootstrap input height */
+            padding: 0.375rem 0.75rem;
+            /* optional, match form-control padding */
+            line-height: 1.5;
+        }
+    </style>
+@endpush
