@@ -95,14 +95,7 @@
                                         <label class="form-label small text-muted">Max Salary</label>
                                         <input type="number" name="jobs[0][salary_max]" class="form-control" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label small text-muted">Currency</label>
-                                        <select name="jobs[0][currency]" class="form-select">
-                                            <option value="USD">$</option>
-                                            <option value="NPR">NPR</option>
-                                            <option value="JPY">¥</option>
-                                        </select>
-                                    </div>
+
                                     <div class="col-md-1 text-end">
                                         <button type="button"
                                             class="btn btn-outline-danger btn-sm remove-job d-none">✖</button>
@@ -120,7 +113,14 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Vacancy Details</h6>
-
+                            <div class="col-md-2">
+                                <label class="form-label small text-muted">Currency</label>
+                                <select name="jobs[0][currency]" class="form-select">
+                                    <option value="USD">$</option>
+                                    <option value="NPR">NPR</option>
+                                    <option value="JPY">¥</option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="vacancy_image" class="form-label">Vacancy Image</label>
                                 <input type="file" class="form-control" name="vacancy_image" id="vacancy_image"

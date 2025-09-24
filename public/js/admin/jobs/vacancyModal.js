@@ -16,15 +16,7 @@ $(document).ready(function () {
             <div class="col-md-2">
               <input type="number" name="jobs[${jobIndex}][salary_max]" class="form-control" placeholder="Max Salary" required>
             </div>
-            <div class="col-md-2">
-              <select name="jobs[${jobIndex}][currency]" class="form-control">
-                <option value="USD">$</option>
-                <option value="EURO">euro</option>
-                <option value="NPR">NPR</option>
-                <option value="JPY">¥</option>
-                <option value="DHI">dhiram</option>
-              </select>
-            </div>
+
             <div class="col-md-12 mt-2">
               <button type="button" class="btn btn-danger btn-sm remove-job">Remove</button>
             </div>
