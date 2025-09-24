@@ -68,6 +68,7 @@
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Jobs List</h6>
                             <div id="jobsWrapper">
+                                <!-- Initial Job Row -->
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Job Title</label>
@@ -109,7 +110,7 @@
 
                                     <div class="col-md-12 mt-2 text-end">
                                         <button type="button"
-                                            class="btn btn-outline-danger btn-sm remove-job d-none">✖</button>
+                                            class="btn btn-outline-danger btn-sm remove-job d-none">✖ Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +167,7 @@
 </div>
 
 <script>
-    // Toggle between existing vs custom company
+    // Toggle existing vs custom company
     document.querySelectorAll('input[name="company_type"]').forEach(radio => {
         radio.addEventListener('change', function() {
             document.getElementById('existingCompanyWrapper').classList.toggle('d-none', this.value !==
@@ -176,13 +177,13 @@
         });
     });
 
-    // Dynamically add/remove jobs with age range
+    // Dynamically add/remove job rows
     $(document).ready(function() {
         let jobIndex = 1;
 
         $('#addJobBtn').click(function() {
             $('#jobsWrapper').append(`
-                <div class="row job-item mb-3 border p-3 rounded bg-light">
+                <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                     <div class="col-md-3">
                         <input type="text" name="jobs[${jobIndex}][title]" class="form-control" placeholder="Job Title" required>
                     </div>
