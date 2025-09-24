@@ -79,9 +79,10 @@
                                         <label class="form-label small text-muted">Category</label>
                                         <select name="category" class="form-select">
                                             <option value="factory">Factory</option>
-                                            <option value="driver">Driver</option>
-                                            <option value="welder">Welder</option>
+                                            <option value="logistic">Logistic</option>
+                                            <option value="construction">Construction</option>
                                             <option value="technician">Technician</option>
+                                            <option value="security">Security</option>
                                             <option value="other">Other</option>
                                         </select>
                                         <small class="text-muted"></small>
