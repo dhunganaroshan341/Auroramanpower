@@ -16,14 +16,12 @@
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Company Info</h6>
-
                             <div class="d-flex gap-4 mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="company_type"
                                         id="company_existing" value="existing" checked>
                                     <label class="form-check-label" for="company_existing">Select Existing</label>
                                 </div>
-
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="company_type"
                                         id="company_custom" value="custom">
@@ -72,7 +70,6 @@
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Jobs List</h6>
-
                             <div id="jobsWrapper">
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                                     <div class="col-md-4">
@@ -99,7 +96,12 @@
                                         <input type="number" name="jobs[0][openings]" class="form-control" required>
                                     </div>
 
-                                    <div class="col-md-1 text-end">
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Salary</label>
+                                        <input type="number" name="jobs[0][salary]" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-md-12 mt-2 text-end">
                                         <button type="button"
                                             class="btn btn-outline-danger btn-sm remove-job d-none">✖</button>
                                     </div>
@@ -156,15 +158,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Toggle between existing vs custom company
-    document.querySelectorAll('input[name="company_type"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            document.getElementById('existingCompanyWrapper').classList.toggle('d-none', this.value !==
-                'existing');
-            document.getElementById('customCompanyWrapper').classList.toggle('d-none', this.value !==
-                'custom');
-        });
-    });
-</script>
