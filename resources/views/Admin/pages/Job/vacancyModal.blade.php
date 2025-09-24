@@ -29,16 +29,13 @@
                                 </div>
                             </div>
 
-                            <!-- Existing company -->
                             <div id="existingCompanyWrapper">
                                 <label class="form-label small text-muted">Choose Company</label>
                                 <select name="company_id" id="company_id" class="form-select">
                                     <option value="">-- Select Company --</option>
-                                    {{-- dynamic options --}}
                                 </select>
                             </div>
 
-                            <!-- Custom company -->
                             <div id="customCompanyWrapper" class="row g-3 d-none">
                                 <div class="col-md-6">
                                     <label class="form-label small text-muted">Company Name</label>
@@ -72,15 +69,14 @@
                             <h6 class="fw-bold mb-3">Jobs List</h6>
                             <div id="jobsWrapper">
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label class="form-label small text-muted">Job Title</label>
                                         <input type="text" name="jobs[0][title]" class="form-control" required>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label class="form-label small text-muted">Categories</label>
                                         <select name="jobs[0][categories][]" class="form-select" multiple required>
-                                            {{-- dynamic categories --}}
                                             <option value="factory">Factory</option>
                                             <option value="driver">Driver</option>
                                             <option value="welder">Welder</option>
@@ -99,6 +95,16 @@
                                     <div class="col-md-2">
                                         <label class="form-label small text-muted">Salary</label>
                                         <input type="number" name="jobs[0][salary]" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Age Range</label>
+                                        <div class="d-flex gap-2">
+                                            <input type="number" name="jobs[0][age_min]" class="form-control"
+                                                placeholder="Min" required>
+                                            <input type="number" name="jobs[0][age_max]" class="form-control"
+                                                placeholder="Max" required>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-12 mt-2 text-end">
@@ -158,3 +164,60 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Toggle between existing vs custom company
+    document.querySelectorAll('input[name="company_type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('existingCompanyWrapper').classList.toggle('d-none', this.value !==
+                'existing');
+            document.getElementById('customCompanyWrapper').classList.toggle('d-none', this.value !==
+                'custom');
+        });
+    });
+
+    // Dynamically add/remove jobs with age range
+    $(document).ready(function() {
+        let jobIndex = 1;
+
+        $('#addJobBtn').click(function() {
+            $('#jobsWrapper').append(`
+                <div class="row job-item mb-3 border p-3 rounded bg-light">
+                    <div class="col-md-3">
+                        <input type="text" name="jobs[${jobIndex}][title]" class="form-control" placeholder="Job Title" required>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="jobs[${jobIndex}][categories][]" class="form-select" multiple required>
+                            <option value="factory">Factory</option>
+                            <option value="driver">Driver</option>
+                            <option value="welder">Welder</option>
+                            <option value="technician">Technician</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <small class="text-muted">Hold Ctrl (Windows) / Cmd (Mac) to select multiple</small>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="jobs[${jobIndex}][openings]" class="form-control" placeholder="Openings" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="jobs[${jobIndex}][salary]" class="form-control" placeholder="Salary" required>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="d-flex gap-2">
+                            <input type="number" name="jobs[${jobIndex}][age_min]" class="form-control" placeholder="Min" required>
+                            <input type="number" name="jobs[${jobIndex}][age_max]" class="form-control" placeholder="Max" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2 text-end">
+                        <button type="button" class="btn btn-outline-danger btn-sm remove-job">✖ Remove</button>
+                    </div>
+                </div>
+            `);
+            jobIndex++;
+        });
+
+        $(document).on('click', '.remove-job', function() {
+            $(this).closest('.job-item').remove();
+        });
+    });
+</script>
