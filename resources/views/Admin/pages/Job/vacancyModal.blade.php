@@ -77,15 +77,14 @@
 
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Categories</label>
-                                        <select name="jobs[0][categories][]" class="form-select" multiple required>
+                                        <select name="category" class="form-select">
                                             <option value="factory">Factory</option>
                                             <option value="driver">Driver</option>
                                             <option value="welder">Welder</option>
                                             <option value="technician">Technician</option>
                                             <option value="other">Other</option>
                                         </select>
-                                        <small class="text-muted">Hold Ctrl (Windows) / Cmd (Mac) to select
-                                            multiple</small>
+                                        <small class="text-muted"></small>
                                     </div>
 
                                     <div class="col-md-2">
