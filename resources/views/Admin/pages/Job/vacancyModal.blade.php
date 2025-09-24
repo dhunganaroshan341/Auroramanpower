@@ -1,122 +1,137 @@
-<div class="modal fade" id="JobFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="VacancyFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="vacancyModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <form id="jobForm" class="form">
+            <form id="vacancyForm" class="form">
                 @csrf
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="vacancyModalTitle">Add Vacancy</h1>
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold" id="vacancyModalTitle">➕ Add Vacancy</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    <p id="validationErrors" class="alert alert-danger d-none"></p>
+                    <p id="validationErrors" class="alert alert-danger d-none small"></p>
 
                     <!-- Company Selection -->
-                    <div class="mb-4">
-                        <label class="form-label d-block">Company<span class="text-danger">*</span></label>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3">Company Info</h6>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="company_type" id="company_existing"
-                                value="existing" checked>
-                            <label class="form-check-label" for="company_existing">Select Existing</label>
-                        </div>
+                            <div class="d-flex gap-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="company_type"
+                                        id="company_existing" value="existing" checked>
+                                    <label class="form-check-label" for="company_existing">Select Existing</label>
+                                </div>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="company_type" id="company_custom"
-                                value="custom">
-                            <label class="form-check-label" for="company_custom">Add Custom</label>
-                        </div>
-
-                        <!-- Existing company -->
-                        <div id="existingCompanyWrapper" class="mt-3">
-                            <select name="company_id" id="company_id" class="form-control">
-                                <option value="">-- Select Company --</option>
-                                {{-- dynamic options --}}
-                            </select>
-                        </div>
-
-                        <!-- Custom company -->
-                        <div id="customCompanyWrapper" class="row mt-3 d-none">
-                            <div class="col-md-6">
-                                <input type="text" name="custom_company_name" id="custom_company_name"
-                                    class="form-control" placeholder="Company Name">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="company_type"
+                                        id="company_custom" value="custom">
+                                    <label class="form-check-label" for="company_custom">Add Custom</label>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" name="custom_company_country" id="custom_company_country"
-                                    class="form-control" placeholder="Country">
+
+                            <!-- Existing company -->
+                            <div id="existingCompanyWrapper">
+                                <label class="form-label small text-muted">Choose Company</label>
+                                <select name="company_id" id="company_id" class="form-select">
+                                    <option value="">-- Select Company --</option>
+                                    {{-- dynamic options --}}
+                                </select>
+                            </div>
+
+                            <!-- Custom company -->
+                            <div id="customCompanyWrapper" class="row g-3 d-none">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Company Name</label>
+                                    <input type="text" name="custom_company_name" id="custom_company_name"
+                                        class="form-control" placeholder="Enter company name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Country</label>
+                                    <input type="text" name="custom_company_country" id="custom_company_country"
+                                        class="form-control" placeholder="Enter country">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Jobs List -->
-                    <div class="mt-4">
-                        <h5>Jobs List</h5>
-                        <div id="jobsWrapper">
-                            <div class="row job-item mb-3 border p-3 rounded">
-                                <div class="col-md-4">
-                                    <input type="text" name="jobs[0][title]" class="form-control"
-                                        placeholder="Job Title" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="jobs[0][openings]" class="form-control"
-                                        placeholder="Openings" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="jobs[0][salary_min]" class="form-control"
-                                        placeholder="Min Salary" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="jobs[0][salary_max]" class="form-control"
-                                        placeholder="Max Salary" required>
-                                </div>
-                                <div class="col-md-2">
-                                    <select name="jobs[0][currency]" class="form-control">
-                                        <option value="USD">$</option>
-                                        <option value="NPR">NPR</option>
-                                        <option value="JPY">¥</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12 mt-2 text-end">
-                                    <button type="button"
-                                        class="btn btn-danger btn-sm remove-job d-none">Remove</button>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3">Jobs List</h6>
+
+                            <div id="jobsWrapper">
+                                <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
+                                    <div class="col-md-3">
+                                        <label class="form-label small text-muted">Job Title</label>
+                                        <input type="text" name="jobs[0][title]" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Openings</label>
+                                        <input type="number" name="jobs[0][openings]" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Min Salary</label>
+                                        <input type="number" name="jobs[0][salary_min]" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Max Salary</label>
+                                        <input type="number" name="jobs[0][salary_max]" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small text-muted">Currency</label>
+                                        <select name="jobs[0][currency]" class="form-select">
+                                            <option value="USD">$</option>
+                                            <option value="NPR">NPR</option>
+                                            <option value="JPY">¥</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 text-end">
+                                        <button type="button"
+                                            class="btn btn-outline-danger btn-sm remove-job d-none">✖</button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <button type="button" class="btn btn-sm btn-primary mt-2" id="addJobBtn">➕ Add Job</button>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary mt-2" id="addJobBtn">+ Add Job</button>
                     </div>
 
-                    <!-- Vacancy Description -->
-                    <div class="mt-4">
-                        <label class="form-label">Description<span class="text-danger">*</span></label>
-                        <textarea name="description" class="form-control summernote" required></textarea>
-                    </div>
+                    <!-- Vacancy Details -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3">Vacancy Details</h6>
 
-                    <!-- Responsibilities -->
-                    <div class="mt-3">
-                        <label class="form-label">Responsibilities</label>
-                        <textarea name="responsibilities" class="form-control summernote"></textarea>
-                    </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description <span class="text-danger">*</span></label>
+                                <textarea name="description" class="form-control summernote" required></textarea>
+                            </div>
 
-                    <!-- Requirements -->
-                    <div class="mt-3">
-                        <label class="form-label">Requirements</label>
-                        <textarea name="requirements" class="form-control summernote"></textarea>
-                    </div>
+                            <div class="mb-3">
+                                <label class="form-label">Responsibilities</label>
+                                <textarea name="responsibilities" class="form-control summernote"></textarea>
+                            </div>
 
-                    <!-- Status -->
-                    <div class="mt-3">
-                        <label class="form-label">Status</label>
-                        <select name="status" class="form-control">
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                            <div class="mb-3">
+                                <label class="form-label">Requirements</label>
+                                <textarea name="requirements" class="form-control summernote"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success submitBtn">Submit</button>
+                    <button type="submit" class="btn btn-success submitBtn">Save Vacancy</button>
                 </div>
             </form>
         </div>
@@ -124,15 +139,13 @@
 </div>
 
 <script>
+    // Toggle between existing vs custom company
     document.querySelectorAll('input[name="company_type"]').forEach(radio => {
         radio.addEventListener('change', function() {
-            if (this.value === 'existing') {
-                document.getElementById('existingCompanyWrapper').classList.remove('d-none');
-                document.getElementById('customCompanyWrapper').classList.add('d-none');
-            } else {
-                document.getElementById('existingCompanyWrapper').classList.add('d-none');
-                document.getElementById('customCompanyWrapper').classList.remove('d-none');
-            }
+            document.getElementById('existingCompanyWrapper').classList.toggle('d-none', this.value !==
+                'existing');
+            document.getElementById('customCompanyWrapper').classList.toggle('d-none', this.value !==
+                'custom');
         });
     });
 </script>
