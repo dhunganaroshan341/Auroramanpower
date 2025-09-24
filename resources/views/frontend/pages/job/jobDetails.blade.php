@@ -22,6 +22,7 @@
 @endphp
 
 @section('content')
+    @include('frontend.pages.job.jobApplyModal')
     <section class="job-details pt_110 pb_120">
         <div class="auto-container">
             <div class="row clearfix">
