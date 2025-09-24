@@ -57,6 +57,7 @@
                     </div>
 
                     <!-- Jobs List -->
+                    <!-- Jobs List -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Jobs List</h6>
@@ -67,6 +68,21 @@
                                         <label class="form-label small text-muted">Job Title</label>
                                         <input type="text" name="jobs[0][title]" class="form-control" required>
                                     </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label small text-muted">Categories</label>
+                                        <select name="jobs[0][categories][]" class="form-select" multiple>
+                                            {{-- dynamic categories --}}
+                                            <option value="factory">Factory</option>
+                                            <option value="driver">Driver</option>
+                                            <option value="welder">Welder</option>
+                                            <option value="technician">Technician</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <small class="text-muted">Hold Ctrl (Windows) / Cmd (Mac) to select
+                                            multiple</small>
+                                    </div>
+
                                     <div class="col-md-2">
                                         <label class="form-label small text-muted">Openings</label>
                                         <input type="number" name="jobs[0][openings]" class="form-control" required>
@@ -94,9 +110,11 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-sm btn-primary mt-2" id="addJobBtn">➕ Add Job</button>
+                            <button type="button" class="btn btn-sm btn-primary mt-2" id="addJobBtn">➕ Add
+                                Job</button>
                         </div>
                     </div>
+
 
                     <!-- Vacancy Details -->
                     <div class="card shadow-sm">
