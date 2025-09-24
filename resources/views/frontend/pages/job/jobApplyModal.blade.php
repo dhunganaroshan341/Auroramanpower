@@ -55,7 +55,7 @@
 
                     <!-- Modal Footer -->
                     <div class="modal-footer mt-3">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn theme-btn" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn theme-btn active">Submit Application</button>
                     </div>
                 </form>
