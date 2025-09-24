@@ -76,7 +76,7 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label class="form-label small text-muted">Categories</label>
+                                        <label class="form-label small text-muted">Category</label>
                                         <select name="category" class="form-select">
                                             <option value="factory">Factory</option>
                                             <option value="driver">Driver</option>
