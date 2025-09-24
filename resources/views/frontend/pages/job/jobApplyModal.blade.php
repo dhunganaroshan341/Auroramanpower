@@ -22,6 +22,12 @@
                                 placeholder="e.g. Senior IT Manager (Japan)" class="form-control"
                                 value="{{ old('desired_role') }}" required>
                         </div>
+                        <div class="col-12">
+                            <!-- Name of the applicant-->
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" name="name" id="name" placeholder="e.g. Rohit Shakya"
+                                class="form-control" value="{{ old('name') }}" required>
+                        </div>
 
                         <!-- Email -->
                         <div class="col-md-6">
