@@ -77,16 +77,14 @@
 
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Category</label>
-                                        <select name="category" class="form-select">
-                                            <option value="">Select Cateogry</option>
+                                        <select name="jobs[0][category]" class="form-select" required>
+                                            <option value="">Select Category</option>
                                             <option value="factory">Factory</option>
-                                            <option value="logistic">Logistic</option>
-                                            <option value="construction">Construction</option>
+                                            <option value="driver">Driver</option>
+                                            <option value="welder">Welder</option>
                                             <option value="technician">Technician</option>
-                                            <option value="security">Security</option>
                                             <option value="other">Other</option>
                                         </select>
-                                        <small class="text-muted"></small>
                                     </div>
 
                                     <div class="col-md-2">
@@ -189,14 +187,14 @@
                         <input type="text" name="jobs[${jobIndex}][title]" class="form-control" placeholder="Job Title" required>
                     </div>
                     <div class="col-md-3">
-                        <select name="jobs[${jobIndex}][categories][]" class="form-select" multiple required>
+                        <select name="jobs[${jobIndex}][category]" class="form-select" required>
+                            <option value="">Select Category</option>
                             <option value="factory">Factory</option>
                             <option value="driver">Driver</option>
                             <option value="welder">Welder</option>
                             <option value="technician">Technician</option>
                             <option value="other">Other</option>
                         </select>
-                        <small class="text-muted">Hold Ctrl (Windows) / Cmd (Mac) to select multiple</small>
                     </div>
                     <div class="col-md-2">
                         <input type="number" name="jobs[${jobIndex}][openings]" class="form-control" placeholder="Openings" required>
@@ -223,15 +221,3 @@
         });
     });
 </script>
-@push('styles')
-    <style>
-        /* Make multi-select height similar to input fields */
-        select[multiple] {
-            height: calc(1.5em + .75rem + 2px);
-            /* matches Bootstrap input height */
-            padding: 0.375rem 0.75rem;
-            /* optional, match form-control padding */
-            line-height: 1.5;
-        }
-    </style>
-@endpush
