@@ -12,20 +12,40 @@
                 <div class="modal-body">
                     <p id="validationErrors" class="alert alert-danger d-none"></p>
 
-                    <div class="row">
-                        <!-- Company -->
-                        <div class="col-md-6">
-                            <label class="form-label">Company<span class="text-danger">*</span></label>
-                            <select name="company_id" id="company_id" class="form-control" required>
+                    <!-- Company Selection -->
+                    <div class="mb-4">
+                        <label class="form-label d-block">Company<span class="text-danger">*</span></label>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="company_type" id="company_existing"
+                                value="existing" checked>
+                            <label class="form-check-label" for="company_existing">Select Existing</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="company_type" id="company_custom"
+                                value="custom">
+                            <label class="form-check-label" for="company_custom">Add Custom</label>
+                        </div>
+
+                        <!-- Existing company -->
+                        <div id="existingCompanyWrapper" class="mt-3">
+                            <select name="company_id" id="company_id" class="form-control">
                                 <option value="">-- Select Company --</option>
                                 {{-- dynamic options --}}
                             </select>
                         </div>
 
-                        <!-- Country -->
-                        <div class="col-md-6">
-                            <label class="form-label">Country<span class="text-danger">*</span></label>
-                            <input type="text" name="country" id="country" class="form-control" required>
+                        <!-- Custom company -->
+                        <div id="customCompanyWrapper" class="row mt-3 d-none">
+                            <div class="col-md-6">
+                                <input type="text" name="custom_company_name" id="custom_company_name"
+                                    class="form-control" placeholder="Company Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="custom_company_country" id="custom_company_country"
+                                    class="form-control" placeholder="Country">
+                            </div>
                         </div>
                     </div>
 
@@ -57,7 +77,7 @@
                                         <option value="JPY">¥</option>
                                     </select>
                                 </div>
-                                <div class="col-md-12 mt-2">
+                                <div class="col-md-12 mt-2 text-end">
                                     <button type="button"
                                         class="btn btn-danger btn-sm remove-job d-none">Remove</button>
                                 </div>
@@ -102,3 +122,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('input[name="company_type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'existing') {
+                document.getElementById('existingCompanyWrapper').classList.remove('d-none');
+                document.getElementById('customCompanyWrapper').classList.add('d-none');
+            } else {
+                document.getElementById('existingCompanyWrapper').classList.add('d-none');
+                document.getElementById('customCompanyWrapper').classList.remove('d-none');
+            }
+        });
+    });
+</script>

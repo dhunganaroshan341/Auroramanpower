@@ -19,8 +19,10 @@ $(document).ready(function () {
             <div class="col-md-2">
               <select name="jobs[${jobIndex}][currency]" class="form-control">
                 <option value="USD">$</option>
+                <option value="EURO">euro</option>
                 <option value="NPR">NPR</option>
                 <option value="JPY">¥</option>
+                <option value="DHI">dhiram</option>
               </select>
             </div>
             <div class="col-md-12 mt-2">
