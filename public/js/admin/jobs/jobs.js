@@ -46,7 +46,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: action === "add" ? "/admin/jobs/store" : "/admin/jobs/" + id,
+            url: action === "add" ? "/admin/jobs/" : "/admin/jobs/" + id,
             data: formdata,
             contentType: false,
             processData: false,
