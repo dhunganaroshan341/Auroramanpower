@@ -72,8 +72,13 @@
                         <div class="mb-4 d-flex gap-3">
                             <button class="theme-btn toggle-btn active" id="imageViewBtn">Job Openings</button>
                             <button class="theme-btn toggle-btn" id="descriptionViewBtn">More Detail</button>
-                            <button class="theme-btn toggle-btn" id="descriptionViewBtn">
+
+                            <!-- Trigger Button -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#applyJobModal">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now
+
+                                Apply Now
                             </button>
 
 
