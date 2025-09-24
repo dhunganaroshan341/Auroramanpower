@@ -1,81 +1,94 @@
 $(document).ready(function () {
+    // CSRF Setup
     $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-s
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
     // Summernote Init
     $(".summernote").summernote({ height: 300 });
 
     // Bootstrap 5 Modal instance
-    var jobModal = new bootstrap.Modal(document.getElementById('JobFormModal'));
+    var jobModal = new bootstrap.Modal(document.getElementById("JobFormModal"));
 
-   // ========== ADD JOB ==========
-$(document).on("click", ".addJobBtn", function () {
-    clearModal();
-    $(".submitBtn").show();
-    $(".updateBtn").hide();
-    $("#jobForm").data("action", "add"); // mark as add
-    jobModal.show();
-});
-
-// ========== EDIT JOB ==========
-$(document).on("click", ".editJobButton", function () {
-    clearModal();
-    $(".submitBtn").hide();
-    $(".updateBtn").show();
-    $("#jobForm").data("action", "update").data("id", $(this).data("id"));
-    jobModal.show();
-});
-
-// ========== SUBMIT FORM (common handler) ==========
-$(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
-    e.preventDefault();
-
-    let action = $(this).data("action");
-    let id     = $(this).data("id") || "";
-
-    let formdata = new FormData(this);
-    formdata.append("_token", $('meta[name="csrf-token"]').attr("content"));
-    if (action === "update") {
-        formdata.append("_method", "PUT");
-    }
-
-    $.ajax({
-        type: "POST",
-        url: action === "add" ? "/admin/jobs/store" : "/admin/jobs/" + id,
-        data: formdata,
-        contentType: false,
-        processData: false,
-        success: function (res) {
-            if (res.success) {
-                Swal.fire({ icon: "success", title: action === "add" ? "Created" : "Updated", showConfirmButton: false, timer: 1000 });
-                table.draw();
-                jobModal.hide();
-            } else {
-                Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
-            }
-        },
-        error: function (xhr) {
-            if (xhr.status === 422) {
-                let errors = xhr.responseJSON.errors;
-                let html = "<ul>";
-                $.each(errors, (k, v) => (html += `<li>${v[0]}</li>`));
-                html += "</ul>";
-                $("#validationErrors").removeClass("d-none").html(html);
-            }
-        }
+    // ========== ADD JOB ==========
+    $(document).on("click", ".addJobBtn", function () {
+        clearModal();
+        $(".submitBtn").show();
+        $(".updateBtn").hide();
+        $("#jobForm").data("action", "add").removeData("id");
+        $("#jobModalTitle").text("Add Job");
+        jobModal.show();
     });
-});
 
+    // ========== EDIT JOB ==========
+    $(document).on("click", ".editJobButton", function () {
+        clearModal();
+        $(".submitBtn").hide();
+        $(".updateBtn").show();
+        $("#jobForm").data("action", "update").data("id", $(this).data("id"));
+        $("#jobModalTitle").text("Edit Job");
+        jobModal.show();
+    });
 
-    // DataTable Init
+    // ========== SUBMIT FORM ==========
+    $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
+        e.preventDefault();
+
+        let action = $(this).data("action");
+        let id = $(this).data("id") || "";
+
+        let formdata = new FormData(this);
+        if (action === "update") {
+            formdata.append("_method", "PUT");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: action === "add" ? "/admin/jobs/store" : "/admin/jobs/" + id,
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: action === "add" ? "Created" : "Updated",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    });
+                    table.draw();
+                    jobModal.hide();
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Failed",
+                        text: "Please try again!",
+                    });
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let html = "<ul>";
+                    $.each(errors, (k, v) => (html += `<li>${v[0]}</li>`));
+                    html += "</ul>";
+                    $("#validationErrors").removeClass("d-none").html(html);
+                }
+            },
+        });
+    });
+
+    // ========== DATATABLE ==========
     var table = $("#show-job-data").DataTable({
         processing: true,
         serverSide: true,
         ajax: "/admin/jobs",
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"],
+        ],
         order: [[1, "asc"]],
         columns: [
             { data: "DT_RowIndex", orderable: false, searchable: false },
@@ -85,13 +98,20 @@ $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
             { data: "location" },
             { data: "salary" },
             { data: "status", orderable: false, searchable: false },
-            { data: "action", orderable: false, searchable: false }
+            { data: "action", orderable: false, searchable: false },
         ],
         buttons: [
-            { extend: "print", exportOptions: { columns: [0, 2, 3, 4, 5, 6] } },
-            { extend: "excel", title: "", exportOptions: { columns: [0, 2, 3, 4, 5, 6] } }
+            {
+                extend: "print",
+                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
+            },
+            {
+                extend: "excel",
+                title: "",
+                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
+            },
         ],
-        dom: '<"toolbar">Blfrtip'
+        dom: '<"toolbar">Blfrtip',
     });
 
     // Toolbar
@@ -103,17 +123,15 @@ $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
     $("#btnPrint").on("click", () => table.button(0).trigger());
     $("#btnExport").on("click", () => table.button(1).trigger());
 
-    // Helper: Reset modal
+    // ========== HELPER: RESET MODAL ==========
     function clearModal() {
         $("#jobImage").html("");
         $("#jobPdf").html("");
         $("#validationErrors").addClass("d-none").html("");
         $("#jobDescription").summernote("code", "");
         $("#jobRequirements").summernote("code", "");
-        $("#JobFormModal form")[0].reset();
+        $("#jobForm")[0].reset();
     }
-
-
 
     // ========== TOGGLE STATUS ==========
     $(document).on("change", ".statusIdData", function () {
@@ -124,7 +142,7 @@ $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
             icon: "warning",
             title: "Are you sure?",
             showCancelButton: true,
-            confirmButtonText: "Yes, Change it!"
+            confirmButtonText: "Yes, Change it!",
         }).then((result) => {
             if (result.isConfirmed) {
                 $.get("/admin/jobs/status/" + id, function () {
@@ -132,7 +150,9 @@ $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
                     table.draw();
                 }).fail(() => checkbox.prop("disabled", false));
             } else {
-                checkbox.prop("disabled", false).prop("checked", !checkbox.prop("checked"));
+                checkbox
+                    .prop("disabled", false)
+                    .prop("checked", !checkbox.prop("checked"));
             }
         });
     });
@@ -146,19 +166,27 @@ $(document).off("submit", "#jobForm").on("submit", "#jobForm", function (e) {
             title: "Are you sure?",
             text: "You won't be able to revert this!",
             showCancelButton: true,
-            confirmButtonText: "Yes, Delete it!"
+            confirmButtonText: "Yes, Delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/jobs/" + id,
-                    data: { _method: "DELETE", _token: $('meta[name="csrf-token"]').attr("content") },
+                    data: {
+                        _method: "DELETE",
+                        _token: $('meta[name="csrf-token"]').attr("content"),
+                    },
                     success: function (res) {
                         if (res.success) {
-                            Swal.fire({ icon: "success", title: "Deleted", showConfirmButton: false, timer: 1500 });
+                            Swal.fire({
+                                icon: "success",
+                                title: "Deleted",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
                             table.draw();
                         }
-                    }
+                    },
                 });
             }
         });
