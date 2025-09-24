@@ -2,7 +2,7 @@
     aria-labelledby="vacancyModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-            <form id="jobForm" class="form">
+            <form id="jobForm" class="form" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-light">
                     <h5 class="modal-title fw-bold" id="vacancyModalTitle">➕ Add Vacancy</h5>
@@ -56,7 +56,18 @@
                         </div>
                     </div>
 
-                    <!-- Jobs List -->
+                    <!-- Currency Selection -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3">Currency</h6>
+                            <select name="currency" class="form-select w-25">
+                                <option value="USD">$ USD</option>
+                                <option value="NPR">NPR</option>
+                                <option value="JPY">¥ JPY</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <!-- Jobs List -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
@@ -64,14 +75,14 @@
 
                             <div id="jobsWrapper">
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label class="form-label small text-muted">Job Title</label>
                                         <input type="text" name="jobs[0][title]" class="form-control" required>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label class="form-label small text-muted">Categories</label>
-                                        <select name="jobs[0][categories][]" class="form-select" multiple>
+                                        <select name="jobs[0][categories][]" class="form-select" multiple required>
                                             {{-- dynamic categories --}}
                                             <option value="factory">Factory</option>
                                             <option value="driver">Driver</option>
@@ -87,14 +98,6 @@
                                         <label class="form-label small text-muted">Openings</label>
                                         <input type="number" name="jobs[0][openings]" class="form-control" required>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label small text-muted">Min Salary</label>
-                                        <input type="number" name="jobs[0][salary_min]" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label small text-muted">Max Salary</label>
-                                        <input type="number" name="jobs[0][salary_max]" class="form-control" required>
-                                    </div>
 
                                     <div class="col-md-1 text-end">
                                         <button type="button"
@@ -108,19 +111,10 @@
                         </div>
                     </div>
 
-
                     <!-- Vacancy Details -->
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Vacancy Details</h6>
-                            <div class="col-md-2">
-                                <label class="form-label small text-muted">Currency</label>
-                                <select name="jobs[0][currency]" class="form-select">
-                                    <option value="USD">$</option>
-                                    <option value="NPR">NPR</option>
-                                    <option value="JPY">¥</option>
-                                </select>
-                            </div>
                             <div class="mb-3">
                                 <label for="vacancy_image" class="form-label">Vacancy Image</label>
                                 <input type="file" class="form-control" name="vacancy_image" id="vacancy_image"
