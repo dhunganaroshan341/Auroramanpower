@@ -62,6 +62,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3">Interview Date</h6>
+
+                            <input type="text" class="form-control" name="interview_date" id="interview_date"
+                                aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Set Interview Date</small>
+
+                        </div>
+                    </div>
 
                     <!-- Jobs List -->
                     <div class="card shadow-sm mb-4">
