@@ -61,7 +61,7 @@ public function categories()
         return asset('uploads/tour_images/' . $firstImage->image);
     }
 
-    return asset('template/yatri_world/main-file/images/india.jpg');
+    return asset('images/engineer.jpg');
 }
 
 
