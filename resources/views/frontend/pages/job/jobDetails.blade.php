@@ -76,7 +76,7 @@
                             <!-- Trigger Button -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#applyJobModal">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
 
                                 Apply Now
                             </button>
