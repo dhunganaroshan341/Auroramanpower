@@ -84,7 +84,7 @@ public function blogsByCategory($title)
 }
 public function blogDetail($slug)
 {
-    $content_title = "Blog Detail";
+    $content_title = "Blog";
     $pageBanner = PageBanner::where('page', 'blog')->first();
 
     $post = Post::with(['createdBy', 'categories', 'postImages', 'comments'])

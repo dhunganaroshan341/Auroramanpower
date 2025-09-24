@@ -1,8 +1,8 @@
 @extends('frontend.layouts.layout')
 
 @php
-    $title = 'Blog Grid';
-    $subTitle = 'Blog Grid';
+    $title = 'Blog';
+    $subTitle = 'Blog';
     $css =
         '
         <link href="' .
