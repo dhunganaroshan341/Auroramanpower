@@ -61,7 +61,7 @@ public function categories()
         return asset('uploads/tour_images/' . $firstImage->image);
     }
 
-    return asset('images/engineer.jpg');
+    return asset('assets/images/engineer.jpg');
 }
 
 
