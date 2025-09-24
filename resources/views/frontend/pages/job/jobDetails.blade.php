@@ -70,26 +70,27 @@
                     <div class="job-details-content">
 
                         <!-- Toggle Buttons -->
-                        <div class="mb-4 d-flex gap-3">
+                        <div class="mb-4 d-flex gap-3 align-items-start">
                             <button class="theme-btn toggle-btn active" id="imageViewBtn">Job Openings</button>
                             <button class="theme-btn toggle-btn" id="descriptionViewBtn">More Detail</button>
 
                             <!-- Trigger Button -->
-                            <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
-                                data-bs-target="#applyJobModal">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                Apply Now
-                            </button>
+                            <div>
+                                <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
+                                    data-bs-target="#applyJobModal">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    Apply Now
+                                </button>
 
-                            <!-- Smart Apply Note -->
-                            <p class="mt-2 small text-muted">
-                                🔑 Already have an account?
-                                <a href="{{ route('login') }}" class="text-decoration-underline">Login for Smart Apply</a>
-                            </p>
-
-
-
+                                <!-- Smart Apply Note -->
+                                <p class="mt-1 small text-muted">
+                                    <a href="{{ route('login') }}" class="text-decoration-underline">
+                                        Next time, use Quick Apply
+                                    </a>
+                                </p>
+                            </div>
                         </div>
+
 
                         <!-- Image View -->
                         <div id="imageView">
