@@ -75,7 +75,7 @@
                             <button class="theme-btn toggle-btn" id="descriptionViewBtn">More Detail</button>
 
                             <!-- Trigger Button -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
                                 data-bs-target="#applyJobModal">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
 
