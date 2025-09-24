@@ -76,7 +76,8 @@
                                         <div class="post">
                                             <figure class="post-thumb">
                                                 <a href="{{ route('blogDetails', $post->slug) }}">
-                                                    <img src="{{ $post->first_image_url }}" alt="{{ $post->title }}">
+                                                    <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
+                                                        alt="{{ $post->title }}">
                                                 </a>
                                             </figure>
                                             <h6>
@@ -127,13 +128,13 @@
                                                 <div class="image-box">
                                                     <figure class="image">
                                                         <a href="{{ route('blogDetails', $post->slug) }}">
-                                                            <img src="{{ $post->first_image_url }}"
+                                                            <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
                                                                 alt="{{ $post->title }}">
                                                         </a>
                                                     </figure>
                                                     <figure class="overlay-image">
                                                         <a href="{{ route('blogDetails', $post->slug) }}">
-                                                            <img src="{{ $post->first_image_url }}"
+                                                            <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
                                                                 alt="{{ $post->title }}">
                                                         </a>
                                                     </figure>
