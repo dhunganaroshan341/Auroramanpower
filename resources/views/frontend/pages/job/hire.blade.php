@@ -115,27 +115,4 @@
             </form>
         </div>
     </section>
-    <!-- job-form-section end -->
-
-    <!-- clients-style-two -->
-    <section class="clients-style-two centred pt_110 pb_120">
-        <div class="auto-container">
-            <div class="title-text">
-                <h3>Trusted by Next-Gen Industry Leaders</h3>
-            </div>
-            <div class="clients-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
-                <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                            src="{{ asset('assets/images/clients/clients-6.png') }}" alt=""></a></figure>
-                <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                            src="{{ asset('assets/images/clients/clients-7.png') }}" alt=""></a></figure>
-                <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                            src="{{ asset('assets/images/clients/clients-8.png') }}" alt=""></a></figure>
-                <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                            src="{{ asset('assets/images/clients/clients-9.png') }}" alt=""></a></figure>
-                <figure class="clients-logo"><a href="{{ route('index') }}"><img
-                            src="{{ asset('assets/images/clients/clients-10.png') }}" alt=""></a></figure>
-            </div>
-        </div>
-    </section>
-    <!-- clients-style-two end -->
 @endsection
