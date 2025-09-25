@@ -29,7 +29,8 @@
                         <td>{{ $job->title }}</td>
                         <td>{{ $job->openings }}</td>
                         <td>
-                            <a href="{{ route('jobDetails', $job->id) }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn">
+                                <i class="fas fa-eye"></i>
                                 View Details
                             </a>
                         </td>
