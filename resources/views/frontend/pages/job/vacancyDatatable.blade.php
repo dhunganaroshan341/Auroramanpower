@@ -4,7 +4,7 @@
         <h2>Job <span>Listings</span></h2>
     </div>
     <div class="mb-5">
-        <div class="table-responsive"> <!-- ✅ only change: makes table scrollable on small screens -->
+        <div class="table-responsive">
             <table id="jobsTable" class="table table-bordered text-center align-middle"
                 style="border-color: var(--secondary-color); width: 100%;">
                 <thead>
@@ -30,8 +30,8 @@
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->openings }}</td>
                             <td>
-                                <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn">
-                                    <i class="fas fa-eye"></i> View Details
+                                <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn btn-sm">
+                                    <i class="fas fa-eye"></i> View
                                 </a>
                             </td>
                         </tr>
@@ -41,3 +41,30 @@
         </div>
     </div>
 </div>
+
+@push('styles')
+    <style>
+        /* Mobile friendly adjustments */
+        @media (max-width: 768px) {
+
+            #jobsTable th,
+            #jobsTable td {
+                font-size: 0.85rem;
+                /* smaller text */
+                padding: 0.4rem;
+                /* tighter spacing */
+            }
+
+            #jobsTable .btn {
+                font-size: 0.75rem;
+                /* smaller button text */
+                padding: 0.25rem 0.5rem;
+            }
+
+            #jobsTable .badge {
+                font-size: 0.7rem;
+                padding: 0.3em 0.4em;
+            }
+        }
+    </style>
+@endpush
