@@ -81,12 +81,11 @@
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     Apply Now
                                 </button>
-                                <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
-                                    data-bs-target="#applyJobModal">
+                                <a href = "{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
                                     <i class="fas fa-file-alt"></i>
 
                                     Login with CV for Easy Apply
-                                </button>
+                                </a>
 
 
 
