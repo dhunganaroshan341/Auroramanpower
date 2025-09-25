@@ -38,7 +38,7 @@
                             <div class="title-box">
                                 <div class="icon-box"><i class="icon-39"></i></div>
                                 <h3>Contact Person</h3>
-                                <p> contact details of the person responsible for this request.</p>
+                                <p> Contact details of the person responsible for this request.</p>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
