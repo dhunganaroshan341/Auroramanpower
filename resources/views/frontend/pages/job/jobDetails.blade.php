@@ -78,13 +78,14 @@
                             <div>
                                 <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
                                     data-bs-target="#applyJobModal">
-                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                    Apply Now
-                                </button>
-                                <a href = "{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
                                     <i class="fas fa-file-alt"></i>
 
-                                    Login with CV for Easy Apply
+
+                                    Apply
+                                </button>
+                                <a href = "{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    Login with CV
                                 </a>
 
 
