@@ -6,24 +6,21 @@ $(document).ready(function () {
         },
     });
 
-    // Summernote Init
     $(".summernote").summernote({ height: 300 });
-    $(".generalRequirementsSummernote").summernote({
-    height: 300,
-    callbacks: {
-        onInit: function() {
-            $(this).summernote("code", `
-                <ul>
-                    <li>Age: 21-40 years</li>
-                    <li>Sex: Male/Female</li>
-                    <li>Education: High School / Diploma or above</li>
-                    <li>Experience: Relevant Field Experience preferred</li>
-                    <li>Skills: Teamwork, adaptability</li>
-                </ul>
-            `);
-        }
-    }
+
+$(".generalRequirementsSummernote").on("summernote.init", function() {
+    $(this).summernote("code", `
+        <ul>
+            <li>Age: 21-40 years</li>
+            <li>Sex: Male/Female</li>
+            <li>Education: High School / Diploma or above</li>
+            <li>Experience: Relevant Field Experience preferred</li>
+            <li>Skills: Teamwork, adaptability</li>
+        </ul>
+    `);
 });
+$(".generalRequirementsSummernote").summernote(); // call init after binding event
+
 
 
     // Bootstrap 5 Modal instance
