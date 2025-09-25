@@ -96,21 +96,7 @@
                                 </div>
                             </form>
 
-                            <div class="recent-vacancies" style="margin-top: 30px;">
-                                <h4>Recent Vacancies</h4>
-                                <ul style="list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 8px;"><a href="#"
-                                            style="text-decoration: none; color: #333;">• Vacancy in Qatar</a></li>
-                                    <li style="margin-bottom: 8px;"><a href="#"
-                                            style="text-decoration: none; color: #333;">• Vacancy in UAE</a></li>
-                                    <li style="margin-bottom: 8px;"><a href="#"
-                                            style="text-decoration: none; color: #333;">• Vacancy in Malaysia</a></li>
-                                    <li style="margin-bottom: 8px;"><a href="#"
-                                            style="text-decoration: none; color: #333;">• Vacancy in Saudi</a></li>
-                                    <li style="margin-bottom: 8px;"><a href="#"
-                                            style="text-decoration: none; color: #333;">• Vacancy in Japan</a></li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
