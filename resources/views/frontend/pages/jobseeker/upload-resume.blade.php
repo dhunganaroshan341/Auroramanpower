@@ -99,7 +99,7 @@
                     <!-- Additional Information -->
                     <div class="col-lg-12 col-md-12 col-sm-12 form-column">
                         <div class="form-inner">
-                            <textarea name="bio" placeholder="Additional Information..." rows="4" class="form-control">{{ old('bio') }}</textarea>
+                            <textarea name="bio" placeholder="Additional Information.." rows="4" class="form-control">{{ old('bio') }}</textarea>
                             <div class="form-group message-btn centred mt-3">
                                 <button type="submit" class="theme-btn btn-one w-100">Submit CV</button>
                             </div>
