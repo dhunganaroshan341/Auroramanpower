@@ -83,7 +83,8 @@
                                 </button>
                                 <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
                                     data-bs-target="#applyJobModal">
-                                    <i class="fas fa-right-to-bracket"></i>
+                                    <i class="fas fa-file-alt"></i>
+
                                     Login with CV for Easy Apply
                                 </button>
 
