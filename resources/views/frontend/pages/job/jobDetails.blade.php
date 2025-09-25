@@ -85,7 +85,7 @@
                                 </button>
                                 <a href = "{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                    Login with CV
+                                    Login & Auto Apply
                                 </a>
 
 
