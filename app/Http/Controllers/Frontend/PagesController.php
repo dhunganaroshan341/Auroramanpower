@@ -25,7 +25,39 @@ class PagesController extends Controller
     }
     public function job3()
     {
-        return view('frontend.pages/job/job3');
+         $jobs = collect([
+        (object)[
+            'id' => 1,
+            'title' => 'Welder',
+            'openings' => 20,
+            'vacancy' => (object)[
+                'country' => 'UAE',
+                'company' => (object)['name' => 'ABC Manpower'],
+            ],
+            'categories' => [(object)['name' => 'Construction']]
+        ],
+        (object)[
+            'id' => 2,
+            'title' => 'Chef',
+            'openings' => 15,
+            'vacancy' => (object)[
+                'country' => 'Qatar',
+                'company' => (object)['name' => 'Qatar Co.'],
+            ],
+            'categories' => [(object)['name' => 'Hospitality']]
+        ],
+        (object)[
+            'id' => 3,
+            'title' => 'Software Engineer',
+            'openings' => 10,
+            'vacancy' => (object)[
+                'country' => 'Malaysia',
+                'company' => (object)['name' => 'XYZ Pvt. Ltd.'],
+            ],
+            'categories' => [(object)['name' => 'IT']]
+        ]
+    ]);
+        return view('frontend.pages/job/job3',compact('jobs'));
     }
     public function job4()
     {
