@@ -265,7 +265,7 @@
                     find the right workforce across Asia, Europe, and the Gulf.</p>
                 <div class="btn-box">
                     <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one mr_20"><span>Upload CV</span></a>
-                    <a href="{{ route('hire') }}" class="theme-btn banner-btn">Partner With Us</a>
+                    <a href="{{ route('jobs') }}" class="theme-btn banner-btn">Job Openings</a>
                 </div>
             </div>
         </div>
