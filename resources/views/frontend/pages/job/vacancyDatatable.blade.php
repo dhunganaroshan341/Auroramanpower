@@ -4,10 +4,10 @@
         <h2>Job <span>Listings</span></h2>
     </div>
     <div class="mb-5">
-        <div class="table-responsive"> <!-- ✅ makes it scrollable on small screens -->
-            <table id="jobsTable" class="table table-bordered table-striped table-sm text-center align-middle"
+        <div class="table-responsive"> <!-- ✅ only change: makes table scrollable on small screens -->
+            <table id="jobsTable" class="table table-bordered text-center align-middle"
                 style="border-color: var(--secondary-color); width: 100%;">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th>Country</th>
                         <th>Company</th>
@@ -30,8 +30,8 @@
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->openings }}</td>
                             <td>
-                                <a href="{{ route('jobDetails', $job->id) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-eye"></i> View
+                                <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn">
+                                    <i class="fas fa-eye"></i> View Details
                                 </a>
                             </td>
                         </tr>
