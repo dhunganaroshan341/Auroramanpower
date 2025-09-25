@@ -75,7 +75,7 @@
                     <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                         <div class="mb-3">
                             <label class="form-label">General Requirements</label>
-                            <textarea name="requirements" class="form-control  generalRequirementsSummernote"></textarea>
+                            <textarea name="requirements" class="form-control summernote generalRequirementsSummernote"></textarea>
                         </div>
                     </div>
                     <!-- Jobs List -->
