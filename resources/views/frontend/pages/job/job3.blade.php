@@ -122,7 +122,7 @@
 
 
             <!-- Table View -->
-            @include('pages.job.jobTableView')
+            @include('frontend.pages.job.vacancyDatatable')
 
 
         </div>
