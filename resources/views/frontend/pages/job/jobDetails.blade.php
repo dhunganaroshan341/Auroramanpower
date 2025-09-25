@@ -85,7 +85,7 @@
                                 <!-- Smart Apply Note -->
                                 <p class="mt-1 small text-muted">
                                     <a href="{{ route('login') }}" class="text-decoration-underline">
-                                        upload Cv For Instant Apply
+                                        upload Cv For easy Apply
                                     </a>
                                 </p>
                             </div>
