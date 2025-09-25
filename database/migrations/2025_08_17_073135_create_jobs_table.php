@@ -14,13 +14,11 @@ return new class extends Migration
        // database/migrations/2025_08_17_000003_create_jobs_table.php
 Schema::create('jobs', function (Blueprint $table) {
     $table->id();
-
     // employer relation
     $table->foreignId('employer_id')
         ->nullable()
         ->constrained('employer_profiles')
         ->onDelete('set null');
-
     $table->string('title');
     $table->text('description');
     $table->text('requirements')->nullable();

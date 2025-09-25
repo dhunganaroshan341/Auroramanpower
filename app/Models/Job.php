@@ -12,6 +12,7 @@ class Job extends Model
      use HasImageUrl;protected $imageFields = ['image'];
    protected $fillable = [
         'employer_id',
+        'vacancy_id',
         'title',
         'description',
         'requirements',
@@ -40,7 +41,10 @@ class Job extends Model
     public function OurCountry(){
         return $this->belongsTo(OurCountry::class);
     }
-
+public function vacancy()
+    {
+        return $this->belongsTo(Vacancy::class);
+    }
 
 
     protected static function booted()
