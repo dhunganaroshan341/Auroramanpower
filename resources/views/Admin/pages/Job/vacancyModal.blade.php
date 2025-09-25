@@ -72,19 +72,19 @@
 
                         </div>
                     </div>
-
+                    <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
+                        <div class="mb-3">
+                            <label class="form-label">General Requirements</label>
+                            <textarea name="requirements" class="form-control summernote"></textarea>
+                        </div>
+                    </div>
                     <!-- Jobs List -->
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
                             <h6 class="fw-bold mb-3">Jobs List</h6>
                             <div id="jobsWrapper">
                                 <!-- Initial Job Row -->
-                                <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
-                                    <div class="mb-3">
-                                        <label class="form-label">General Requirements</label>
-                                        <textarea name="requirements" class="form-control summernote"></textarea>
-                                    </div>
-                                </div>
+
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Job Title</label>
