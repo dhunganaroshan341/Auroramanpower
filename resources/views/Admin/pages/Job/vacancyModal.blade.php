@@ -104,22 +104,23 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label class="form-label small text-muted">Openings</label>
-                                        <input type="number" name="jobs[0][openings]" class="form-control" required>
+                                        <label class="form-label small text-muted">Openings *</label>
+                                        <input type="text" name="jobs[0][openings]" class="form-control" required
+                                            placeholder="5Male,6Female">
                                     </div>
 
                                     <div class="col-md-2">
                                         <label class="form-label small text-muted">Salary</label>
-                                        <input type="number" name="jobs[0][salary]" class="form-control" required>
+                                        <input type="number" name="jobs[0][salary]" class="form-control">
                                     </div>
 
                                     <div class="col-md-2">
                                         <label class="form-label small text-muted">Age Range</label>
                                         <div class="d-flex gap-2">
                                             <input type="number" name="jobs[0][age_min]" class="form-control"
-                                                placeholder="Min" required>
+                                                placeholder="Min">
                                             <input type="number" name="jobs[0][age_max]" class="form-control"
-                                                placeholder="Max" required>
+                                                placeholder="Max">
                                         </div>
                                     </div>
 
