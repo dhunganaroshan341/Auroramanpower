@@ -1,5 +1,9 @@
 <!-- main header -->
 <header class="main-header header-style-two">
+    @php
+        $currentRoute = Route::currentRouteName();
+    @endphp
+
     <!-- header-top -->
     <div class="header-top">
         <div class="outer-container">
@@ -40,48 +44,64 @@
                     </a>
                 </figure>
                 <div class="menu-area">
-                    <!--Mobile Navigation Toggler-->
+                    <!-- Mobile Navigation Toggler -->
                     <div class="mobile-nav-toggler">
                         <i class="icon-bar"></i>
                         <i class="icon-bar"></i>
                         <i class="icon-bar"></i>
                     </div>
+
                     <nav class="main-menu navbar-expand-md navbar-light clearfix">
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                <li class="homeCurrent"><a href="{{ route('index') }}">Home</a></li>
-                                <li class="dropdown">
+                                <li class="{{ $currentRoute === 'index' ? 'homeCurrent' : '' }}"><a
+                                        href="{{ route('index') }}">Home</a></li>
+
+                                <li
+                                    class="dropdown {{ in_array($currentRoute, ['about', 'company-overview', 'message-from-chairman', 'license-certificates', 'organizational-chart']) ? 'current' : '' }}">
                                     <a href="{{ route('about') }}">About</a>
                                     <ul class="submenu">
-                                        <li><a href="{{ route('company-overview') }}">Company Overview</a></li>
-                                        <li><a href="{{ route('message-from-chairman') }}">Message from Chairman</a>
+                                        <li class="{{ $currentRoute === 'company-overview' ? 'current' : '' }}"><a
+                                                href="{{ route('company-overview') }}">Company Overview</a></li>
+                                        <li class="{{ $currentRoute === 'message-from-chairman' ? 'current' : '' }}"><a
+                                                href="{{ route('message-from-chairman') }}">Message from Chairman</a>
                                         </li>
-                                        <li><a href="{{ route('license-certificates') }}">License & Certificates</a>
+                                        <li class="{{ $currentRoute === 'license-certificates' ? 'current' : '' }}"><a
+                                                href="{{ route('license-certificates') }}">License & Certificates</a>
                                         </li>
-                                        <li><a href="{{ route('organizational-chart') }}">Organizational Chart</a>
+                                        <li class="{{ $currentRoute === 'organizational-chart' ? 'current' : '' }}"><a
+                                                href="{{ route('organizational-chart') }}">Organizational Chart</a>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li><a href="{{ route('dynamic-categories') }}">Category</a></li>
-                                <li><a href="{{ route('hire') }}">Hire Workers</a></li>
-                                <li><a href="{{ route('jobs') }}">Vacancies</a></li>
-                                <li class="dropdown">
+                                <li class="{{ $currentRoute === 'dynamic-categories' ? 'current' : '' }}"><a
+                                        href="{{ route('dynamic-categories') }}">Category</a></li>
+                                <li class="{{ $currentRoute === 'hire' ? 'current' : '' }}"><a
+                                        href="{{ route('hire') }}">Hire Workers</a></li>
+                                <li class="{{ $currentRoute === 'jobs' ? 'current' : '' }}"><a
+                                        href="{{ route('jobs') }}">Vacancies</a></li>
+
+                                <li
+                                    class="dropdown {{ in_array($currentRoute, ['required-documents', 'recruitment-process']) ? 'current' : '' }}">
                                     <a href="{{ route('index') }}">Procedures</a>
                                     <ul class="submenu">
-                                        <li><a href="{{ route('required-documents') }}">Required Documents</a></li>
-                                        <li><a href="{{ route('recruitment-process') }}">Recruitment Process</a></li>
+                                        <li class="{{ $currentRoute === 'required-documents' ? 'current' : '' }}"><a
+                                                href="{{ route('required-documents') }}">Required Documents</a></li>
+                                        <li class="{{ $currentRoute === 'recruitment-process' ? 'current' : '' }}"><a
+                                                href="{{ route('recruitment-process') }}">Recruitment Process</a></li>
                                     </ul>
                                 </li>
 
-                                <li><a href="{{ route('blog') }}">Blog</a></li>
+                                <li class="{{ $currentRoute === 'blog' ? 'current' : '' }}"><a
+                                        href="{{ route('blog') }}">Blog</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
-                <div class="menu-right-content">
 
-                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">upload CV</a></div>
+                <div class="menu-right-content">
+                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
                     <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
                     </div>
                 </div>
@@ -89,7 +109,7 @@
         </div>
     </div>
 
-    <!--sticky Header-->
+    <!-- sticky Header -->
     <div class="sticky-header">
         <div class="outer-container">
             <div class="outer-box">
@@ -107,7 +127,8 @@
                     <div class="search-btn mr_20">
                         <button class="search-toggler"><i class="icon-1"></i></button>
                     </div>
-                    <div class="link-box mr_20"><a href="{{ route('login') }}">Log In</a></div>
+                    <!-- Always show Upload CV -->
+                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
                     <div class="btn-box"><a href="{{ route('index') }}" class="theme-btn btn-one">Get Started</a></div>
                 </div>
             </div>
