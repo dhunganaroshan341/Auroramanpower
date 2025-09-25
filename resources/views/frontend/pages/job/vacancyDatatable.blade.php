@@ -13,7 +13,7 @@
                         <th>Company</th>
                         <th>Category</th>
                         <th>Job Title</th>
-                        <th>No. of People Requested</th>
+                        <th>People Requested</th>
                         <th>Action</th>
                     </tr>
                 </thead>
