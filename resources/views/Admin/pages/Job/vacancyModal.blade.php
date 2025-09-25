@@ -80,6 +80,12 @@
                             <div id="jobsWrapper">
                                 <!-- Initial Job Row -->
                                 <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
+                                    <div class="mb-3">
+                                        <label class="form-label">General Requirements</label>
+                                        <textarea name="requirements" class="form-control summernote"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row align-items-end job-item mb-3 border p-3 rounded bg-light">
                                     <div class="col-md-3">
                                         <label class="form-label small text-muted">Job Title</label>
                                         <input type="text" name="jobs[0][title]" class="form-control" required>
@@ -122,6 +128,7 @@
                                             class="btn btn-outline-danger btn-sm remove-job d-none">✖ Remove</button>
                                     </div>
                                 </div>
+
                             </div>
 
                             <button type="button" class="btn btn-sm btn-primary mt-2" id="addJobBtn">➕ Add
@@ -145,15 +152,12 @@
                                 <textarea name="description" class="form-control summernote" required></textarea>
                             </div>
 
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label class="form-label">Responsibilities</label>
                                 <textarea name="responsibilities" class="form-control summernote"></textarea>
-                            </div>
+                            </div> --}}
 
-                            <div class="mb-3">
-                                <label class="form-label">Requirements</label>
-                                <textarea name="requirements" class="form-control summernote"></textarea>
-                            </div>
+
 
                             <div>
                                 <label class="form-label">Status</label>
