@@ -73,16 +73,7 @@
                                     <input type="text" name="web_url" placeholder="Website (Optional)">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <div class="select-box">
-                                        <select name="industry" class="wide" required>
-                                            <option data-display="Industry">Select Industry</option>
-                                            <option value="IT">IT / Software</option>
-                                            <option value="Marketing">Marketing</option>
-                                            <option value="Finance">Finance</option>
-                                            <option value="Construction">Construction</option>
-                                            <option value="Healthcare">Healthcare</option>
-                                        </select>
-                                    </div>
+                                    <input type="text" name="industry" placeholder="Industry" required>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="location" placeholder="Company Location" required>
@@ -104,7 +95,8 @@
                                     <input type="text" name="position" placeholder="Position / Role" required>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                                    <input type="number" name="openings" placeholder="Number of Openings" required>
+                                    <input type="text" name="openings"
+                                        placeholder="Number of People (e.g. 10 Male, 20 Female)" required>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12 form-group">
                                     <input type="text" name="salary_range" placeholder="Pay / Salary Range" required>
