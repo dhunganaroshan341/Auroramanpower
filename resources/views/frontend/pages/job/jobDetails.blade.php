@@ -72,7 +72,7 @@
                         <!-- Toggle Buttons -->
                         <div class="mb-4 d-flex gap-3 align-items-start">
                             <button class="theme-btn toggle-btn active" id="imageViewBtn">Newspaper Advertisment</button>
-                            <button class="theme-btn toggle-btn" id="descriptionViewBtn"> Detail</button>
+                            <button class="theme-btn toggle-btn" id="descriptionViewBtn"> More Detail</button>
 
                             <!-- Trigger Button -->
                             <div>
