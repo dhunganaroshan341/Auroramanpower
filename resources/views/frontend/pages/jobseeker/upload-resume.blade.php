@@ -69,7 +69,7 @@
                             <h3>Education & Skills</h3>
                             <p class="text-muted">Provide your education, experience, and skills.</p>
                             <div class="row g-3">
-                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <input type="text" name="education" placeholder="Education"
                                         value="{{ old('education') }}" class="form-control" required>
                                 </div>
