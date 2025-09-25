@@ -81,13 +81,14 @@
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     Apply Now
                                 </button>
+                                <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
+                                    data-bs-target="#applyJobModal">
+                                    <i class="fas fa-right-to-bracket"></i>
+                                    Login with CV for Easy Apply
+                                </button>
 
-                                <!-- Smart Apply Note -->
-                                <p class="mt-1 small text-muted">
-                                    <a href="{{ route('login') }}" class="text-decoration-underline">
-                                        upload Cv For easy Apply
-                                    </a>
-                                </p>
+
+
                             </div>
                         </div>
 
