@@ -122,48 +122,8 @@
 
 
             <!-- Table View -->
-            <div id="tableView" class="pt_30">
-                <div class="text-box mb-3">
-                    <h2>Job <span>Listings</span></h2>
-                </div>
-                <div class="mb-5">
-                    <table id="jobsTable" class="table table-bordered text-center align-middle"
-                        style="border-color: var(--secondary-color); width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Company</th>
-                                <th>Category</th>
-                                <th>Job Title</th>
-                                <th>No. of People Requested</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>UAE</td>
-                                <td>ABC Manpower</td>
-                                <td>Construction</td>
-                                <td>Welder</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>Qatar</td>
-                                <td>Qatar Co.</td>
-                                <td>Hospitality</td>
-                                <td>Chef</td>
-                                <td>15</td>
-                            </tr>
-                            <tr>
-                                <td>Malaysia</td>
-                                <td>XYZ Pvt. Ltd.</td>
-                                <td>IT</td>
-                                <td>Software Engineer</td>
-                                <td>10</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            @include('pages.job.jobTableView')
+
 
         </div>
     </section>
