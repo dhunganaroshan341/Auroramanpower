@@ -129,7 +129,8 @@
                     </div>
                     <!-- Always show Upload CV -->
                     <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
-                    <div class="btn-box"><a href="{{ route('index') }}" class="theme-btn btn-one">Get Started</a></div>
+                    <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact us</a>
+                    </div>
                 </div>
             </div>
         </div>
