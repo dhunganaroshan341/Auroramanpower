@@ -26,7 +26,52 @@
             <!-- First Row: Company Intro -->
             <div class="row align-items-center mb_70">
                 <!-- Intro Text -->
-                <div class="col-lg-8 col-md-7 col-sm-12">
+                <!-- Second Row: Sidebar + Details -->
+
+                <!-- Sidebar -->
+                <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side mb-5 mb-lg-0">
+                    <div class="service-sidebar mr_40">
+                        <div class="category-widget mb_40">
+                            <ul class="category-list clearfix">
+                                <li>
+                                    <a href="{{ route('company-overview') }}"
+                                        class="{{ request()->routeIs('company-overview') ? 'current' : '' }}">
+                                        Company Overview <i class="icon-42"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('message-from-chairman') }}"
+                                        class="{{ request()->routeIs('message-from-chairman') ? 'current' : '' }}">
+                                        Message from Chairman <i class="icon-42"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('license-certificates') }}"
+                                        class="{{ request()->routeIs('license-certificates') ? 'current' : '' }}">
+                                        License & Certificates <i class="icon-42"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('organizational-chart') }}"
+                                        class="{{ request()->routeIs('organizational-chart') ? 'current' : '' }}">
+                                        Organizational Chart <i class="icon-42"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {{-- <div class="col-lg-6 col-md-5 col-sm-12 text-center">
+                    <div class="image-box">
+                        <img src="{{ asset('assets/images/aurora_hr_office.jpg') }}" alt="Aurora HR Office"
+                            class="img-fluid rounded shadow">
+                        </figure>
+                    </div>
+                </div> --}}
+                <div class="col-lg-6 col-md-7 col-sm-12">
                     <div class="sec-title">
                         <span class="sub-title mb_10">About Aurora HR</span>
                         <h2>Company Overview</h2>
@@ -41,144 +86,98 @@
                     </div>
                 </div>
                 <!-- Intro Image -->
-                <div class="col-lg-4 col-md-5 col-sm-12 text-center">
-                    <div class="image-box">
-                        <img src="{{ asset('assets/images/aurora_hr_office.jpg') }}" alt="Aurora HR Office"
-                            class="img-fluid rounded shadow">
-                        </figure>
-                    </div>
-                </div>
-
-                <!-- Second Row: Sidebar + Details -->
-                <div class="row clearfix">
-                    <!-- Sidebar -->
-                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side mb-5 mb-lg-0">
-                        <div class="service-sidebar mr_40">
-                            <div class="category-widget mb_40">
-                                <ul class="category-list clearfix">
-                                    <li>
-                                        <a href="{{ route('company-overview') }}"
-                                            class="{{ request()->routeIs('company-overview') ? 'current' : '' }}">
-                                            Company Overview <i class="icon-42"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('message-from-chairman') }}"
-                                            class="{{ request()->routeIs('message-from-chairman') ? 'current' : '' }}">
-                                            Message from Chairman <i class="icon-42"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('license-certificates') }}"
-                                            class="{{ request()->routeIs('license-certificates') ? 'current' : '' }}">
-                                            License & Certificates <i class="icon-42"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('organizational-chart') }}"
-                                            class="{{ request()->routeIs('organizational-chart') ? 'current' : '' }}">
-                                            Organizational Chart <i class="icon-42"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="download-widget">
-                                <div class="shape"
-                                    style="background-image: url('{{ asset('assets/images/shape/shape-24.png') }}')"></div>
-                                <div class="inner-box">
-                                    <figure class="image-box">
-                                        <img src="{{ asset('assets/images/resource/book-3.png') }}" alt="">
-                                    </figure>
-                                    <h4>The 2025 guide for Optimal Content <span>Management</span></h4>
-                                    <button type="button" class="theme-btn btn-one">Download E-book</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Side -->
-                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
-                        <div class="service-details-content">
-
-                            <!-- Mission & Vision -->
-                            <div class="row mb-5">
-                                <!-- Mission -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="card text-center shadow border-0 h-100">
-                                        <div class="card-body p-5">
-                                            <div class="mb-3">
-                                                <span
-                                                    class="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle"
-                                                    style="width:60px;height:60px;">
-                                                    <i class="fa fa-bullseye fa-lg"></i>
-                                                </span>
-                                            </div>
-                                            <h4 class="fw-bold mb-3">Our Mission</h4>
-                                            <p class="text-muted">
-                                                To provide distinctive services by connecting screened, shortlisted, and
-                                                deserving candidates with reputed employers, ensuring cost-effective and
-                                                value-added services that maintain market goodwill and brand reputation.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Vision -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="card text-center shadow border-0 h-100">
-                                        <div class="card-body p-5">
-                                            <div class="mb-3">
-                                                <span
-                                                    class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
-                                                    style="width:60px;height:60px;">
-                                                    <i class="fas fa-eye fa-lg"></i>
-                                                </span>
-                                            </div>
-                                            <h4 class="fw-bold mb-3">Our Vision</h4>
-                                            <p class="text-muted">
-                                                To build reliable connections abroad and help address unemployment in Nepal,
-                                                while deploying potential Nepali manpower to the best international
-                                                employers
-                                                worldwide.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Objective -->
-                            <div class="text-box mb_70">
-                                <h2>Our Objective</h2>
-                                <p>The objective of Aurora HR is to enable Nepali citizens to earn a decent living abroad,
-                                    contribute to the economy, and supply all categories of human resources efficiently. We
-                                    also aim to:</p>
-                                <ul class="list-style-one mt-3">
-                                    <li>Continue serving Nepali workers by helping them secure better jobs.</li>
-                                    <li>Enhance the standard of living for Nepali workers.</li>
-                                    <li>Provide training to aspirant candidates to improve skills for employment abroad.
-                                    </li>
-                                    <li>Develop better working relationships between employers and workers.</li>
-                                    <li>Build long-term business relationships and trust among clients.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Policy -->
-                            <div class="text-box">
-                                <h2>Our Policy</h2>
-                                <p>We only entertain genuine aspirant workers serious about foreign employment. All
-                                    procedures
-                                    follow strict compliance with the Foreign Employment Act and labor department
-                                    guidelines.
-                                    We emphasize human and labor rights while ensuring both our foreign clients and job
-                                    seekers
-                                    are satisfied throughout the contract period.</p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
             </div>
+
+            <div class="row">
+                <!-- Content Side -->
+                <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                    <div class="service-details-content">
+
+                        <!-- Mission & Vision -->
+                        <div class="row mb-5">
+                            <!-- Mission -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card text-center shadow border-0 h-100">
+                                    <div class="card-body p-5">
+                                        <div class="mb-3">
+                                            <span
+                                                class="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle"
+                                                style="width:60px;height:60px;">
+                                                <i class="fa fa-bullseye fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="fw-bold mb-3">Our Mission</h4>
+                                        <p class="text-muted">
+                                            To provide distinctive services by connecting screened, shortlisted, and
+                                            deserving candidates with reputed employers, ensuring cost-effective and
+                                            value-added services that maintain market goodwill and brand reputation.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vision -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card text-center shadow border-0 h-100">
+                                    <div class="card-body p-5">
+                                        <div class="mb-3">
+                                            <span
+                                                class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
+                                                style="width:60px;height:60px;">
+                                                <i class="fas fa-eye fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="fw-bold mb-3">Our Vision</h4>
+                                        <p class="text-muted">
+                                            To build reliable connections abroad and help address unemployment in Nepal,
+                                            while deploying potential Nepali manpower to the best international
+                                            employers
+                                            worldwide.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Objective -->
+
+
+                    </div>
+                </div>
+
+                <div class="text-box mb_70 col-lg-4 card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h2>Our Objective</h2>
+                        <p>The objective of Aurora HR is to enable Nepali citizens to earn a decent living abroad,
+                            contribute to the economy, and supply all categories of human resources efficiently. We
+                            also aim to:</p>
+                        <ul class="list-style-one mt-3">
+                            <li>Continue serving Nepali workers by helping them secure better jobs.</li>
+                            <li>Enhance the standard of living for Nepali workers.</li>
+                            <li>Provide training to aspirant candidates to improve skills for employment abroad.
+                            </li>
+                            <li>Develop better working relationships between employers and workers.</li>
+                            <li>Build long-term business relationships and trust among clients.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Policy -->
+                <div class="text-box col-lg-4 card text-center shadow border-0 h-100">
+                    <div class="card-body">
+                        <h2>Our Policy</h2>
+                        <p>We only entertain genuine aspirant workers serious about foreign employment. All
+                            procedures
+                            follow strict compliance with the Foreign Employment Act and labor department
+                            guidelines.
+                            We emphasize human and labor rights while ensuring both our foreign clients and job
+                            seekers
+                            are satisfied throughout the contract period.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- service-details end -->
 @endsection
