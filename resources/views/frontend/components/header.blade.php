@@ -54,8 +54,8 @@
                     <nav class="main-menu navbar-expand-md navbar-light clearfix">
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                <li class="{{ $currentRoute === 'index' ? 'homeCurrent' : '' }}"><a
-                                        href="{{ route('index') }}">Home</a></li>
+                                {{-- <li class="{{ $currentRoute === 'index' ? 'homeCurrent' : '' }}"><a
+                                        href="{{ route('index') }}">Home</a></li> --}}
 
                                 <li
                                     class="dropdown {{ in_array($currentRoute, ['about', 'company-overview', 'message-from-chairman', 'license-certificates', 'organizational-chart']) ? 'current' : '' }}">
