@@ -82,6 +82,9 @@ public function blogsByCategory($title)
         'popularPosts'
     ));
 }
+public function blogDetailStatic(){
+    return view ('frontend.blog.blogDetails');
+}
 public function blogDetail($slug)
 {
     $content_title = "Blog";

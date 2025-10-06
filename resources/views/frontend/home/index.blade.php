@@ -803,19 +803,20 @@
                     <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><a href="{{ route('blogDetails', ['slug' => 'hello']) }}"><img
+                                <figure class="image"><a
+                                        href="{{ route('blogDetailStatic', ['slug' => 'hello']) }}"><img
                                             src="{{ asset('assets/images/news/news-4.jpeg') }}" alt=""></a>
                                 </figure>
-                                <figure class="overlay-image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="overlay-image"><a href="{{ route('blogDetailStatic') }}"><img
                                             src="{{ asset('assets/images/news/news-4.jpeg') }}" alt=""></a>
                                 </figure>
                             </div>
                             <div class="lower-content">
                                 <span class="category">Business</span>
-                                <h3><a href="{{ route('blogDetails') }}">Create a series of blog posts discussing
+                                <h3><a href="{{ route('blogDetailStatic') }}">Create a series of blog posts discussing
                                         common interview</a></h3>
                                 <ul class="post-info">
-                                    <li>By <a href="{{ route('blogDetails') }}">Alex Beniwal</a></li>
+                                    <li>By <a href="{{ route('blogDetailStatic') }}">Alex Beniwal</a></li>
                                     <li><span>March 20, 2023</span></li>
                                 </ul>
                             </div>
@@ -826,19 +827,19 @@
                     <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="image"><a href="{{ route('blogDetailStatic') }}"><img
                                             src="{{ asset('assets/images/news/news-5.jpeg') }}" alt=""></a>
                                 </figure>
-                                <figure class="overlay-image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="overlay-image"><a href="{{ route('blogDetailStatic') }}"><img
                                             src="{{ asset('assets/images/news/news-5.jpeg') }}" alt=""></a>
                                 </figure>
                             </div>
                             <div class="lower-content">
                                 <span class="category">Analytics</span>
-                                <h3><a href="{{ route('blogDetails') }}">Explore the concept of personal branding
+                                <h3><a href="{{ route('blogDetailStatic') }}">Explore the concept of personal branding
                                         and its impact on</a></h3>
                                 <ul class="post-info">
-                                    <li>By <a href="{{ route('blogDetails') }}">Alex Beniwal</a></li>
+                                    <li>By <a href="{{ route('blogDetailStatic') }}">Alex Beniwal</a></li>
                                     <li><span>March 19, 2023</span></li>
                                 </ul>
                             </div>
@@ -849,19 +850,19 @@
                     <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="image"><a href="{{ route('blogDetailStatic') }}"><img
                                             src="{{ asset('assets/images/news/news-6.jpeg') }}" alt=""></a>
                                 </figure>
-                                <figure class="overlay-image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="overlay-image"><a href="{{ route('blogDetailStatic') }}"><img
                                             src="{{ asset('assets/images/news/news-6.jpeg') }}" alt=""></a>
                                 </figure>
                             </div>
                             <div class="lower-content">
                                 <span class="category">Business</span>
-                                <h3><a href="{{ route('blogDetails') }}">Feature interviews with employees from
+                                <h3><a href="{{ route('blogDetailStatic') }}">Feature interviews with employees from
                                         top companies</a></h3>
                                 <ul class="post-info">
-                                    <li>By <a href="{{ route('blogDetails') }}">Alex Beniwal</a></li>
+                                    <li>By <a href="{{ route('blogDetailStatic') }}">Alex Beniwal</a></li>
                                     <li><span>March 18, 2023</span></li>
                                 </ul>
                             </div>

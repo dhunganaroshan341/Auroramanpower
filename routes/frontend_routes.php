@@ -20,6 +20,7 @@ Route::prefix('blog')->group(function () {
             Route::get('/','blog')->name('blog');
             Route::get('/blog/category/{slug}','blogsByCategory')->name('blogsByCategory');
             Route::get('/{slug}','blogDetail')->name('blogDetails');
+            Route::get('/1','blogDetail')->name('blogDetailStatic');
     });
 });
 
