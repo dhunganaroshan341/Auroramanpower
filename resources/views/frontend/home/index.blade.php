@@ -803,7 +803,7 @@
                     <div class="news-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                         <div class="inner-box">
                             <div class="image-box">
-                                <figure class="image"><a href="{{ route('blogDetails') }}"><img
+                                <figure class="image"><a href="{{ route('blogDetails', ['slug' => 'hello']) }}"><img
                                             src="{{ asset('assets/images/news/news-4.jpeg') }}" alt=""></a>
                                 </figure>
                                 <figure class="overlay-image"><a href="{{ route('blogDetails') }}"><img
