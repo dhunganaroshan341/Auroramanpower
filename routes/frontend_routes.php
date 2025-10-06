@@ -19,7 +19,7 @@ Route::prefix('blog')->group(function () {
     Route::controller(BlogController::class)->group(function () {
             Route::get('/','blog')->name('blog');
             Route::get('/blog/category/{slug}','blogsByCategory')->name('blogsByCategory');
-            Route::get('/{detail}','blogDetail')->name('blogDetails');
+            Route::get('/{slug}','blogDetail')->name('blogDetails');
     });
 });
 
