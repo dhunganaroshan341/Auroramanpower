@@ -6,10 +6,14 @@ $(document).ready(function () {
         },
     });
         // ========== DATATABLE ==========
+    $(document).ready(function () {
     var table = $("#show-job-data").DataTable({
         processing: true,
         serverSide: true,
-        ajax: "/admin/jobs",
+        ajax: {
+            url: "/admin/jobs", // Important: must match route
+            type: "GET"
+        },
         lengthMenu: [
             [10, 25, 50, -1],
             [10, 25, 50, "All"],
@@ -25,6 +29,7 @@ $(document).ready(function () {
             { data: "status", orderable: false, searchable: false },
             { data: "action", orderable: false, searchable: false },
         ],
+        dom: '<"toolbar">Blfrtip',
         buttons: [
             {
                 extend: "print",
@@ -35,9 +40,10 @@ $(document).ready(function () {
                 title: "",
                 exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
             },
-        ],
-        dom: '<"toolbar">Blfrtip',
+        ]
     });
+});
+
 
     $(".summernote").summernote({ height: 300 });
 

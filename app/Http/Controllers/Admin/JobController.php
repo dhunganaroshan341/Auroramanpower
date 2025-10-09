@@ -17,31 +17,41 @@ class JobController extends Controller
      */
 public function index(Request $request)
 {
+    // Handle AJAX request from DataTables
     if ($request->ajax()) {
-        $jobs = Job::query();
+        $jobs = Job::with('employer'); // assuming a relationship 'employer()' exists
 
         return DataTables::eloquent($jobs)
-            ->addIndexColumn() // DT_RowIndex
-            ->addColumn('action', function ($data) {
-                return view('Admin.Button.button', compact('data'))->render();
-            })
+            ->addIndexColumn() // Adds DT_RowIndex
             ->addColumn('image', function ($item) {
                 $dataimage = asset('uploads/' . $item->image);
                 $defaultImage = asset('defaultImage/defaultimage.webp');
                 return '<img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'"/>';
             })
+            ->addColumn('employer', function ($job) {
+                return $job->employer->name ?? 'N/A';
+            })
+            ->addColumn('location', function ($job) {
+                return $job->location ?? 'N/A';
+            })
+            ->addColumn('salary', function ($job) {
+                return $job->salary ?? 'N/A';
+            })
             ->addColumn('status', function ($status) {
                 $checked = $status->status === 'Active' ? 'checked' : '';
-                return '<div class="form-check form-switch">
-                    <input class="form-check-input statusIdData d-flex mx-auto"
+                return '<div class="form-check form-switch text-center">
+                    <input class="form-check-input statusIdData"
                            type="checkbox" data-id="' . $status->id . '" role="switch" ' . $checked . '>
                 </div>';
             })
-            ->rawColumns(['action', 'image', 'status'])
+            ->addColumn('action', function ($data) {
+                return view('Admin.Button.button', compact('data'))->render();
+            })
+            ->rawColumns(['image', 'status', 'action'])
             ->make(true);
     }
 
-    // Extra JS & CSS files
+    // Non-AJAX request — load page view
     $extraJs = array_merge(
         config('js-map.admin.datatable.script'),
         config('js-map.admin.summernote.script'),
@@ -56,9 +66,10 @@ public function index(Request $request)
 
     return view('Admin.pages.Job.jobIndex', [
         'extraJs' => $extraJs,
-        'extraCs' => $extraCs
+        'extraCs' => $extraCs,
     ]);
 }
+
 
 
 
