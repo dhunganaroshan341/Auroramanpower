@@ -5,6 +5,39 @@ $(document).ready(function () {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
+        // ========== DATATABLE ==========
+    var table = $("#show-job-data").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/admin/jobs",
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"],
+        ],
+        order: [[1, "asc"]],
+        columns: [
+            { data: "DT_RowIndex", orderable: false, searchable: false },
+            { data: "image", orderable: false, searchable: false },
+            { data: "title" },
+            { data: "employer", name: "employer.name" },
+            { data: "location" },
+            { data: "salary" },
+            { data: "status", orderable: false, searchable: false },
+            { data: "action", orderable: false, searchable: false },
+        ],
+        buttons: [
+            {
+                extend: "print",
+                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
+            },
+            {
+                extend: "excel",
+                title: "",
+                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
+            },
+        ],
+        dom: '<"toolbar">Blfrtip',
+    });
 
     $(".summernote").summernote({ height: 300 });
 
@@ -94,39 +127,7 @@ $(".generalRequirementsSummernote").summernote(); // call init after binding eve
         });
     });
 
-    // ========== DATATABLE ==========
-    var table = $("#show-job-data").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "/admin/jobs",
-        lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"],
-        ],
-        order: [[1, "asc"]],
-        columns: [
-            { data: "DT_RowIndex", orderable: false, searchable: false },
-            { data: "image", orderable: false, searchable: false },
-            { data: "title" },
-            { data: "employer", name: "employer.name" },
-            { data: "location" },
-            { data: "salary" },
-            { data: "status", orderable: false, searchable: false },
-            { data: "action", orderable: false, searchable: false },
-        ],
-        buttons: [
-            {
-                extend: "print",
-                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
-            },
-            {
-                extend: "excel",
-                title: "",
-                exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
-            },
-        ],
-        dom: '<"toolbar">Blfrtip',
-    });
+
 
     // Toolbar
     $("div.toolbar").html(`
