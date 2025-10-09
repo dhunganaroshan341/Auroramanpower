@@ -7,12 +7,13 @@ $(document).ready(function () {
     });
         // ========== DATATABLE ==========
 
+     // ✅ Initialize DataTable (no extra $(document).ready)
     var table = $("#show-job-data").DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/admin/jobs", // Important: must match route
-            type: "GET"
+            url: "/admin/jobs",
+            type: "GET",
         },
         lengthMenu: [
             [10, 25, 50, -1],
@@ -40,7 +41,7 @@ $(document).ready(function () {
                 title: "",
                 exportOptions: { columns: [0, 2, 3, 4, 5, 6] },
             },
-        ]
+        ],
     });
 
 
