@@ -6,7 +6,7 @@ $(document).ready(function () {
         },
     });
         // ========== DATATABLE ==========
-    $(document).ready(function () {
+
     var table = $("#show-job-data").DataTable({
         processing: true,
         serverSide: true,
@@ -42,7 +42,7 @@ $(document).ready(function () {
             },
         ]
     });
-});
+
 
 
     $(".summernote").summernote({ height: 300 });
