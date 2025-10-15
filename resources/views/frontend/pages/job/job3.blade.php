@@ -4,8 +4,7 @@
     $title = 'Job Openings';
     $subTitle = 'Job Openings';
     $css =
-        '
-        <link href="' .
+        '<link href="' .
         asset('assets/css/module-css/header.css') .
         '" rel="stylesheet">
         <link href="' .
@@ -41,6 +40,9 @@
                 <button class="theme-btn toggle-btn" id="topCategoriesBtn">
                     <i class="fas fa-list"></i> Top Categories
                 </button>
+                <button class="theme-btn toggle-btn" id="allJobsBtn">
+                    <i class="fas fa-table"></i> All Jobs
+                </button>
             </div>
 
             <!-- Latest Jobs Grid -->
@@ -51,40 +53,32 @@
                             <div class="job-block-one h-100">
                                 <div class="upper-box">
                                     <ul class="job-info">
-                                        <li><i class="icon-43"></i>Posted
-                                            <span>{{ $job->created_at->diffInDays(now()) }} days ago</span>
-                                        </li>
+                                        <li><i class="icon-43"></i>Posted <span>{{ $job->created_at->diffInDays(now()) }}
+                                                days ago</span></li>
                                         <li>Vacancy Code: <span>{{ $job->job_code ?? 'VC' . $job->id }}</span></li>
                                     </ul>
                                 </div>
-
                                 <div class="inner-box">
                                     <div class="title-box">
                                         <h3 class="job-title">{{ $job->title }}</h3>
-                                        <span
-                                            class="job-subheading">{{ $job->vacancy?->custom_company_name ?? ($job->vacancy?->company->name ?? 'N/A') }}</span>
+                                        <span class="job-subheading">
+                                            {{ $job->vacancy?->custom_company_name ?? ($job->vacancy?->company->name ?? 'N/A') }}
+                                        </span>
                                     </div>
-
                                     <div class="jobs-list-box">
                                         <ul>
-                                            <li>
-                                                <strong>Openings:</strong>
+                                            <li><strong>Openings:</strong>
                                                 {{ $job->total_openings ?? ($job->male_opening + $job->female_opening ?? 'N/A') }}
                                             </li>
                                             @if ($job->categories)
-                                                <li>
-                                                    <strong>Category:</strong>
-                                                    {{ implode(', ', $job->categories->pluck('name')->toArray()) }}
-                                                </li>
+                                                <li><strong>Category:</strong>
+                                                    {{ implode(', ', $job->categories->pluck('name')->toArray()) }}</li>
                                             @endif
                                             @if ($job->location)
-                                                <li>
-                                                    <strong>Location:</strong> {{ $job->location }}
-                                                </li>
+                                                <li><strong>Location:</strong> {{ $job->location }}</li>
                                             @endif
                                         </ul>
                                     </div>
-
                                     <div class="btn-box mt-3">
                                         <a href="{{ route('jobDetails', $job->id) }}" class="theme-btn btn-one">View
                                             Details</a>
@@ -107,19 +101,17 @@
                                     <div class="upper-box">
                                         <ul class="job-info">
                                             <li><i class="icon-43"></i>Posted
-                                                <span>{{ $job->created_at->diffInDays(now()) }} days ago</span>
-                                            </li>
+                                                <span>{{ $job->created_at->diffInDays(now()) }} days ago</span></li>
                                             <li>Vacancy Code: <span>{{ $job->job_code ?? 'VC' . $job->id }}</span></li>
                                         </ul>
                                     </div>
-
                                     <div class="inner-box">
                                         <div class="title-box">
                                             <h3 class="job-title">{{ $job->title }}</h3>
-                                            <span
-                                                class="job-subheading">{{ $job->vacancy?->custom_company_name ?? ($job->vacancy?->company->name ?? 'N/A') }}</span>
+                                            <span class="job-subheading">
+                                                {{ $job->vacancy?->custom_company_name ?? ($job->vacancy?->company->name ?? 'N/A') }}
+                                            </span>
                                         </div>
-
                                         <div class="jobs-list-box">
                                             <ul>
                                                 <li><strong>Openings:</strong>
@@ -130,7 +122,6 @@
                                                 @endif
                                             </ul>
                                         </div>
-
                                         <div class="btn-box mt-3">
                                             <a href="{{ route('jobDetails', $job->id) }}" class="theme-btn btn-one">View
                                                 Details</a>
@@ -142,30 +133,165 @@
                     </div>
                 @endforeach
             </div>
+
+            <!-- All Jobs Table -->
+            <div id="allJobsView" class="inner-container d-none">
+                @include('frontend.pages.job.vacancyDatatable')
+            </div>
         </div>
     </section>
 @endsection
 
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const latestBtn = document.getElementById('latestJobsBtn');
-            const topBtn = document.getElementById('topCategoriesBtn');
-            const latestView = document.getElementById('latestJobsView');
-            const topView = document.getElementById('topCategoriesView');
+@push('styles')
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .toggle-btn {
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-            latestBtn.addEventListener('click', function() {
-                latestView.classList.remove('d-none');
-                topView.classList.add('d-none');
-                latestBtn.classList.add('active');
-                topBtn.classList.remove('active');
+        .toggle-btn.active {
+            background: var(--theme-color, #ff6600);
+            color: #fff;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        #jobsTable th {
+            font-size: 14px;
+        }
+
+        #jobsTable td {
+            font-size: 13px;
+        }
+
+        #jobsTable thead {
+            background: var(--secondary-color);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #jobsTable tbody tr:hover {
+            background: rgba(0, 128, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        /* DataTable Search box */
+        .dataTables_filter input {
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 6px 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .dataTables_filter input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(0, 128, 0, 0.3);
+        }
+
+        .dataTables_length select {
+            border: 2px solid var(--secondary-color);
+            border-radius: 6px;
+            padding: 4px 8px;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .dataTables_length select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 6px rgba(0, 128, 0, 0.25);
+        }
+
+        .dataTables_paginate .paginate_button {
+            background: #fff;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color) !important;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            line-height: 32px;
+            margin: 0 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .dataTables_paginate .paginate_button:hover {
+            background: var(--secondary-color);
+            color: #fff !important;
+        }
+
+        .dataTables_paginate .paginate_button.current {
+            background: var(--secondary-color) !important;
+            color: #fff !important;
+            border-color: var(--secondary-color);
+            font-weight: bold;
+            box-shadow: 0 0 6px rgba(0, 128, 0, 0.4);
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const latestBtn = $('#latestJobsBtn');
+            const topBtn = $('#topCategoriesBtn');
+            const allBtn = $('#allJobsBtn');
+
+            const latestView = $('#latestJobsView');
+            const topView = $('#topCategoriesView');
+            const allView = $('#allJobsView');
+
+            function setActive(button) {
+                $('.toggle-btn').removeClass('active');
+                button.addClass('active');
+            }
+
+            latestBtn.click(function() {
+                latestView.removeClass('d-none');
+                topView.addClass('d-none');
+                allView.addClass('d-none');
+                setActive(latestBtn);
             });
 
-            topBtn.addEventListener('click', function() {
-                latestView.classList.add('d-none');
-                topView.classList.remove('d-none');
-                topBtn.classList.add('active');
-                latestBtn.classList.remove('active');
+            topBtn.click(function() {
+                latestView.addClass('d-none');
+                topView.removeClass('d-none');
+                allView.addClass('d-none');
+                setActive(topBtn);
+            });
+
+            allBtn.click(function() {
+                latestView.addClass('d-none');
+                topView.addClass('d-none');
+                allView.removeClass('d-none');
+                setActive(allBtn);
+            });
+
+            // Initialize DataTable
+            $('#jobsTable').DataTable({
+                language: {
+                    paginate: {
+                        previous: '<i class="fa fa-chevron-left"></i>',
+                        next: '<i class="fa fa-chevron-right"></i>'
+                    }
+                },
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50],
+                ordering: true,
+                searching: true
             });
         });
     </script>

@@ -28,6 +28,7 @@ class PagesController extends Controller
 
 public function job3()
 {
+    $jobs = Job::with(['ourCountry', 'categories'])->get();
     // Latest jobs
     $latestJobs = Job::with(['vacancy', 'categories'])
         ->orderBy('created_at', 'desc')
@@ -48,7 +49,7 @@ public function job3()
         ];
     }
 
-    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs'));
+    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs','jobs'));
 }
 
     public function job4()

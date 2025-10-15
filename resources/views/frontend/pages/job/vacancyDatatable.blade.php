@@ -20,15 +20,15 @@
                 <tbody>
                     @foreach ($jobs as $job)
                         <tr>
-                            <td>{{ $job->vacancy->country ?? 'N/A' }}</td>
-                            <td>{{ $job->vacancy->company->name ?? 'Custom Company' }}</td>
+                            <td>{{ $job->ourCountry->name ?? 'N/A' }}</td>
+                            <td>{{ $job->custom_company_name ?? 'Custom Company' }}</td>
                             <td>
                                 @foreach ($job->categories as $cat)
                                     <span class="badge bg-info">{{ $cat->name }}</span>
                                 @endforeach
                             </td>
                             <td>{{ $job->title }}</td>
-                            <td>{{ $job->openings }}</td>
+                            <td>{{ $job->total_openings }}</td>
                             <td>
                                 <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn btn-sm">
                                     <i class="fas fa-eye"></i> View
