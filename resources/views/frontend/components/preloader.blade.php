@@ -1,4 +1,4 @@
-<div class="loader-wrap">
+{{-- <div class="loader-wrap">
     <div class="preloader">
         <div class="preloader-close"><i class="icon-27"></i></div>
         <div id="handle-preloader" class="handle-preloader">
@@ -27,7 +27,7 @@
                         y
                     </span>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
-</div>
+</div> --}}

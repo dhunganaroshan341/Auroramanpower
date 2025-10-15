@@ -9,12 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-     public function up(): void
+    public function up(): void
     {
         Schema::table('vacancies', function (Blueprint $table) {
-            // Company info
-            $table->foreignId('company_id')->nullable()->constrained()->after('id')->onDelete('set null'); // existing company
-            $table->string('custom_company_name')->nullable()->after('company_id');
+            // Client info
+            $table->foreignId('client_id')
+                ->nullable()
+                ->constrained()
+                ->after('id')
+                ->onDelete('set null'); // existing client
+            $table->string('custom_company_name')->nullable()->after('client_id');
             $table->string('custom_company_country')->nullable()->after('custom_company_name');
 
             // Vacancy details
@@ -34,9 +38,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('vacancies', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
+            $table->dropForeign(['client_id']);
             $table->dropColumn([
-                'company_id',
+                'client_id',
                 'custom_company_name',
                 'custom_company_country',
                 'title',

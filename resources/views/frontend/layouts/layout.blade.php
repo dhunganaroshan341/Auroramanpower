@@ -68,7 +68,7 @@
         @yield('content')
 
         {{-- Subscribe Style Two --}}
-        @if (!isset($subscribeStyleTwo))
+        @if (isset($subscribeStyleTwo))
             @include('frontend.components.subscribeStyleTwo')
         @endif
 

@@ -28,7 +28,7 @@
                     company.</p>
             </div>
 
-            <form method="post" action="{{ route('job') }}">
+            <form id="hireForm" method="post" action="{{ route('hire.submit') }}">
                 @csrf
                 <div class="row clearfix">
 
@@ -116,3 +116,50 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const hireForm = document.getElementById('hireForm');
+
+        hireForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            let formData = new FormData(hireForm);
+
+            fetch(hireForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message
+                        });
+                        hireForm.reset(); // Optional: reset the form
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message || 'Something went wrong!'
+                        });
+                    }
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong!'
+                    });
+                    console.error(err);
+                });
+        });
+    </script>
+@endpush

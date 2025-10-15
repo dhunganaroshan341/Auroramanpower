@@ -5,157 +5,193 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Facades\DataTables;
-use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\DataTables;
 
 class JobController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of jobs under a specific vacancy.
      */
 public function index(Request $request)
 {
-    // Handle AJAX request from DataTables
     if ($request->ajax()) {
-        $jobs = Job::with('employer'); // assuming a relationship 'employer()' exists
+        $jobs = Job::with(['employer', 'categories', 'ourCountry'])->latest();
 
-        return DataTables::eloquent($jobs)
-            ->addIndexColumn() // Adds DT_RowIndex
-            ->addColumn('image', function ($item) {
-                $dataimage = asset('uploads/' . $item->image);
-                $defaultImage = asset('defaultImage/defaultimage.webp');
-                return '<img src="' . $dataimage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'"/>';
+        return datatables()->eloquent($jobs)
+            ->addIndexColumn()
+            ->addColumn('action', function ($job) {
+                return view('Admin.Button.button', ['data' => $job])->render();
             })
-            ->addColumn('employer', function ($job) {
-                return $job->employer->name ?? 'N/A';
+            ->addColumn('image', function ($job) {
+                $image = $job->image_url ?? asset('uploads/' . $job->image);
+                $defaultImage = asset('user.png');
+                return '<img src="' . $image . '" width="50" height="50"
+                         class="rounded" style="object-fit:cover"
+                         onerror="this.src=\'' . $defaultImage . '\'"/>';
             })
-            ->addColumn('location', function ($job) {
-                return $job->location ?? 'N/A';
-            })
-            ->addColumn('salary', function ($job) {
-                return $job->salary ?? 'N/A';
-            })
-            ->addColumn('status', function ($status) {
-                $checked = $status->status === 'Active' ? 'checked' : '';
+            ->addColumn('status', function ($job) {
+                $checked = strtolower($job->status) === 'active' ? 'checked' : '';
                 return '<div class="form-check form-switch text-center">
                     <input class="form-check-input statusIdData"
-                           type="checkbox" data-id="' . $status->id . '" role="switch" ' . $checked . '>
+                           type="checkbox" data-id="' . $job->id . '" role="switch" ' . $checked . '>
                 </div>';
             })
-            ->addColumn('action', function ($data) {
-                return view('Admin.Button.button', compact('data'))->render();
+            ->addColumn('employer', function ($job) {
+                return optional($job->employer)->name ?? '<em>Not Assigned</em>';
             })
-            ->rawColumns(['image', 'status', 'action'])
+            ->addColumn('our_country', function ($job) {
+                // Send country name directly
+                return optional($job->ourCountry)->name ?? '<em>Not Set</em>';
+            })
+            ->addColumn('categories', function ($job) {
+                if ($job->categories->isEmpty()) {
+                    return '<em>No Categories</em>';
+                }
+                return $job->categories->pluck('name')->map(function ($name) {
+                    return '<span class="badge bg-primary me-1">' . e($name) . '</span>';
+                })->implode(' ');
+            })
+            ->rawColumns(['action', 'image', 'status', 'employer', 'our_country', 'categories'])
+            ->orderColumns(['title', 'employer.name', 'salary', 'status'], ':column $1')
             ->make(true);
     }
 
-    // Non-AJAX request — load page view
     $extraJs = array_merge(
         config('js-map.admin.datatable.script'),
         config('js-map.admin.summernote.script'),
+        config('js-map.admin.select2.script'),
         config('js-map.admin.buttons.script')
     );
 
     $extraCs = array_merge(
         config('js-map.admin.datatable.style'),
         config('js-map.admin.summernote.style'),
+        config('js-map.admin.select2.style'),
         config('js-map.admin.buttons.style')
     );
 
     return view('Admin.pages.Job.jobIndex', [
         'extraJs' => $extraJs,
-        'extraCs' => $extraCs,
+        'extraCs' => $extraCs
     ]);
 }
 
 
+    /**
+     * Store a newly created job under a specific vacancy.
+     */
+  // Store a newly created job
+public function store(JobRequest $request, Vacancy $vacancy)
+{
+    DB::beginTransaction();
+    try {
+        $data = $request->validated();
+
+        // Assign vacancy
+        $data['vacancy_id'] = $vacancy->id;
+
+        // Openings logic
+        if ($request->input('openings_mode') === 'male-female') {
+            $data['male_opening'] = (int) $request->input('male_opening', 0);
+            $data['female_opening'] = (int) $request->input('female_opening', 0);
+            $data['total_openings'] = $data['male_opening'] + $data['female_opening'];
+        } else {
+            $data['total_openings'] = (int) $request->input('total_openings', 0);
+            $data['male_opening'] = 0;
+            $data['female_opening'] = 0;
+        }
+
+        // Image upload
+        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/jobs');
+
+        // Create job
+        $job = Job::create($data);
+
+        // Sync categories (many-to-many)
+        $job->categories()->sync($request->input('category_ids', []));
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Job created successfully!',
+            'data' => $job,
+        ]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+
+// Show a specific job
+public function show(Vacancy $vacancy, Job $job)
+{
+    abort_if($job->vacancy_id !== $vacancy->id, 404);
+
+    // Load related models for edit form
+    $job->load(['categories', 'ourCountry', 'employer']);
+
+    return response()->json([
+        'success' => true,
+        'data' => $job,
+    ]);
+}
+
+// Update a specific job
+public function update(JobRequest $request, Vacancy $vacancy, Job $job)
+{
+    abort_if($job->vacancy_id !== $vacancy->id, 404);
+
+    DB::beginTransaction();
+    try {
+        $data = $request->validated();
+
+        // Openings logic
+        if ($request->input('openings_mode') === 'male-female') {
+            $data['male_opening'] = (int) $request->input('male_opening', 0);
+            $data['female_opening'] = (int) $request->input('female_opening', 0);
+            $data['total_openings'] = $data['male_opening'] + $data['female_opening'];
+        } else {
+            $data['total_openings'] = (int) $request->input('total_openings', 0);
+            $data['male_opening'] = 0;
+            $data['female_opening'] = 0;
+        }
+
+        // Image upload
+        $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/jobs', $job);
+
+        // Update job
+        $job->update($data);
+
+        // Sync categories
+        $job->categories()->sync($request->input('category_ids', []));
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Job updated successfully!',
+            'data' => $job,
+        ]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+    }
+}
 
 
     /**
-     * Store a newly created resource in storage.
+     * Delete a specific job under a vacancy.
      */
- public function store(JobRequest $request)
+    public function destroy(Vacancy $vacancy, Job $job)
     {
+        abort_if($job->vacancy_id !== $vacancy->id, 404);
+
         DB::beginTransaction();
         try {
-            $data = $request->validated();
-
-            // Handle image upload
-            $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/jobs');
-
-            // Create job
-            $job = Job::create($data);
-
-            // Attach job categories
-            if ($request->has('category_ids')) {
-                $job->categories()->attach($request->category_ids);
-            }
-
-            DB::commit();
-            return response()->json(['success' => true, 'message' => 'Job created successfully!', 'data' => $job]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Display a specific job with categories.
-     */
-    public function show(string $id)
-    {
-        try {
-            $job = Job::with('categories')->findOrFail($id);
-            return response()->json(['success' => true, 'data' => $job]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 404);
-        }
-    }
-
-    /**
-     * Update a specific job.
-     */
-    public function update(JobRequest $request, string $id)
-    {
-        DB::beginTransaction();
-        try {
-            $job = Job::findOrFail($id);
-
-            $data = $request->validated();
-
-            // Handle image upload (will delete old if new uploaded)
-            $data['image'] = $this->uploadSingleImage($request, 'image', 'uploads/jobs', $job);
-
-            $job->update($data);
-
-            // Sync categories
-            if ($request->has('category_ids')) {
-                $job->categories()->sync($request->category_ids);
-            }
-
-            DB::commit();
-            return response()->json(['success' => true, 'message' => 'Job updated successfully!', 'data' => $job]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Delete a specific job.
-     */
-    public function destroy(string $id)
-    {
-        DB::beginTransaction();
-        try {
-            $job = Job::findOrFail($id);
-
-            // Detach categories
-            $job->categories()->detach();
-
-            // Delete image if exists
             if ($job->image && file_exists(public_path($job->image))) {
                 @unlink(public_path($job->image));
             }
@@ -163,19 +199,53 @@ public function index(Request $request)
             $job->delete();
 
             DB::commit();
-            return response()->json(['success' => true, 'message' => 'Job deleted successfully!']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Job deleted successfully!',
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
-    public function toggleStatus($id)
+
+    /**
+     * Toggle job active/inactive status.
+     */
+    public function toggleStatus(Vacancy $vacancy, Job $job)
     {
-        $job = Job::findOrFail($id);
-        $job->status = !$job->status;
+        abort_if($job->vacancy_id !== $vacancy->id, 404);
+
+        $job->status = $job->status === 'Active' ? 'Inactive' : 'Active';
         $job->save();
 
-        return response()->json(['success' => true, 'message' => 'Status updated.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Job status updated.',
+        ]);
     }
 
+    /**
+     * Handle single image upload.
+     */
+    private function uploadSingleImage($request, $field, $path, $existing = null)
+    {
+        if ($request->hasFile($field)) {
+            // Delete old image if exists
+            if ($existing && $existing->image && file_exists(public_path($existing->image))) {
+                @unlink(public_path($existing->image));
+            }
+
+            $file = $request->file($field);
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path($path), $filename);
+
+            return $path . '/' . $filename;
+        }
+
+        return $existing->image ?? null;
+    }
 }

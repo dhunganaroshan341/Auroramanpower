@@ -57,6 +57,14 @@
                                     <input type="text" name="address" placeholder="Address" value="{{ old('address') }}"
                                         class="form-control">
                                 </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="password" name="password" placeholder="password"
+                                        value="{{ old('password') }}" class="form-control">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                    <input type="password" name="password_confirmation" placeholder="confirm password"
+                                        value="" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>

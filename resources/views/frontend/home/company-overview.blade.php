@@ -1,6 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @php
+    $subscribeStyleTwo = true;
     $css =
         '<link href="' .
         asset('assets/css/module-css/page-title.css') .

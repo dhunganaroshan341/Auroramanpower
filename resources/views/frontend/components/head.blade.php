@@ -37,5 +37,6 @@
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>

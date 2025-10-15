@@ -67,7 +67,8 @@
                             <p>Aurora Human Resource (P) Ltd. is an international manpower agency and one of the pioneers in
                                 manpower recruiting. We are committed to offering true customer-focused solutions in the
                                 field of Human Resource recruiting business.</p>
-                            <form method="post" action="#" id="contact-form">
+                            <form method="post" id="contact-form" action="{{ route('contact.store') }}">
+                                @csrf
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                         <label>Name <span>*</span></label>
@@ -82,10 +83,6 @@
                                         <input type="email" name="email" placeholder="Your Email Address" required>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                        <label>Subject <span>*</span></label>
-                                        <input type="text" name="subject" placeholder="Subject of your inquiry" required>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                         <label>Write Message <span>*</span></label>
                                         <textarea name="message" placeholder="Please describe your requirements or inquiry in detail..."></textarea>
                                     </div>
@@ -95,8 +92,6 @@
                                     </div>
                                 </div>
                             </form>
-
-
                         </div>
                     </div>
                 </div>
@@ -118,3 +113,50 @@
     </section>
     <!-- google-map end -->
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const contactForm = document.getElementById('contact-form');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            let formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message
+                        });
+                        contactForm.reset(); // optional: reset form
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message || 'Something went wrong!'
+                        });
+                    }
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong!'
+                    });
+                    console.error(err);
+                });
+        });
+    </script>
+@endpush

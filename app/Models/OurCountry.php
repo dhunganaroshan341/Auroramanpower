@@ -16,17 +16,10 @@ class OurCountry extends BaseModel
     ];
     protected $table = 'our_countries';
     protected $id = 'id';
-    public function packages() {
-    return $this->hasMany(TourPackage::class);
-}
-public function tourPackages()
-{
-    return $this->hasMany(TourPackage::class);
-}
-public function favouritePackages()
-{
-    return $this->hasMany(TourPackage::class)->where('favourite_destination', 1)->where('status', 'Active')->latest()->limit(6);
-}
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'our_country_id');
+    }
 
 
 }

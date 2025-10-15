@@ -13,12 +13,18 @@ class Job extends Model
    protected $fillable = [
         'employer_id',
         'vacancy_id',
+        'custom_company_name',
+        'male_opening',
+        'female_opening',
+        'total_openings',
         'title',
         'description',
         'requirements',
+        'interview_date',
         'location',
         'salary',
         'status',
+        'job_code',
         'slug',
         'image',
         'pdf',
@@ -38,7 +44,7 @@ class Job extends Model
         return $this->belongsToMany(JobCategory::class, 'job_category_job', 'job_id', 'job_category_id')
                     ->withTimestamps();
     }
-    public function OurCountry(){
+    public function ourCountry(){
         return $this->belongsTo(OurCountry::class);
     }
 public function vacancy()

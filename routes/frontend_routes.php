@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\DynamicPageController;
+use App\Http\Controllers\EmployerJobRequestController;
 use App\Http\Controllers\JobSeekerProfileController;
+use App\Http\Controllers\UserFrontendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -33,6 +36,8 @@ Route::prefix('home')->group(function () {
 
     });
 });
+        Route::post('/contact',[UserFrontendController::class,'storeContactUs'])->name('contact.store');
+
 
 //  job
 Route::prefix('pages')->group(function () {
@@ -52,7 +57,7 @@ Route::prefix('pages')->group(function () {
             Route::get('/hire','job')->name('hire');
             });
 
-
+            Route::post('/hire', [EmployerJobRequestController::class, 'store'])->name('hire.submit');
 //  portfoliyo
 Route::prefix('pages')->group(function () {
     Route::prefix('portfoliyo')->group(function () {

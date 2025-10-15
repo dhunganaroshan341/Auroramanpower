@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
-
+ use App\Models\Job;
+use App\Models\JobCategory;
 
 use Illuminate\Http\Request;
 
@@ -23,42 +24,33 @@ class PagesController extends Controller
     {
         return view('frontend.pages/job/job2');
     }
-    public function job3()
-    {
-         $jobs = collect([
-        (object)[
-            'id' => 1,
-            'title' => 'Welder',
-            'openings' => 20,
-            'vacancy' => (object)[
-                'country' => 'UAE',
-                'company' => (object)['name' => 'ABC Manpower'],
-            ],
-            'categories' => [(object)['name' => 'Construction']]
-        ],
-        (object)[
-            'id' => 2,
-            'title' => 'Chef',
-            'openings' => 15,
-            'vacancy' => (object)[
-                'country' => 'Qatar',
-                'company' => (object)['name' => 'Qatar Co.'],
-            ],
-            'categories' => [(object)['name' => 'Hospitality']]
-        ],
-        (object)[
-            'id' => 3,
-            'title' => 'Software Engineer',
-            'openings' => 10,
-            'vacancy' => (object)[
-                'country' => 'Malaysia',
-                'company' => (object)['name' => 'XYZ Pvt. Ltd.'],
-            ],
-            'categories' => [(object)['name' => 'IT']]
-        ]
-    ]);
-        return view('frontend.pages/job/job3',compact('jobs'));
+
+
+public function job3()
+{
+    // Latest jobs
+    $latestJobs = Job::with(['vacancy', 'categories'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    // Top 3 categories with most jobs
+    $topCategories = JobCategory::withCount('jobs')
+        ->orderBy('jobs_count', 'desc')
+        ->take(3)
+        ->get();
+
+    // Prepare category-wise jobs
+    $categoryJobs = [];
+    foreach ($topCategories as $category) {
+        $categoryJobs[] = [
+            'category_name' => $category->name,
+            'jobs' => $category->jobs()->with('vacancy')->get()
+        ];
     }
+
+    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs'));
+}
+
     public function job4()
     {
         return view('frontend.pages/job/job4');

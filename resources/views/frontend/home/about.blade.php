@@ -3,6 +3,7 @@
 @php
     $title = 'About Us';
     $subTitle = 'About Us';
+    $subscribeStyleTwo = true;
     $css =
         '<link href="' .
         asset('assets/css/module-css/page-title.css') .
