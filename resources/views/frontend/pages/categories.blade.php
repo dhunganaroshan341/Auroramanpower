@@ -32,107 +32,130 @@
                     industries.</p>
             </div>
             <div class="row clearfix">
-
-                <!-- Logistics -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/logistic.jpg') }}" alt="Logistics">
-                                </figure>
+                @if (isset($categories) && $categories->count() > 0)
+                    @foreach ($categories as $index => $category)
+                        <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                            <div class="service-block-one wow fadeInUp animated" data-wow-delay="{{ ($index % 3) * 300 }}ms"
+                                data-wow-duration="1500ms">
+                                <div class="inner-box">
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <img src="{{ $category->image ? asset('' . $category->image) : asset('fallbackimage.webp') }}"
+                                                alt="{{ $category->name }}">
+                                        </figure>
+                                    </div>
+                                    <div class="lower-content">
+                                        <h3>{{ $category->name }}</h3>
+                                        <p>{{ $category->description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="lower-content">
-                                <h3>Logistics</h3>
-                                <p>Drivers, Trailer, Crane Operators, Excavator Operators, Mechanics (Diesel & Petrol)</p>
+                        </div>
+                    @endforeach
+                @else
+                    {{-- ✅ Fallback static HTML if categories not found --}}
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/logistic.jpg') }}"
+                                            alt="Logistics"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Logistics</h3>
+                                    <p>Drivers, Trailer, Crane Operators, Excavator Operators, Mechanics (Diesel & Petrol)
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Construction Engineer -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
-                                        alt="Construction Engineer"></figure>
-                            </div>
-                            <div class="lower-content">
-                                <h3>Construction Engineer</h3>
-                                <p>Engineers, Surveyor, Quantity Surveyor, Safety Officers, Supervisors, Foreman,
-                                    Electricians, Masons, Carpenters, Helpers, and more.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
+                                            alt="Construction Engineer"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Construction Engineer</h3>
+                                    <p>Engineers, Surveyor, Quantity Surveyor, Safety Officers, Supervisors, Foreman,
+                                        Electricians, Masons, Carpenters, Helpers, and more.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Hospitality Sector -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
-                                        alt="Hospitality"></figure>
-                            </div>
-                            <div class="lower-content">
-                                <h3>Hospitality Sector</h3>
-                                <p>Managers, Accountants, Secretaries, Waiters, Cooks, Cashiers, Housekeepers, Marketing
-                                    Executives, and more.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
+                                            alt="Hospitality"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Hospitality Sector</h3>
+                                    <p>Managers, Accountants, Secretaries, Waiters, Cooks, Cashiers, Housekeepers, Marketing
+                                        Executives, and more.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Technician -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
-                                        alt="Technician"></figure>
-                            </div>
-                            <div class="lower-content">
-                                <h3>Technician</h3>
-                                <p>Plant Technician, Chiller Plant Technician, A/C Technician, Materials & Concrete
-                                    Technician, Duct Technician.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="00ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
+                                            alt="Technician"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Technician</h3>
+                                    <p>Plant Technician, Chiller Plant Technician, A/C Technician, Materials & Concrete
+                                        Technician, Duct Technician.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Security Guards -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
-                                        alt="Security Guards"></figure>
-                            </div>
-                            <div class="lower-content">
-                                <h3>Security Guards</h3>
-                                <p>Security Officers, Supervisors, Guards, Watchmen, and other security personnel.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="300ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
+                                            alt="Security Guards"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Security Guards</h3>
+                                    <p>Security Officers, Supervisors, Guards, Watchmen, and other security personnel.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Manufacturing Sector -->
-                <div class="col-lg-4 col-md-6 col-sm-12 service-block">
-                    <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
-                                        alt="Manufacturing"></figure>
-                            </div>
-                            <div class="lower-content">
-                                <h3>Manufacturing Sector</h3>
-                                <p>Production Operators, Factory Labour, and related manufacturing roles.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-12 service-block">
+                        <div class="service-block-one wow fadeInUp animated" data-wow-delay="600ms"
+                            data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ asset('assets/images/engineer.jpg') }}"
+                                            alt="Manufacturing"></figure>
+                                </div>
+                                <div class="lower-content">
+                                    <h3>Manufacturing Sector</h3>
+                                    <p>Production Operators, Factory Labour, and related manufacturing roles.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
+                @endif
             </div>
+
         </div>
     </section>
     <!-- service-section end -->

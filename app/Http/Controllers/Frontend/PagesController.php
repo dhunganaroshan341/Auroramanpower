@@ -14,7 +14,8 @@ class PagesController extends Controller
         return view('home/about');
     } public function categories()
     {
-        return view('frontend.pages.categories');
+          $categories = JobCategory::all(); // or paginate if needed
+        return view('frontend.pages.categories',compact('categories'));
     }
     public function job()
     {

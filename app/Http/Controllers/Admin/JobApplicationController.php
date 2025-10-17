@@ -106,33 +106,55 @@ class JobApplicationController extends Controller
         ]);
     }
 
-  public function smartApply($jobId)
+public function smartApply($jobId)
 {
     $user = auth()->user();
-    $profile = $user->jobSeekerProfile;
 
+    // Ensure job seeker profile exists
+    $profile = $user->jobSeekerProfile;
     if (!$profile) {
-        return response()->json(['success' => false, 'message' => 'Complete your profile first.'], 400);
+        return response()->json([
+            'success' => false,
+            'message' => 'Please complete your job seeker profile before applying.'
+        ], 422);
     }
 
-    $job = Job::findOrFail($jobId);
+    // Ensure job exists
+    $job = Job::find($jobId);
+    if (!$job) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Job not found.'
+        ], 404);
+    }
 
+    // Prevent duplicate application
     $alreadyApplied = JobApplication::where('job_id', $job->id)
         ->where('job_seeker_profile_id', $profile->id)
         ->exists();
 
     if ($alreadyApplied) {
-        return response()->json(['success' => false, 'message' => 'Already applied.'], 400);
+        return response()->json([
+            'success' => false,
+            'message' => 'You have already applied for this job.'
+        ], 409);
     }
 
+    // Create the new application
     $application = JobApplication::create([
         'job_id' => $job->id,
         'job_seeker_profile_id' => $profile->id,
-        'status' => 'Pending'
+        'status' => 'Pending',
     ]);
 
-    return response()->json(['success' => true, 'message' => 'Successfully applied!', 'data' => $application]);
+    return response()->json([
+        'success' => true,
+        'message' => 'Your application has been submitted successfully!',
+        'data' => $application,
+    ], 201);
 }
+
+
 public function manualApply(Request $request, $id)
 {
     // Validate the request

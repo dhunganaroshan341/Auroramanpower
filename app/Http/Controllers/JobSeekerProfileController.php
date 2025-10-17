@@ -26,37 +26,34 @@ class JobSeekerProfileController extends Controller
     /**
      * Store a new Job Seeker profile.
      */
-   public function store(Request $request)
+
+
+public function store(Request $request, Job $job = null)
 {
+    // Validate input, including password confirmation
     $validated = $request->validate([
         'name'        => 'required|string|max:255',
-        'email'       => 'required|email|max:255',
+        'email'       => 'required|email|max:255|unique:users,email',
         'phone'       => 'required|string|max:20',
         'bio'         => 'nullable|string',
         'skills'      => 'nullable|string',
         'experience'  => 'nullable|string',
         'education'   => 'nullable|string',
         'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        'password'    => 'required|string|min:6|confirmed',
     ]);
 
-    // Automatically generate a secure password
-    $password = Hash::make(uniqid('jobuser_', true));
+    // Create the user
+    $user = User::create([
+        'full_name' => $validated['name'],
+        'email'     => $validated['email'],
+        'phone'     => $validated['phone'],
+        'role'      => 'User',
+        'password'  => Hash::make($validated['password']),
+    ]);
 
-    // Create or get the user
-    $user = User::firstOrCreate(
-        ['email' => $validated['email']],
-        [
-            'full_name'     => $validated['name'],
-            'phone'    => $validated['phone'],
-            'role'     => 'User',
-            'password' => $password,
-        ]
-    );
-
-    // Store resume if uploaded
-    if ($request->hasFile('resume_file')) {
-        $validated['resume_file'] = $request->file('resume_file')->store('resumes', 'public');
-    }
+    // Handle resume upload
+    $resumePath = $request->file('resume_file')->store('resumes', 'public');
 
     // Create job seeker profile
     JobSeekerProfile::create([
@@ -65,10 +62,14 @@ class JobSeekerProfileController extends Controller
         'skills'      => $validated['skills'] ?? null,
         'experience'  => $validated['experience'] ?? null,
         'education'   => $validated['education'] ?? null,
-        'resume_file' => $validated['resume_file'],
+        'resume_file' => $resumePath,
     ]);
 
-    return redirect()->back()->with('success', 'Profile created successfully!');
+    // Automatically log in the user
+    Auth::login($user);
+
+    // Redirect to home/dashboard after login
+    return redirect()->route('home')->with('success', 'User registered and logged in successfully!');
 }
 
 

@@ -108,7 +108,10 @@ Route::prefix('solutions')->group(function () {
 
         });
 Route::get('/cv-upload', [JobSeekerProfileController::class, 'create'])
+    ->middleware('guest')       // only guests can access
     ->name('jobseeker.create');
+
+
 
 // Handle form submission
 Route::post('/cv-upload', [JobSeekerProfileController::class, 'store'])

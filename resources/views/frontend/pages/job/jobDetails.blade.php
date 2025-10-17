@@ -76,21 +76,35 @@
 
                             <!-- Trigger Button -->
                             <div>
+                                <!-- Regular Apply Button (opens modal) -->
                                 <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
                                     data-bs-target="#applyJobModal">
                                     <i class="fas fa-file-alt"></i>
-
-
                                     Apply
                                 </button>
-                                <a href = "{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
-                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                    Login & Auto Apply
-                                </a>
 
+                                <!-- Login & Auto Apply (for guests) -->
+                                @guest
+                                    <a href="{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                        Login & Auto Apply
+                                    </a>
+                                @endguest
 
+                                <!-- Auto Apply (for logged-in users) -->
+                                @auth
+                                    <form action="{{ route('jobseeker.smartApply', ['id' => $job->id]) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn theme-btn toggle-btn">
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            Apply as {{ auth()->user()->full_name }}
+                                        </button>
+                                    </form>
+                                @endauth
 
                             </div>
+
                         </div>
 
 

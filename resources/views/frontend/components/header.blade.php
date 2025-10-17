@@ -101,7 +101,16 @@
                 </div>
 
                 <div class="menu-right-content">
-                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
+                    @auth
+                        <div class="link-box mr_20">
+                            Hello, {{ auth()->user()->full_name }}
+                        </div>
+                    @else
+                        <div class="link-box mr_20">
+                            <a href="{{ route('jobseeker.create') }}">Upload CV</a>
+                        </div>
+                    @endauth
+
                     <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
                     </div>
                 </div>

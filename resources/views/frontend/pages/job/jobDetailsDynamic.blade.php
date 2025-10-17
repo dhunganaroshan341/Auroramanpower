@@ -80,20 +80,37 @@
 
                         <!-- Toggle Buttons -->
                         <div class="mb-4 d-flex gap-3 align-items-start">
-                            <button class="theme-btn toggle-btn active" id="imageViewBtn">Newspaper Advertisement</button>
-                            <button class="theme-btn toggle-btn" id="descriptionViewBtn">More Detail</button>
 
-                            <div>
-                                <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
-                                    data-bs-target="#applyJobModal">
-                                    <i class="fas fa-file-alt"></i> Apply
-                                </button>
 
-                                <a href="{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
-                                    <i class="fa fa-paper-plane" aria-hidden="true"></i> Login & Auto Apply
-                                </a>
+                            <div class="mb-4 d-flex gap-3 align-items-start">
+
+                                <button class="theme-btn toggle-btn" id="descriptionViewBtn"> Detail</button>
+                                <button class="theme-btn toggle-btn active" id="imageViewBtn">Newspaper
+                                    Ad</button>
+
+                                <div>
+                                    @auth
+                                        {{-- If user is logged in --}}
+                                        <button type="button" class="btn theme-btn toggle-btn smartApplyBtn"
+                                            data-job-id="{{ $job->id }}">
+                                            <i class="fa fa-paper-plane"></i> Smart Apply
+                                        </button>
+                                    @else
+                                        {{-- If user is not logged in --}}
+                                        <button type="button" class="btn theme-btn toggle-btn" data-bs-toggle="modal"
+                                            data-bs-target="#applyJobModal">
+                                            <i class="fas fa-file-alt"></i> Apply
+                                        </button>
+
+                                        <a href="{{ route('jobseeker.create') }}" class="btn theme-btn toggle-btn">
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Login & Auto Apply
+                                        </a>
+                                    @endauth
+                                </div>
                             </div>
+
                         </div>
+
 
                         <!-- Image View -->
                         <div id="imageView">
@@ -179,6 +196,47 @@
                 descBtn.classList.add('active');
                 imageBtn.classList.remove('active');
             });
+
+            $('.smartApplyBtn').on('click', function() {
+                let jobId = $(this).data('job-id');
+                let btn = $(this);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to smart apply for this job?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, apply!',
+                    cancelButtonText: 'Cancel',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('jobseeker.smartApply', ':id') }}".replace(':id',
+                                jobId),
+                            type: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                Swal.fire('Success', response.message, 'success');
+                                btn.html('<i class="fa-solid fa-check"></i> Applied')
+                                    .prop('disabled', true)
+                                    .removeClass('theme-btn')
+                                    .addClass('btn-success');
+                            },
+                            error: function(xhr) {
+                                let msg = 'Something went wrong, please try again.';
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    msg = xhr.responseJSON.message;
+                                }
+                                Swal.fire('Error', msg, 'error');
+                            }
+                        });
+                    }
+                });
+            });
+
         });
     </script>
 @endpush
