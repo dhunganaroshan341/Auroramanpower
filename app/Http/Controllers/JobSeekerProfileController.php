@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,53 +14,63 @@ class JobSeekerProfileController extends Controller
     /**
      * Show the CV upload / create form.
      */
-    public function create()
-    {
-        return view('frontend.pages.jobseeker.upload-resume');
-    }
+  public function create(Request $request)
+{
+    $jobId = $request->query('job_id'); // optional
+    $job = $jobId ? Job::find($jobId) : null;
+
+    return view('frontend.pages.jobseeker.upload-resume', compact('job'));
+}
+
 
     /**
      * Store a new Job Seeker profile.
      */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'email'       => 'required|email|max:255',
-            'phone'       => 'required|string|max:20',
-            'bio'         => 'nullable|string',
-            'skills'      => 'nullable|string',
-            'experience'  => 'nullable|string',
-            'education'   => 'nullable|string',
-            'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
-            'password'    => 'nullable|string|confirmed|min:6',
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name'        => 'required|string|max:255',
+        'email'       => 'required|email|max:255',
+        'phone'       => 'required|string|max:20',
+        'bio'         => 'nullable|string',
+        'skills'      => 'nullable|string',
+        'experience'  => 'nullable|string',
+        'education'   => 'nullable|string',
+        'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+    ]);
 
-        $user = User::firstOrCreate(
-            ['email' => $validated['email']],
-            [
-                'name'     => $validated['name'],
-                'phone'    => $validated['phone'],
-                'role'    => 'User',
-                'password' => $validated['password'] ? Hash::make($validated['password']) : Hash::make(uniqid()),
-            ]
-        );
+    // Automatically generate a secure password
+    $password = Hash::make(uniqid('jobuser_', true));
 
-        if ($request->hasFile('resume_file')) {
-            $validated['resume_file'] = $request->file('resume_file')->store('resumes', 'public');
-        }
+    // Create or get the user
+    $user = User::firstOrCreate(
+        ['email' => $validated['email']],
+        [
+            'full_name'     => $validated['name'],
+            'phone'    => $validated['phone'],
+            'role'     => 'User',
+            'password' => $password,
+        ]
+    );
 
-        JobSeekerProfile::create([
-            'user_id'     => $user->id,
-            'bio'         => $validated['bio'] ?? null,
-            'skills'      => $validated['skills'] ?? null,
-            'experience'  => $validated['experience'] ?? null,
-            'education'   => $validated['education'] ?? null,
-            'resume_file' => $validated['resume_file'],
-        ]);
-
-        return redirect()->back()->with('success', 'Profile created successfully!');
+    // Store resume if uploaded
+    if ($request->hasFile('resume_file')) {
+        $validated['resume_file'] = $request->file('resume_file')->store('resumes', 'public');
     }
+
+    // Create job seeker profile
+    JobSeekerProfile::create([
+        'user_id'     => $user->id,
+        'bio'         => $validated['bio'] ?? null,
+        'skills'      => $validated['skills'] ?? null,
+        'experience'  => $validated['experience'] ?? null,
+        'education'   => $validated['education'] ?? null,
+        'resume_file' => $validated['resume_file'],
+    ]);
+
+    return redirect()->back()->with('success', 'Profile created successfully!');
+}
+
 
     /**
      * Show a Job Seeker profile (read).
@@ -101,7 +112,7 @@ class JobSeekerProfileController extends Controller
 
         // Update user info
         $user->update([
-            'name'  => $validated['name'],
+            'full_name'  => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
         ]);

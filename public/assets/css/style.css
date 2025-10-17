@@ -523,7 +523,7 @@ html.lenis {
 
 .pagination li a:hover,
 .pagination li a.current{
-  color: var(--title-color);
+  color: var(--theme-color);
 }
 
 .pagination li a i{

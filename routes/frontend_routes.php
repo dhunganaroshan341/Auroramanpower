@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\DynamicPageController;
 use App\Http\Controllers\EmployerJobRequestController;
 use App\Http\Controllers\JobSeekerProfileController;
@@ -22,7 +23,7 @@ Route::prefix('blog')->group(function () {
     Route::controller(BlogController::class)->group(function () {
             Route::get('/','blog')->name('blog');
             Route::get('/blog/category/{slug}','blogsByCategory')->name('blogsByCategory');
-            Route::get('/{slug}','blogDetail')->name('blogDetails');
+            Route::get('/{slug}','blogDetail')->name('blogDetail');
             Route::get('/1','blogDetail')->name('blogDetailStatic');
     });
 });
@@ -47,15 +48,23 @@ Route::prefix('pages')->group(function () {
             Route::get('/job-2','job2')->name('job2'); //kinda like job grid
             Route::get('/job-3','job3')->name('job3');
             Route::get('/job-4','job4')->name('job4');
-            Route::get('/job-details','jobDetails')->name('jobDetails');
+            Route::get('/job-detaails','jobDetails')->name('jobDetails');
         });
     });
 });
     Route::controller(PagesController::class)->group(function(){
             Route::get('/jobs','job3')->name('jobs');
+            Route::get('/jobs/{id}','jobDetailsById')->name('jobById');
 
             Route::get('/hire','job')->name('hire');
             });
+Route::post('/jobs/{id}/apply', [JobApplicationController::class, 'manualApply'])
+    ->name('jobseeker.mannualApply');
+
+// Smart/auto apply route (for logged-in users)
+Route::post('/jobs/{id}/smart-apply', [JobApplicationController::class, 'smartApply'])
+    ->name('jobseeker.smartApply')
+    ->middleware('auth'); // Only authenticated users
 
             Route::post('/hire', [EmployerJobRequestController::class, 'store'])->name('hire.submit');
 //  portfoliyo

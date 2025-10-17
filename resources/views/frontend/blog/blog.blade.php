@@ -75,13 +75,13 @@
                                     @foreach ($recentPosts as $post)
                                         <div class="post">
                                             <figure class="post-thumb">
-                                                <a href="{{ route('blogDetails', $post->slug) }}">
+                                                <a href="{{ route('blogDetail', $post->slug) }}">
                                                     <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
                                                         alt="{{ $post->title }}">
                                                 </a>
                                             </figure>
                                             <h6>
-                                                <a href="{{ route('blogDetails', $post->slug) }}">
+                                                <a href="{{ route('blogDetail', $post->slug) }}">
                                                     {{ Str::limit($post->title, 40) }}
                                                 </a>
                                             </h6>
@@ -127,13 +127,13 @@
                                             <div class="inner-box">
                                                 <div class="image-box">
                                                     <figure class="image">
-                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                        <a href="{{ route('blogDetail', $post->slug) }}">
                                                             <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
                                                                 alt="{{ $post->title }}">
                                                         </a>
                                                     </figure>
                                                     <figure class="overlay-image">
-                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                        <a href="{{ route('blogDetail', $post->slug) }}">
                                                             <img src="{{ $post->first_image_url ?? asset('images/engineer.jpg') }}"
                                                                 alt="{{ $post->title }}">
                                                         </a>
@@ -145,7 +145,7 @@
                                                             class="category">{{ $post->categories->first()->name }}</span>
                                                     @endif
                                                     <h3>
-                                                        <a href="{{ route('blogDetails', $post->slug) }}">
+                                                        <a href="{{ route('blogDetail', $post->slug) }}">
                                                             {{ Str::limit($post->title, 60) }}
                                                         </a>
                                                     </h3>

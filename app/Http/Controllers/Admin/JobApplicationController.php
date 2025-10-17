@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobApplicationRequest;
 use App\Models\Application;
+use App\Models\Job;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -103,4 +105,67 @@ class JobApplicationController extends Controller
             'message' => 'Application deleted successfully!'
         ]);
     }
+
+  public function smartApply($jobId)
+{
+    $user = auth()->user();
+    $profile = $user->jobSeekerProfile;
+
+    if (!$profile) {
+        return response()->json(['success' => false, 'message' => 'Complete your profile first.'], 400);
+    }
+
+    $job = Job::findOrFail($jobId);
+
+    $alreadyApplied = JobApplication::where('job_id', $job->id)
+        ->where('job_seeker_profile_id', $profile->id)
+        ->exists();
+
+    if ($alreadyApplied) {
+        return response()->json(['success' => false, 'message' => 'Already applied.'], 400);
+    }
+
+    $application = JobApplication::create([
+        'job_id' => $job->id,
+        'job_seeker_profile_id' => $profile->id,
+        'status' => 'Pending'
+    ]);
+
+    return response()->json(['success' => true, 'message' => 'Successfully applied!', 'data' => $application]);
+}
+public function manualApply(Request $request, $id)
+{
+    // Validate the request
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:20',
+        'desired_role' => 'required|string|max:255',
+        'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        'bio' => 'nullable|string',
+    ]);
+
+    // Store file
+    $resumePath = $request->file('resume_file')->store('uploads/resumes', 'public');
+
+    // Create JobApplication
+    $application = JobApplication::create([
+        'job_id' => $id,
+        'job_seeker_profile_id' => null, // guest
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'desired_role' => $request->desired_role,
+        'bio' => $request->bio,
+        'resume_file' => $resumePath,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Your application has been submitted successfully!',
+        'data' => $application
+    ]);
+}
+
+
 }

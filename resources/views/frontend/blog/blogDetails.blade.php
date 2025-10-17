@@ -53,26 +53,7 @@
                             <div class="widget-title mb_11">
                                 <h3>Categories</h3>
                             </div>
-                            <div class="widget-content">
-                                <ul class="category-list clearfix">
-                                    @isset($categories)
-                                        @if ($categories->isNotEmpty())
-                                            @foreach ($categories as $category)
-                                                <li>
-                                                    <a href="{{ route('blog', ['category' => $category->id ?? 0]) }}">
-                                                        {{ $category->name ?? 'Uncategorized' }}
-                                                        <span>({{ $category->posts_count ?? 0 }})</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        @else
-                                            <li>No categories available</li>
-                                        @endif
-                                    @else
-                                        <li>No categories available</li>
-                                    @endisset
-                                </ul>
-                            </div>
+
                         </div>
 
                         <!-- Latest Posts -->
@@ -86,7 +67,7 @@
                                         @foreach ($recentPosts as $recent)
                                             <div class="post">
                                                 <figure class="post-thumb">
-                                                    <a href="{{ route('blogDetail', $recent->slug ?? '#') }}">
+                                                    <a href="{{ route('blogDetail', [$recent->slug ?? '#']) }}">
                                                         <img src="{{ $recent->firstImageUrl ?? asset('assets/images/default.jpg') }}"
                                                             alt="{{ $recent->title ?? 'Untitled' }}">
                                                     </a>
@@ -150,7 +131,7 @@
                                     <div class="lower-content">
                                         @if (!empty($post->categories) && $post->categories->isNotEmpty())
                                             <span
-                                                class="category">{{ $post->categories->pluck('name')->join(', ') ?? 'Uncategorized' }}</span>
+                                                class="category">{{ $post->categories->pluck('title')->join(', ') ?? 'Uncategorized' }}</span>
                                         @endif
                                         <h3>{{ $post->title ?? 'Untitled Post' }}</h3>
                                         <ul class="post-info">

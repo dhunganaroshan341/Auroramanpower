@@ -32,18 +32,64 @@
                 <h2 class="title-animation">Find Your Job</h2>
             </div>
 
-            <!-- Toggle Buttons -->
-            <div class="text-center mb-4 d-flex justify-content-center gap-3 flex-wrap">
-                <button class="theme-btn toggle-btn active" id="latestJobsBtn">
-                    <i class="fas fa-th"></i> Latest Jobs
-                </button>
-                <button class="theme-btn toggle-btn" id="topCategoriesBtn">
-                    <i class="fas fa-list"></i> Top Categories
-                </button>
-                <button class="theme-btn toggle-btn" id="allJobsBtn">
-                    <i class="fas fa-table"></i> All Jobs
-                </button>
+            <!-- Search Field + Reset Button -->
+            <!-- Job Search Form -->
+            <!-- Job Search Form: Minimalist -->
+            <div class="text-center mb-4 d-flex justify-content-center gap-2 flex-wrap">
+                <form action="{{ route('jobs') }}" method="GET">
+                    <input type="text" name="search" placeholder="Search job, e.g., Electrician" />
+
+                    <!-- Submit Button: Magnifying Glass, No Background -->
+                    <button type="submit" class="btn btn-link p-2 text-dark" style="text-decoration: none;">
+                        <i class="fas fa-search fa-lg"></i>
+                    </button>
+
+                    <!-- Reset Button: Minimal, X icon -->
+                    <a href="{{ route('jobs') }}" class="btn btn-link p-2 text-dark" style="text-decoration: none;">
+                        <i class="fas fa-times fa-lg"></i>
+                    </a>
+                </form>
             </div>
+
+
+
+            <!-- Job Filters -->
+            <div class="text-center mb-4 d-flex justify-content-center gap-3 flex-wrap align-items-center">
+
+                <!-- Toggle Buttons -->
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="theme-btn toggle-btn active" id="latestJobsBtn">
+                        <i class="fas fa-th"></i> Latest Jobs
+                    </button>
+                    <button type="button" class="theme-btn toggle-btn" id="topCategoriesBtn">
+                        <i class="fas fa-list"></i> Top Categories
+                    </button>
+                    <button type="button" class="theme-btn toggle-btn" id="allJobsBtn">
+                        <i class="fas fa-table"></i> All Jobs
+                    </button>
+                </div>
+
+                <!-- Category Dropdown -->
+                <form action="{{ route('jobs') }}" method="GET" class="d-inline-block ms-3">
+                    <select name="category" id="categorySelect" class="form-select form-select-sm border rounded shadow-sm"
+                        style="min-width: 200px; cursor: pointer;">
+                        <option value="">Select Category</option>
+                        @foreach ($jobCategories as $category)
+                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </form>
+
+
+
+            </div>
+
+
+            <!-- Minimal CSS (optional for extra "sexy" look) -->
+
+
+
+
 
             <!-- Latest Jobs Grid -->
             <div id="latestJobsView" class="inner-container">
@@ -62,7 +108,7 @@
                                     <div class="title-box">
                                         <h3 class="job-title">{{ $job->title }}</h3>
                                         <span class="job-subheading">
-                                            {{ $job->vacancy?->custom_company_name ?? ($job->vacancy?->company->name ?? 'N/A') }}
+                                            {{ $job->custom_company_name ?? ($job->custom_company_name ?? 'N/A') }}
                                         </span>
                                     </div>
                                     <div class="jobs-list-box">
@@ -101,7 +147,8 @@
                                     <div class="upper-box">
                                         <ul class="job-info">
                                             <li><i class="icon-43"></i>Posted
-                                                <span>{{ $job->created_at->diffInDays(now()) }} days ago</span></li>
+                                                <span>{{ $job->created_at->diffInDays(now()) }} days ago</span>
+                                            </li>
                                             <li>Vacancy Code: <span>{{ $job->job_code ?? 'VC' . $job->id }}</span></li>
                                         </ul>
                                     </div>
@@ -240,12 +287,11 @@
         }
     </style>
 @endpush
-
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Toggle buttons
             const latestBtn = $('#latestJobsBtn');
             const topBtn = $('#topCategoriesBtn');
             const allBtn = $('#allJobsBtn');
@@ -280,7 +326,7 @@
                 setActive(allBtn);
             });
 
-            // Initialize DataTable
+            // DataTable
             $('#jobsTable').DataTable({
                 language: {
                     paginate: {
@@ -292,6 +338,11 @@
                 lengthMenu: [5, 10, 25, 50],
                 ordering: true,
                 searching: true
+            });
+
+            // Auto-submit category select (theme buttons untouched)
+            $('#categorySelect').on('change', function() {
+                $(this).closest('form').submit();
             });
         });
     </script>

@@ -103,6 +103,22 @@ $(function () {
         $('#link').val(job.link);
         $('#icon_class').val(job.icon_class);
         $('#requirements').val(job.requirements);
+         if (job.image != null) {
+                    $("#previewImage").html(
+                        `<img src="/${job.image}"
+                                  alt="User Image"
+                                  width="100"
+                                  height="100"
+                                  onerror="this.onerror=404; this.src='/user.png';">`
+                    );
+                } else {
+                    $("#previewImage").html(
+                        `<img src="user.png"
+                                  alt="Default Image"
+                                  width="100"
+                                  height="100">`
+                    );
+                }
 
         const mode = (job.male_opening > 0 || job.female_opening > 0) ? 'male-female' : 'total';
         $('#openingsMode').val(mode).trigger('change');

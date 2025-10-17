@@ -26,10 +26,23 @@ class PagesController extends Controller
     }
 
 
-public function job3()
+public function job3(Request $request)
 {
-    $jobs = Job::with(['ourCountry', 'categories'])->get();
-    // Latest jobs
+    // Get search parameter from query string
+    $searchTitle = $request->query('search'); // e.g., ?search=Electrician
+
+    // Base query for jobs
+    $jobsQuery = Job::with(['ourCountry', 'categories', 'vacancy']);
+
+    // Apply search if a search term is provided
+    if ($searchTitle) {
+        $jobsQuery->where('title', 'like', '%' . $searchTitle . '%');
+    }
+
+    // Get filtered jobs
+    $jobs = $jobsQuery->orderBy('created_at', 'desc')->get();
+
+    // Latest jobs (optional: can be same as $jobs or always latest)
     $latestJobs = Job::with(['vacancy', 'categories'])
         ->orderBy('created_at', 'desc')
         ->get();
@@ -40,7 +53,7 @@ public function job3()
         ->take(3)
         ->get();
 
-    // Prepare category-wise jobs
+    // Prepare category-wise jobs (top categories)
     $categoryJobs = [];
     foreach ($topCategories as $category) {
         $categoryJobs[] = [
@@ -49,8 +62,13 @@ public function job3()
         ];
     }
 
-    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs','jobs'));
+ $jobCategories = JobCategory::all();
+    // Return view with jobs and categories
+
+    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs', 'jobs', 'topCategories','jobCategories'));
 }
+
+
 
     public function job4()
     {
@@ -60,6 +78,14 @@ public function job3()
     {
         return view('frontend.pages/job/jobDetails');
     }
+     public function jobDetailsById($id)
+{
+    // Fetch the job by ID with country and categories
+    $job = Job::with(['ourCountry', 'categories'])->findOrFail($id);
+
+    // Return the job details view
+    return view('frontend.pages.job.jobDetailsDynamic', compact('job'));
+}
     public function portfolio()
     {
         return view('frontend.pages/portfoliyo/portfolio');

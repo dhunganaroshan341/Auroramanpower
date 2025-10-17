@@ -6,13 +6,13 @@
         '<link href="' .
         asset('assets/css/module-css/page-title.css') .
         '" rel="stylesheet">
-            <link href="' .
+        <link href="' .
         asset('assets/css/module-css/service-details.css') .
         '" rel="stylesheet">
-            <link href="' .
+        <link href="' .
         asset('assets/css/module-css/subscribe.css') .
         '" rel="stylesheet">
-            <link href="' .
+        <link href="' .
         asset('assets/css/module-css/footer.css') .
         '" rel="stylesheet">';
     $title = 'About Us';
@@ -26,9 +26,6 @@
 
             <!-- First Row: Company Intro -->
             <div class="row align-items-center mb_70">
-                <!-- Intro Text -->
-                <!-- Second Row: Sidebar + Details -->
-
                 <!-- Sidebar -->
                 <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side mb-5 mb-lg-0">
                     <div class="service-sidebar mr_40">
@@ -60,125 +57,123 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
 
-
-                {{-- <div class="col-lg-6 col-md-5 col-sm-12 text-center">
-                    <div class="image-box">
-                        <img src="{{ asset('assets/images/aurora_hr_office.jpg') }}" alt="Aurora HR Office"
-                            class="img-fluid rounded shadow">
-                        </figure>
-                    </div>
-                </div> --}}
-                <div class="col-lg-6 col-md-7 col-sm-12">
+                <!-- Intro Text -->
+                <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="sec-title">
                         <span class="sub-title mb_10">About Aurora HR</span>
                         <h2>Company Overview</h2>
-                        <p class="mt_20">Aurora Human Resource (P) Ltd., an international manpower agency, is a pioneer
-                            in manpower recruiting. Established with a core belief in providing true customer-focused
-                            solutions, our team of highly dedicated and experienced professionals is backed with modern
-                            resources and centrally located workplace at Kupondole, Lalitpur. We have successfully
-                            deployed over 10,000 unskilled, semi-skilled, and skilled personnel across Asia, Europe, and
-                            Gulf countries.</p>
-                        <p>Our primary objective is to enable Nepali citizens to earn a decent living abroad while
-                            contributing to Nepal’s economy through remittance and addressing unemployment.</p>
+                        <p class="mt_20">
+                            Aurora Human Resource (P) Ltd., an international manpower agency, is a pioneer in manpower
+                            recruiting.
+                            Established with a core belief in providing customer-focused solutions, our team of highly
+                            dedicated and experienced professionals is backed with modern resources and a centrally located
+                            workplace at Kupondole, Lalitpur.
+                            We have successfully deployed over 10,000 unskilled, semi-skilled, and skilled personnel across
+                            Asia, Europe, and Gulf countries.
+                        </p>
+                        <p>
+                            Our primary objective is to enable Nepali citizens to earn a decent living abroad while
+                            contributing to Nepal’s economy through remittance and addressing unemployment.
+                        </p>
                     </div>
                 </div>
-                <!-- Intro Image -->
-
             </div>
 
-            <div class="row">
-                <!-- Content Side -->
-                <div class="col-lg-8 col-md-12 col-sm-12 content-side">
-                    <div class="service-details-content">
-
-                        <!-- Mission & Vision -->
-                        <div class="row mb-5">
-                            <!-- Mission -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card text-center shadow border-0 h-100">
-                                    <div class="card-body p-5">
-                                        <div class="mb-3">
-                                            <span
-                                                class="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle"
-                                                style="width:60px;height:60px;">
-                                                <i class="fa fa-bullseye fa-lg"></i>
-                                            </span>
-                                        </div>
-                                        <h4 class="fw-bold mb-3">Our Mission</h4>
-                                        <p class="text-muted">
-                                            To provide distinctive services by connecting screened, shortlisted, and
-                                            deserving candidates with reputed employers, ensuring cost-effective and
-                                            value-added services that maintain market goodwill and brand reputation.
-                                        </p>
-                                    </div>
-                                </div>
+            <!-- Mission & Vision -->
+            <div class="row mb-5 g-4">
+                <!-- Mission -->
+                <div class="col-md-6">
+                    <div class="card text-center shadow border-0 h-100">
+                        <div class="card-body p-5">
+                            <div class="mb-3">
+                                <span
+                                    class="d-inline-flex justify-content-center align-items-center bg-primary text-white rounded-circle"
+                                    style="width:60px;height:60px;">
+                                    <i class="fa fa-bullseye fa-lg"></i>
+                                </span>
                             </div>
-
-                            <!-- Vision -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card text-center shadow border-0 h-100">
-                                    <div class="card-body p-5">
-                                        <div class="mb-3">
-                                            <span
-                                                class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
-                                                style="width:60px;height:60px;">
-                                                <i class="fas fa-eye fa-lg"></i>
-                                            </span>
-                                        </div>
-                                        <h4 class="fw-bold mb-3">Our Vision</h4>
-                                        <p class="text-muted">
-                                            To build reliable connections abroad and help address unemployment in Nepal,
-                                            while deploying potential Nepali manpower to the best international
-                                            employers
-                                            worldwide.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="fw-bold mb-3">Our Mission</h4>
+                            <p class="text-muted">
+                                To provide distinctive services by connecting screened, shortlisted, and deserving
+                                candidates with reputed employers, ensuring cost-effective and value-added services that
+                                maintain market goodwill and brand reputation.
+                            </p>
                         </div>
-
-                        <!-- Objective -->
-
-
                     </div>
                 </div>
 
-                <div class="text-box mb_70 col-lg-4 card text-center shadow border-0 h-100">
-                    <div class="card-body">
-                        <h2>Our Objective</h2>
-                        <p>The objective of Aurora HR is to enable Nepali citizens to earn a decent living abroad,
-                            contribute to the economy, and supply all categories of human resources efficiently. We
-                            also aim to:</p>
-                        <ul class="list-style-one mt-3">
-                            <li>Continue serving Nepali workers by helping them secure better jobs.</li>
-                            <li>Enhance the standard of living for Nepali workers.</li>
-                            <li>Provide training to aspirant candidates to improve skills for employment abroad.
-                            </li>
-                            <li>Develop better working relationships between employers and workers.</li>
-                            <li>Build long-term business relationships and trust among clients.</li>
-                        </ul>
+                <!-- Vision -->
+                <div class="col-md-6">
+                    <div class="card text-center shadow border-0 h-100">
+                        <div class="card-body p-5">
+                            <div class="mb-3">
+                                <span
+                                    class="d-inline-flex justify-content-center align-items-center bg-danger text-white rounded-circle"
+                                    style="width:60px;height:60px;">
+                                    <i class="fas fa-eye fa-lg"></i>
+                                </span>
+                            </div>
+                            <h4 class="fw-bold mb-3">Our Vision</h4>
+                            <p class="text-muted">
+                                To build reliable connections abroad and help address unemployment in Nepal, while deploying
+                                potential Nepali manpower to the best international employers worldwide.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objective & Policy -->
+            <div class="row justify-content-center g-4">
+                <!-- Objective -->
+                <div class="col-lg-6 col-md-6">
+                    <div class="card text-center shadow border-0 h-100">
+                        <div class="card-body p-5">
+                            <h2 class="mb-3">Our Objective <!-- Objective Icon -->
+                                <i class="fa fa-bullseye fa-lg"></i></p>
+                            </h2>
+                            <p>
+                                The objective of Aurora HR is to empower Nepali citizens to build prosperous careers abroad
+                                while contributing to the national economy. We strive to:
+                            </p>
+                            <ul class="list-style-one mt-3 text-start d-inline-block">
+                                <li>Provide quality employment opportunities to Nepali workers.</li>
+                                <li>Enhance the living standards of individuals and families.</li>
+                                <li>Offer professional training and guidance for overseas employment.</li>
+                                <li>Foster mutual respect and harmony between employers and employees.</li>
+                                <li>Establish long-term trust and collaboration with global clients.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Policy -->
-                <div class="text-box col-lg-4 card text-center shadow border-0 h-100">
-                    <div class="card-body">
-                        <h2>Our Policy</h2>
-                        <p>We only entertain genuine aspirant workers serious about foreign employment. All
-                            procedures
-                            follow strict compliance with the Foreign Employment Act and labor department
-                            guidelines.
-                            We emphasize human and labor rights while ensuring both our foreign clients and job
-                            seekers
-                            are satisfied throughout the contract period.</p>
+                <div class="col-lg-6 col-md-6">
+                    <div class="card text-center shadow border-0 h-100">
+                        <div class="card-body p-5">
+                            <h2 class="mb-3">Our Policy <!-- Policy Icon -->
+                                <i class="fa fa-scroll fa-lg"></i>
+                            </h2>
+                            <p>
+                                At Aurora HR, we strictly adhere to Nepal’s Foreign Employment Act and labor regulations.
+                                Our policies ensure transparency, fairness, and ethical recruitment practices. We are
+                                committed to:
+                            </p>
+                            <ul class="list-style-one mt-3 text-start d-inline-block">
+                                <li>Entertaining only genuine and serious job seekers.</li>
+                                <li>Maintaining full compliance with legal requirements.</li>
+                                <li>Upholding labor rights and human dignity at every step.</li>
+                                <li>Providing clear communication throughout the contract period.</li>
+                                <li>Ensuring satisfaction for both clients and workers alike.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
-    <!-- service-details end -->
 @endsection

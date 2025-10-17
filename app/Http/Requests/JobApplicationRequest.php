@@ -8,27 +8,32 @@ class JobApplicationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // change if you want only certain users to apply/manage
+        // If you want only authenticated users, return auth()->check()
+        // For manual applications, everyone can submit
+        return true;
     }
 
     public function rules(): array
     {
         return [
-            'job_id'        => 'required|exists:jobs,id',
-            'job_seeker_id' => 'required|exists:job_seeker_profiles,id',
-            'cover_letter'  => 'nullable|string',
-            'status'        => 'nullable|in:applied,shortlisted,rejected',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'desired_role' => 'required|string|max:255',
+            'bio' => 'nullable|string',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'job_id.required'        => 'Job selection is required.',
-            'job_id.exists'          => 'Selected job is invalid.',
-            'job_seeker_id.required' => 'Job seeker selection is required.',
-            'job_seeker_id.exists'   => 'Selected job seeker is invalid.',
-            'status.in'              => 'Invalid status value.',
+            'name.required' => 'Your full name is required.',
+            'email.required' => 'Email is required.',
+            'phone.required' => 'Phone number is required.',
+            'resume_file.required' => 'Please upload your CV.',
+            'resume_file.mimes' => 'Accepted formats: PDF, DOC, DOCX.',
+            'desired_role.required' => 'Specify the position you are applying for.',
         ];
     }
 }

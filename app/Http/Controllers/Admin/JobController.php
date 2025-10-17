@@ -248,4 +248,33 @@ public function update(JobRequest $request, Vacancy $vacancy, Job $job)
 
         return $existing->image ?? null;
     }
+    public  function searchJobs(Request $request)
+    {
+        $query = Job::query();
+
+        if ($request->filled('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->input('location') . '%');
+        }
+
+        if ($request->filled('category_id')) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('id', $request->input('category_id'));
+            });
+        }
+
+        if ($request->filled('country_id')) {
+            $query->where('our_country_id', $request->input('country_id'));
+        }
+
+        $jobs = $query->with(['employer', 'categories', 'ourCountry'])->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $jobs,
+        ]);
+    }
 }

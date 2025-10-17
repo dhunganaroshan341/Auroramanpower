@@ -2,8 +2,9 @@
     aria-labelledby="jobModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content shadow-lg rounded-4 border-0">
-            <form id="jobForm" class="form" method="POST" action="{{ route('admin.jobs.store') }}"
-                enctype="multipart/form-data">
+            <form id="jobForm" class="form" method="POST" enctype="multipart/form-data"
+                data-id="{{ $job->id ?? '' }}">
+                @csrf
                 @csrf
                 <div class="modal-header bg-primary text-white rounded-top-4">
                     <h5 class="modal-title" id="jobModalTitle">Add Job</h5>
@@ -141,7 +142,9 @@
                         {{-- Image & PDF --}}
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Image</label>
+                            <div id="previewImage"> </div>
                             <input type="file" name="image" id="image" class="form-control rounded-3">
+
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">PDF</label>
@@ -165,21 +168,75 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openingsMode = document.getElementById('openingsMode');
+            const totalWrapper = document.getElementById('totalOpeningsWrapper');
+            const maleFemaleWrapper = document.getElementById('maleFemaleWrapper');
+            const hiddenOpeningsMode = document.getElementById('openings_mode');
 
-<script>
-    const openingsMode = document.getElementById('openingsMode');
-    const totalWrapper = document.getElementById('totalOpeningsWrapper');
-    const maleFemaleWrapper = document.getElementById('maleFemaleWrapper');
-    const hiddenOpeningsMode = document.getElementById('openings_mode');
+            openingsMode.addEventListener('change', function() {
+                hiddenOpeningsMode.value = this.value;
+                if (this.value === 'male-female') {
+                    totalWrapper.classList.add('d-none');
+                    maleFemaleWrapper.classList.remove('d-none');
+                } else {
+                    totalWrapper.classList.remove('d-none');
+                    maleFemaleWrapper.classList.add('d-none');
+                }
+            });
 
-    openingsMode.addEventListener('change', function() {
-        hiddenOpeningsMode.value = this.value;
-        if (this.value === 'male-female') {
-            totalWrapper.classList.add('d-none');
-            maleFemaleWrapper.classList.remove('d-none');
-        } else {
-            totalWrapper.classList.remove('d-none');
-            maleFemaleWrapper.classList.add('d-none');
-        }
-    });
-</script>
+
+
+            const jobForm = document.getElementById('jobForm');
+
+            jobForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const jobId = this.dataset.id; // job ID from data attribute
+
+                fetch(`/jobs/${jobId}/apply`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Application Submitted!',
+                                text: data.message,
+                                confirmButtonColor: '#3085d6'
+                            });
+                            jobForm.reset(); // clear form
+                            const modal = bootstrap.Modal.getInstance(document.getElementById(
+                                'JobFormModal'));
+                            modal.hide();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops!',
+                                text: data.message || 'Something went wrong',
+                                confirmButtonColor: '#d33'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Server error. Try again later.',
+                            confirmButtonColor: '#d33'
+                        });
+                    });
+            });
+        });
+    </script>
+@endpush
