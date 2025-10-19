@@ -100,20 +100,55 @@
                     </nav>
                 </div>
 
-                <div class="menu-right-content">
+                <div class="menu-right-content d-flex align-items-center">
+
                     @auth
-                        <div class="link-box mr_20">
-                            Hello, {{ auth()->user()->full_name }}
+                        {{-- Logged-in user --}}
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center" id="userMenuDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('user.png') }}" alt="User Avatar" class="rounded-circle" width="35"
+                                    height="35">
+                                <i class="fas fa-chevron-down ms-2"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
+                                {{-- Hello name at the top --}}
+                                <li class="dropdown-header">Hello, {{ auth()->user()->full_name }}</li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                {{-- Menu options --}}
+                                {{-- <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li> --}}
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('jobseeker.create') }}">Upload CV</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form method="GET" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     @else
-                        <div class="link-box mr_20">
+                        {{-- Guest --}}
+                        <div class="link-box me-3">
                             <a href="{{ route('jobseeker.create') }}">Upload CV</a>
                         </div>
                     @endauth
 
-                    <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
+                    {{-- Contact button always visible --}}
+                    <div class="btn-box">
+                        <a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
                     </div>
+
                 </div>
+
+
             </div>
         </div>
     </div>

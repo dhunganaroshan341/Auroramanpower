@@ -16,8 +16,11 @@ class TestimonialSection extends Component
         $this->testimonials = Testimonial::latest()->take(10)->get();
     }
 
-    public function render(): View|Closure|string
-    {
-        return view('components.testimonial-section');
-    }
+   public function render(): View|Closure|string
+{
+    return view('components.testimonial-section', [
+        'testimonials' => $this->testimonials
+    ]);
+}
+
 }

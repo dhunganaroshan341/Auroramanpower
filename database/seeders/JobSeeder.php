@@ -56,7 +56,7 @@ class JobSeeder extends Seeder
                 'interview_date'      => now()->addDays(rand(5, 25)),
                 'location'            => fake()->city(),
                 'salary'              => 'NPR ' . rand(15000, 60000),
-                'status'              => 'active',
+                'status'              => 'Active',
                 'job_code'            => strtoupper(Str::random(6)),
                 'slug'                => Str::slug($title),
                 'image'               => null,

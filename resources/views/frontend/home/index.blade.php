@@ -306,7 +306,7 @@
                         <div class="content-box mr_80">
                             <div class="sec-title pb_20 sec-title-animation animation-style2">
                                 <span class="sub-title mb_10 title- text-aurora-red">About us</span>
-                                <h2 class="title-animation">Aurora Human Resource <span>(P) Ltd.</span></h2>
+                                <h2 class="title-animation"><span>Aurora </span>Human Resource (P) Ltd.</h2>
                             </div>
                             <div class="text-box">
                                 <p>Aurora Human Resource (P) Ltd., an international manpower agency, is one of the
@@ -360,56 +360,11 @@
     <!-- about-style-two end -->
 
     <!-- chooseus-section -->
-    <section class="chooseus-section alternat-2 pt_120 pb_90">
-        <div class="auto-container">
-            <div class="sec-title pb_60 sec-title-animation animation-style2">
-                <span class="sub-title mb_10 title-animation">Why Us</span>
-                <h2 class="title-animation">Why Choose Us</h2>
-            </div>
-            <div class="inner-container">
-                <div class="row clearfix">
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-4"></i></div>
-                                <h3><a href="{{ route('index') }}">Retain Top Talent</a></h3>
-                                <p>Providing clear career paths and growth opportunities is key to retaining top
-                                    talent.</p>
-                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-5"></i></div>
-                                <h3><a href="{{ route('index') }}">Stay Compliant</a></h3>
-                                <p>Educate employees about compliance requirements through regular training</p>
-                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
-                        <div class="chooseus-block-one">
-                            <div class="inner-box">
-                                <div class="icon-box"><i class="icon-6"></i></div>
-                                <h3><a href="{{ route('index') }}">Improve Employee</a></h3>
-                                <p>Invest in employee training and development programs to enhance skills </p>
-                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <x-why-us-section/>
     <!-- chooseus-section end -->
 
     <!-- services-style -->
-    <x-services-section/>
+    <x-home-service-section/>
     <!-- services-style end -->
 
 
@@ -660,72 +615,7 @@
 
 
     <!-- testimonial-section -->
-    <section class="testimonial-section pt_120 pb_90">
-        <div class="pattern-layer" style="background-image: url('{{ asset('assets/images/shape/shape-3.png') }}')"></div>
-        <div class="auto-container">
-            <div class="sec-title light centred pb_60 sec-title-animation animation-style2">
-                <span class="sub-title mb_10 title-animation">Testimonials</span>
-                <h2 class="title-animation">Words From Clients</h2>
-            </div>
-            <div class="three-item-carousel owl-carousel owl-theme owl-dots-none owl-nav-none">
-                <div class="testimonial-block-one">
-                    <div class="inner-box">
-                        <div class="shape"
-                            style="background-image: url('{{ asset('assets/images/shape/shape-7.png') }}')">
-                        </div>
-                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-10.png') }}" alt="">
-                        </div>
-                        <div class="author-box">
-                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-1.png') }}"
-                                    alt="">
-                            </figure>
-                            <h4>Ashitaka Dai</h4>
-                            <span class="designation">Art Director</span>
-                        </div>
-                        <p>Company and was impressed by the main personalized approach of their recruitment team.
-                            They kept me informed at every stage and ensured that I had all</p>
-                    </div>
-                </div>
-                <div class="testimonial-block-one">
-                    <div class="inner-box">
-                        <div class="shape"
-                            style="background-image: url('{{ asset('assets/images/shape/shape-7.png') }}')">
-                        </div>
-                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-10.png') }}" alt="">
-                        </div>
-                        <div class="author-box">
-                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-2.png') }}"
-                                    alt="">
-                            </figure>
-                            <h4>Franklin Bailey</h4>
-                            <span class="designation">Sale Manager</span>
-                        </div>
-                        <p>Recently I went through their recruitment process with Aurora NepalCompany, and I was
-                            impressed by how the smooth and efficient these were.</p>
-                    </div>
-                </div>
-                <div class="testimonial-block-one">
-                    <div class="inner-box">
-                        <div class="shape"
-                            style="background-image: url('{{ asset('assets/images/shape/shape-7.png') }}')">
-                        </div>
-                        <div class="icon-box"><img src="{{ asset('assets/images/icons/icon-10.png') }}" alt="">
-                        </div>
-                        <div class="author-box">
-                            <figure class="thumb-box"><img src="{{ asset('assets/images/resource/testimonial-3.png') }}"
-                                    alt="">
-                            </figure>
-                            <h4>Evan Clement</h4>
-                            <span class="designation">Mahager, Cypertech</span>
-                        </div>
-                        <p>I had a fantastic experience throughout the recruitment process with Aurora Nepalteam.
-                            The
-                            communication was clear, interview process was well-organized</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   <x-testimonial-section/>
     <!-- testimonial-section end -->
 
     <!-- news-section -->

@@ -14,6 +14,15 @@
             $('.loader-wrap').delay(200).fadeOut(500);
         })
     }
+// user dropdown:
+
+document.addEventListener('DOMContentLoaded', function () {
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+    var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl)
+    })
+});
+
 
 	//Update Header Style and Scroll to Top
 	function headerStyle() {

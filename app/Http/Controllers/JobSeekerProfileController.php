@@ -28,49 +28,98 @@ class JobSeekerProfileController extends Controller
      */
 
 
-public function store(Request $request, Job $job = null)
+public function store(Request $request)
 {
-    // Validate input, including password confirmation
-    $validated = $request->validate([
-        'name'        => 'required|string|max:255',
-        'email'       => 'required|email|max:255|unique:users,email',
-        'phone'       => 'required|string|max:20',
-        'bio'         => 'nullable|string',
-        'skills'      => 'nullable|string',
-        'experience'  => 'nullable|string',
-        'education'   => 'nullable|string',
-        'resume_file' => 'required|file|mimes:pdf,doc,docx|max:2048',
-        'password'    => 'required|string|min:6|confirmed',
-    ]);
+    DB::beginTransaction();
 
-    // Create the user
-    $user = User::create([
-        'full_name' => $validated['name'],
-        'email'     => $validated['email'],
-        'phone'     => $validated['phone'],
-        'role'      => 'User',
-        'password'  => Hash::make($validated['password']),
-    ]);
+    try {
+        // Validate input
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'email'       => 'required|email|max:255',
+            'phone'       => 'required|string|max:20',
+            'bio'         => 'nullable|string',
+            'skills'      => 'nullable|string',
+            'experience'  => 'nullable|string',
+            'education'   => 'nullable|string',
+            'resume_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'password'    => 'nullable|string|min:6|confirmed',
+            'job_id'      => 'nullable|exists:jobs,id', // Optional job ID for smart apply
+            'desired_role'=> 'nullable|string|max:255',
+        ]);
 
-    // Handle resume upload
-    $resumePath = $request->file('resume_file')->store('resumes', 'public');
+        // Step 1: Determine the user
+        $user = Auth::user();
 
-    // Create job seeker profile
-    JobSeekerProfile::create([
-        'user_id'     => $user->id,
-        'bio'         => $validated['bio'] ?? null,
-        'skills'      => $validated['skills'] ?? null,
-        'experience'  => $validated['experience'] ?? null,
-        'education'   => $validated['education'] ?? null,
-        'resume_file' => $resumePath,
-    ]);
+        if (!$user) {
+            $existingUser = User::where('email', $validated['email'])->first();
+            if ($existingUser) {
+                $user = $existingUser;
+            } else {
+                $user = User::create([
+                    'full_name' => $validated['name'],
+                    'email'     => $validated['email'],
+                    'phone'     => $validated['phone'],
+                    'role'      => 'User',
+                    'password'  => isset($validated['password']) ? Hash::make($validated['password']) : Hash::make(Str::random(8)),
+                ]);
+            }
 
-    // Automatically log in the user
-    Auth::login($user);
+            Auth::login($user);
+        }
 
-    // Redirect to home/dashboard after login
-    return redirect()->route('home')->with('success', 'User registered and logged in successfully!');
+        // Step 2: Handle resume upload
+        $resumePath = $request->hasFile('resume_file')
+            ? $request->file('resume_file')->store('resumes', 'public')
+            : optional(JobSeekerProfile::where('user_id', $user->id)->first())->resume_file;
+
+        // Step 3: Create or update JobSeekerProfile
+        $profile = JobSeekerProfile::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'bio'         => $validated['bio'] ?? null,
+                'skills'      => $validated['skills'] ?? null,
+                'experience'  => $validated['experience'] ?? null,
+                'education'   => $validated['education'] ?? null,
+                'resume_file' => $resumePath,
+            ]
+        );
+
+        // Step 4: Smart apply if job_id is present
+        if (isset($validated['job_id'])) {
+            JobApplication::updateOrCreate(
+                [
+                    'job_id' => $validated['job_id'],
+                    'job_seeker_profile_id' => $profile->id,
+                ],
+                [
+                    'name'         => $user->full_name,
+                    'email'        => $user->email,
+                    'phone'        => $user->phone,
+                    'resume_file'  => $resumePath,
+                    'bio'          => $profile->bio,
+                    'desired_role' => $validated['desired_role'] ?? null,
+                    'status'       => 'Pending',
+                ]
+            );
+        }
+
+        DB::commit();
+
+        // Redirect smartly
+        if (isset($validated['job_id'])) {
+            return redirect()->route('jobById', ['id' => $validated['job_id']])
+                             ->with('success', 'Profile saved and applied successfully!');
+        }
+
+        return redirect()->route('index')->with('success', 'Profile saved successfully!');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Something went wrong. Please try again.')->withInput();
+    }
 }
+
 
 
     /**

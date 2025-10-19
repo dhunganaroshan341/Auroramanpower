@@ -1,77 +1,55 @@
- <!-- why us starts -->
- <div class="why-us pt-4 border-t">
-     <div class="why-us-box">
-         <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
-             <h2 class="m-0">Why <span> Us</span></h2>
+ 
+ @if (!empty($why_us_content))
+    {{-- ✅ Dynamic content from DB --}}
+    <section class="chooseus-section alternat-2 pt_120 pb_90">
+        {!! $why_us_content->content !!}
+    </section>
+@else
+ <section class="chooseus-section alternat-2 pt_120 pb_90">
 
-         </div>
-         <div class="row">
-             <div class="col-lg-3 col-md-6 mb-4">
-                 <div class="why-us-item text-center bg-lgrey">
-                     <div class="why-us-icon mb-2">
-                         <i class="flaticon-call orange"></i>
-                     </div>
-                     <div class="why-us-content">
-                         <h4><a href="#">Guides</a></h4>
-                         <p class="mb-0">Travel worry free knowing that we're here if you need us, 24
-                             hours a day</p>
-                     </div>
-                 </div>
-             </div>
-             <div class="col-lg-3 col-md-6 mb-4">
-                 <div class="why-us-item text-center bg-lgrey">
-                     <div class="why-us-icon mb-2">
-                         <i class="flaticon-global orange"></i>
-                     </div>
-                     <div class="why-us-content">
-                         <h4><a href="#">Flight Tickets</a></h4>
-                         <p class="mb-0">Travel worry free knowing that we're here if you need us, 24
-                             hours a day</p>
-                     </div>
-                 </div>
-             </div>
-             <div class="col-lg-3 col-md-6 mb-4">
-                 <div class="why-us-item text-center bg-lgrey">
-                     <div class="why-us-icon mb-2">
-                         <i class="flaticon-building orange"></i>
-                     </div>
-                     <div class="why-us-content">
-                         <h4><a href="#">Hotel Services</a></h4>
-                         <p class="mb-0">Travel worry free knowing that we're here if you need us, 24
-                             hours a day</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="col-lg-3 col-md-6 mb-4">
-                 <div class="why-us-item text-center bg-lgrey">
-                     <div class="why-us-icon mb-2">
-                         <i class="flaticon-location-pin orange"></i>
-                     </div>
-                     <div class="why-us-content">
-                         <h4><a href="#">Trekkings</a></h4>
-                         <p class="mb-0">Travel worry free knowing that we're here if you need us, 24
-                             hours a day</p>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
- <!-- why us ends -->
- @push('styles')
-     <style>
-         /* Disable pointer events and hand cursor on all clickable elements inside why-us */
-         .why-us a,
-         .why-us [class*="flaticon"],
-         .why-us h4,
-         .why-us .why-us-item,
-         .why-us .why-us-content,
-         .why-us * {
-             /* pointer-events: none !important; */
-             cursor: default !important;
-             /* text-decoration: none !important;
-                     color: inherit !important; */
-         }
-     </style>
- @endpush
+        <div class="auto-container">
+            <div class="sec-title pb_60 sec-title-animation animation-style2">
+                <span class="sub-title mb_10 title-animation">Why Us</span>
+                <h2 class="title-animation">Why Choose Us</h2>
+            </div>
+            <div class="inner-container">
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
+                        <div class="chooseus-block-one">
+                            <div class="inner-box">
+                                <div class="icon-box"><i class="icon-4"></i></div>
+                                <h3><a href="{{ route('index') }}">Retain Top Talent</a></h3>
+                                <p>Providing clear career paths and growth opportunities is key to retaining top
+                                    talent.</p>
+                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
+                        <div class="chooseus-block-one">
+                            <div class="inner-box">
+                                <div class="icon-box"><i class="icon-5"></i></div>
+                                <h3><a href="{{ route('index') }}">Stay Compliant</a></h3>
+                                <p>Educate employees about compliance requirements through regular training</p>
+                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 chooseus-block">
+                        <div class="chooseus-block-one">
+                            <div class="inner-box">
+                                <div class="icon-box"><i class="icon-6"></i></div>
+                                <h3><a href="{{ route('index') }}">Improve Employee</a></h3>
+                                <p>Invest in employee training and development programs to enhance skills </p>
+                                <div class="link"><a href="{{ route('index') }}">Learn More<i class="icon-7"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif

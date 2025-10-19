@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DynamicPageController;
 use App\Http\Controllers\EmployerJobRequestController;
 use App\Http\Controllers\JobSeekerProfileController;
@@ -126,3 +127,4 @@ Route::get('/required-documents', [DynamicPageController::class,'requiredDocumen
 Route::get('/recruitment-process', [DynamicPageController::class,'recruitmentProcess'])->name('recruitment-process');
 // Route::get('/categories', [DynamicPageController::class,'categories'])->name('dynamic-categories');
  Route::get('/categories', [PagesController::class,'categories'])->name('dynamic-categories');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

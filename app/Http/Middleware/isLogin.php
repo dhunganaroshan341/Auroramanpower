@@ -19,7 +19,7 @@ class isLogin
         if($request->user()->role === 'Admin')
         return redirect()->route('admin.dashboard');
         else
-        return redirect()->route('first.index');
+        return redirect()->route('index');
         }
         return $next($request);
     }

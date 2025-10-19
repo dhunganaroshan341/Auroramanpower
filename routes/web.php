@@ -60,7 +60,7 @@ Route::middleware('isLogin')->group(function () {
     Route::get('/auth/google/redirect', function () {
         return Socialite::driver('google')->redirect();
     })->name('google.redirect');
-
+Route::get('/forgot-password', [AuthController::class, 'login'])->name('password.request');
     Route::get('/auth/google/callback', function (Request $request) {
         $userdata = Socialite::driver('google')->user();
         $user = User::updateOrCreate(

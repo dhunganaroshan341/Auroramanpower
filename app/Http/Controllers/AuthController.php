@@ -15,21 +15,29 @@ class AuthController extends Controller
         return view('Auth.register');
     }
 
-    public function storeRegister(AuthRequest $authRequest)
-    {
-        DB::beginTransaction();
-        try {
-            // dd($authRequest->validated());
-            $data = $authRequest->validated();
-            $data['role'] = 'User';
-            User::create($data);
-            DB::commit();
-            return redirect()->route('login')->with(['message' => 'User Register Successfully']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with(['error' => 'Something Went Wrong']);
-        }
+   public function storeRegister(AuthRequest $authRequest)
+{
+    DB::beginTransaction();
+    try {
+        $data = $authRequest->validated();
+        $data['role'] = 'User';
+
+        // Create the user
+        $user = User::create($data);
+
+        // Log the user in
+        Auth::login($user);
+
+        DB::commit();
+
+        // Redirect to intended page (e.g., dashboard) or home
+        return redirect()->route('home')->with(['message' => 'User Registered Successfully!']);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'Something Went Wrong']);
     }
+}
     public function login()
     {
         return view('Auth.login');
@@ -43,7 +51,7 @@ class AuthController extends Controller
                     session('email', $authRequest->email);
                     return redirect()->route('admin.user');
                 } else {
-                    return redirect()->route('first.index');
+                    return redirect()->route('index');
                 }
             } else {
                 return back()->with(['error' => 'Invalid Login Crediantials']);
