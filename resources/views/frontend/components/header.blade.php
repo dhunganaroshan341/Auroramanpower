@@ -11,11 +11,11 @@
                 <ul class="info">
                     <li>
                         <img src="{{ asset('assets/images/icons/icon-6.png') }}" alt="">
-                        Call: <a href="tel:+977015261063">+977-01-5261063 | 5260810</a>
+                        <a href="tel:+977015261063">+977-01-5261063 | 5260810</a>
                     </li>
                     <li>
                         <img src="{{ asset('assets/images/icons/icon-7.png') }}" alt="">
-                        Mail:
+                      
                         <a href="mailto:aurorashrpl@gmail.com">aurorashrpl@gmail.com</a> |
                         <a href="mailto:info@auroranepal.com.np">info@auroranepal.com.np</a>
                     </li>
@@ -27,7 +27,6 @@
                         <li><a href="{{ route('index') }}"><i class="icon-22"></i></a></li>
                         <li><a href="{{ route('index') }}"><i class="icon-23"></i></a></li>
                         <li><a href="{{ route('index') }}"><i class="icon-24"></i></a></li>
-                        <li><a href="{{ route('index') }}"><i class="icon-25"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -59,7 +58,7 @@
 
                                 <li
                                     class="dropdown {{ in_array($currentRoute, ['about', 'company-overview', 'message-from-chairman', 'license-certificates', 'organizational-chart']) ? 'current' : '' }}">
-                                    <a href="{{ route('about') }}">About</a>
+                                    <a href="#">About</a>
                                     <ul class="submenu">
                                         <li class="{{ $currentRoute === 'company-overview' ? 'current' : '' }}"><a
                                                 href="{{ route('company-overview') }}">Company Overview</a></li>

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             ClientSeeder::class,
             PageBannerSeeder::class,
-            // GallerySeeder::class,
+            
             CallToActionSeeder::class,
             CategorySeeder::class,
             TagSeeder::class,
@@ -41,6 +41,9 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             TagSeeder::class,
             SectionSeeder::class,
+            JobCategorySeeder::class,
+            MessageFromChairmanPageSeeder::class,
+            GallerySeeder::class, //lisence and certificates lies here
         ]);
     }
 }

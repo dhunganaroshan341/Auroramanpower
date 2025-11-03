@@ -58,7 +58,7 @@
                 <!-- Chairman Image (Right) -->
                 <div class="col-md-4 d-flex">
                     <div class="my-auto w-100 text-center">
-                        <img src="{{ $content->image1 }}" alt="Chairman" class="img-fluid rounded shadow-lg h-100"
+                        <img src="{{ $content->image1??'chairman-website.jpeg' }}" alt="Chairman" class="img-fluid rounded shadow-lg h-100"
                             style="object-fit: cover; max-height: 100%;">
                     </div>
                 </div>

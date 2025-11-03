@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -12,41 +13,33 @@ class GallerySeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Albums for clients (client_id: 1 to 10)
-        for ($clientId = 1; $clientId <= 10; $clientId++) {
-            for ($albumNum = 1; $albumNum <= 10; $albumNum++) {
-                $album = GalleryAlbum::create([
-                    'title' => "Client{$clientId} Album {$albumNum}",
-                    'type' => 'image',
-                    'client_id' => $clientId,
-                ]);
-
-                $this->seedGalleryMedia($album->id);
-            }
-        }
-
-        // 2. Albums with no client
-        for ($albumNum = 1; $albumNum <= 10; $albumNum++) {
-            $album = GalleryAlbum::create([
-                'title' => "General Album {$albumNum}",
+        // Create the "License and Certificates" album
+        $album = GalleryAlbum::updateOrCreate(
+            ['title' => 'License and Certificates'],
+            [
                 'type' => 'image',
-                // No client_id
-            ]);
+                'client_id' => null, // no client
+            ]
+        );
 
-            $this->seedGalleryMedia($album->id);
-        }
-    }
+        // Gallery items for this album
+        $items = [
+            'Company-Registration.jpg',
+            'Authorized-Certificate-From-Government.jpg',
+            'License.jpg',
+            'Pan-Certificate.jpg',
+            'Authorized-Certificate-From-Japan.jpg',
+            'Rba-Participation.jpg',
+        ];
 
-    /**
-     * Seed 10 media items for each album.
-     */
-    private function seedGalleryMedia($albumId): void
-    {
-        for ($i = 1; $i <= 10; $i++) {
-            GalleryMedia::create([
-                'gallery_album_id' => $albumId,
-                'media_path' => 'assets/images/default-gallery.jpg',
-            ]);
+        foreach ($items as $path) {
+            GalleryMedia::updateOrCreate(
+                ['gallery_album_id' => $album->id, 'media_path' => "assets/images/gallery/{$path}"],
+                [
+                    'gallery_album_id' => $album->id,
+                    'media_path' => "assets/images/gallery/{$path}",
+                ]
+            );
         }
     }
 }
