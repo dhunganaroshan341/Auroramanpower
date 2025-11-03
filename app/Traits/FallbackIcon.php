@@ -17,38 +17,42 @@ trait FallbackIcon
      * @param string $field
      * @param string $fallbackPath
      */
-    public function fallbackField(string $field, string $fallbackPath = '/user.png')
+    public function fallbackField(string $field, string $fallbackPath = '/fallbackimage.webp')
     {
         $this->fallbackFields[$field] = $fallbackPath;
     }
 
     /**
-     * Override the getAttribute method
+     * Override getAttribute to handle fallbacks automatically
      */
-   public function getAttribute($key)
-{
-    $value = parent::getAttribute($key);
+    public function getAttribute($key)
+    {
+        $value = parent::getAttribute($key);
 
-    if (array_key_exists($key, $this->fallbackFields)) {
-        // Use fallback if empty
-        if (!$value) {
-            return asset($this->fallbackFields[$key]);
-        }
+        if (array_key_exists($key, $this->fallbackFields)) {
+            // If value is missing or empty
+            if (empty($value)) {
+                return asset(ltrim($this->fallbackFields[$key], '/'));
+            }
 
-        // If value already looks like a URL (starts with http/https) or absolute path, don't prepend
-        if (filter_var($value, FILTER_VALIDATE_URL) || str_starts_with($value, '/')) {
+            // If value is already a full URL
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
+                return $value;
+            }
+
+            // If value starts with '/', treat as relative to public root
+            if (str_starts_with($value, '/')) {
+                return asset(ltrim($value, '/'));
+            }
+
+            // Otherwise, prepend uploads/ if not already included
+            if (!str_starts_with($value, 'uploads/')) {
+                $value = 'uploads/' . ltrim($value, '/');
+            }
+
             return asset($value);
         }
 
-        // Only prepend uploads if not already present
-        if (!str_starts_with($value, 'uploads/')) {
-            $value = 'uploads/' . ltrim($value, '/');
-        }
-
-        return asset($value);
+        return $value;
     }
-
-    return $value;
-}
-
 }
