@@ -1,28 +1,46 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Seeder;
 use App\Models\SectionCategory;
+use App\Models\SectionContent;
 
-class SectionContentFactory extends Factory
+class SectionSeeder extends Seeder
 {
-    public function definition(): array
+    public function run(): void
     {
-        return [
-            'section_category_id' => SectionCategory::inRandomOrder()->first()?->id ?? 1,
-            'title' => $this->faker->sentence(3),
-            'status' => "Active",
-            'short_description' => $this->faker->sentence(6),
-            'image' => $this->faker->imageUrl(640, 480, 'tech', true),
-            'video' => $this->faker->url(),
-            'pdf' => $this->faker->url(),
-            'order' => $this->faker->numberBetween(1, 10),
-            'description' => $this->faker->paragraph(),
-            'description2' => $this->faker->paragraph(),
-            'icon_class' => 'fas fa-' . $this->faker->word(),
-            'link_title' => $this->faker->words(2, true),
-            'link_url' => $this->faker->url(),
-        ];
+        // Create a single category: license-and-certificates
+        $category = SectionCategory::updateOrCreate(
+            ['slug' => 'license-and-certificates'],
+            [
+                'title' => 'License and Certificates',
+                'status' => 'Active',
+                'sub_heading' => 'Official licenses and certificates',
+                'image' => null, // add image if you want
+                'video' => null, // add video if needed
+                'description' => 'Official licenses and certificates issued by authorized authorities.',
+                'description2' => 'These documents validate our legal operations and compliance.',
+            ]
+        );
+
+        // Optional: create sample content for this category
+        SectionContent::updateOrCreate(
+            ['title' => 'Sample License', 'section_category_id' => $category->id],
+            [
+                'section_category_id' => $category->id,
+                'status' => 'Active',
+                'short_description' => 'A sample license or certificate',
+                'image' => null,
+                'video' => null,
+                'pdf' => null,
+                'order' => 1,
+                'description' => 'This is a sample license or certificate content.',
+                'description2' => 'Additional details about the license or certificate.',
+                'icon_class' => 'fas fa-certificate',
+                'link_title' => 'View License',
+                'link_url' => '#',
+            ]
+        );
     }
 }

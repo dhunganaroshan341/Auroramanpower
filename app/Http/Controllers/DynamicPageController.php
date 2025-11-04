@@ -27,17 +27,24 @@ class DynamicPageController extends Controller
     }
 
     public function licenseCertificates()
-    {
-        $content = Page::where('slug', 'license-certificates')->firstOrFail();
-        return view('frontend.dynamic-page', compact('content'));
-    }
+{
+    // Fetch the album
+    $album = \App\Models\GalleryAlbum::where('title', 'License and Certificates')->firstOrFail();
+
+    // Get all media items under this album
+    $mediaItems = $album->media; // Assuming GalleryAlbum has 'media()' relationship
+
+    // Pass the album and its media to the view
+    return view('frontend.home.lisence-certificates', compact('album', 'mediaItems'));
+}
+
 
     public function organizationalChart()
     {
         // $content = Page::where('slug', 'organizational-chart')->firstOrFail();
-        $content = "hello";
+        $page = "hello";
 
-        return view('frontend.dynamic-page', compact('content'));
+        return view('frontend.home.organizational-chart', compact('page'));
     }
 
     public function requiredDocuments()

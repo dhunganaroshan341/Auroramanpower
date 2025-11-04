@@ -544,74 +544,73 @@
     </section>
     <!-- dueal-section end -->
 
-    <!-- training-section -->
-    <section class="training-section">
-        <div class="auto-container">
-            <div class="sec-title centred pb_60 sec-title-animation animation-style2">
-                <span class="sub-title mb_10 title-animation">Training</span>
-                <h2 class="title-animation">Recent Workshops</h2>
-            </div>
+<!-- training-section -->
+<!-- training-section -->
+<section class="training-section">
+    <div class="auto-container">
+        <div class="sec-title centred pb_60 sec-title-animation animation-style2">
+            <span class="sub-title mb_10 title-animation">Training & Orientation</span>
+            <h2 class="title-animation">Recent Workshops & Skill Programs</h2>
         </div>
-        <div class="inner-container clearfix">
-            <div class="training-block-one">
-                <div class="inner-box"
-                    style="background-image: url('{{ asset('assets/images/resource/training-1.jpeg') }}')">
-                    <div class="video-content mb_150 centred">
-                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s" class="lightbox-image video-btn"
-                            data-caption=""><i class="icon-8"></i></a>
-                    </div>
-                    <div class="text-box">
-                        <h3><a href="{{ route('jobDetails') }}">Business Intelligence and Data Analytics</a></h3>
-                        <div class="link"><a href="{{ route('jobDetails') }}">Find Works<img
-                                    src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
-                    </div>
+    </div>
+    <div class="inner-container clearfix">
+
+        <!-- Block 1 -->
+        <div class="training-block-one">
+            <div class="inner-box" style="background-image: url('{{ asset('assets/images/resource/training-1.jpeg') }}')">
+                <div class="video-content mb_150 centred">
+                    <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A" class="lightbox-image video-btn"><i class="icon-8"></i></a>
                 </div>
-            </div>
-            <div class="training-block-one">
-                <div class="inner-box"
-                    style="background-image: url('{{ asset('assets/images/resource/training-2.jpeg') }}')">
-                    <div class="video-content mb_150 centred">
-                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s" class="lightbox-image video-btn"
-                            data-caption=""><i class="icon-8"></i></a>
-                    </div>
-                    <div class="text-box">
-                        <h3><a href="{{ route('jobDetails') }}">IT Service Management</a></h3>
-                        <div class="link"><a href="{{ route('jobDetails') }}">Find Works<img
-                                    src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="training-block-one">
-                <div class="inner-box"
-                    style="background-image: url('{{ asset('assets/images/resource/training-3.jpeg') }}')">
-                    <div class="video-content mb_150 centred">
-                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s" class="lightbox-image video-btn"
-                            data-caption=""><i class="icon-8"></i></a>
-                    </div>
-                    <div class="text-box">
-                        <h3><a href="{{ route('jobDetails') }}">Public Policy and Management</a></h3>
-                        <div class="link"><a href="{{ route('jobDetails') }}">Find Works<img
-                                    src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="training-block-one">
-                <div class="inner-box"
-                    style="background-image: url('{{ asset('assets/images/resource/training-4.jpeg') }}')">
-                    <div class="video-content mb_150 centred">
-                        <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s" class="lightbox-image video-btn"
-                            data-caption=""><i class="icon-8"></i></a>
-                    </div>
-                    <div class="text-box">
-                        <h3><a href="{{ route('jobDetails') }}">Mathematics and its Applications</a></h3>
-                        <div class="link"><a href="{{ route('jobDetails') }}">Find Works<img
-                                    src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a>
-                        </div>
-                    </div>
+                <div class="text-box">
+                    <h3><a href="{{ route('jobDetails') }}">Pre-Departure Orientation for Overseas Employment</a></h3>
+                    <div class="link"><a href="{{ route('jobDetails') }}">View Details <img src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Block 2 -->
+        <div class="training-block-one">
+            <div class="inner-box" style="background-image: url('{{ asset('assets/images/resource/training-2.jpeg') }}')">
+                <div class="video-content mb_150 centred">
+                    <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A" class="lightbox-image video-btn"><i class="icon-8"></i></a>
+                </div>
+                <div class="text-box">
+                    <h3><a href="{{ route('jobDetails') }}">Hospitality & Customer Service Skill Enhancement</a></h3>
+                    <div class="link"><a href="{{ route('jobDetails') }}">View Details <img src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 3 -->
+        <div class="training-block-one">
+            <div class="inner-box" style="background-image: url('{{ asset('assets/images/resource/training-3.jpeg') }}')">
+                <div class="video-content mb_150 centred">
+                    <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A" class="lightbox-image video-btn"><i class="icon-8"></i></a>
+                </div>
+                <div class="text-box">
+                    <h3><a href="{{ route('jobDetails') }}">Technical Safety & Machinery Operation Workshop</a></h3>
+                    <div class="link"><a href="{{ route('jobDetails') }}">View Details <img src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 4 -->
+        <div class="training-block-one">
+            <div class="inner-box" style="background-image: url('{{ asset('assets/images/resource/training-4.jpeg') }}')">
+                <div class="video-content mb_150 centred">
+                    <a href="https://www.youtube.com/watch?v=nfP5N9Yc72A" class="lightbox-image video-btn"><i class="icon-8"></i></a>
+                </div>
+                <div class="text-box">
+                    <h3><a href="{{ route('jobDetails') }}">Language & Cultural Orientation for Job Seekers</a></h3>
+                    <div class="link"><a href="{{ route('jobDetails') }}">View Details <img src="{{ asset('assets/images/icons/icon-8.png') }}" alt=""></a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
 
 
     <!-- testimonial-section -->

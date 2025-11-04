@@ -40,7 +40,7 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <figure class="image">
-                                            <img src="{{ $category->image ? asset('' . $category->image) : asset('fallbackimage.webp') }}"
+                                            <img src="{{ $category->image ? asset('' . $category->image) : asset('construction.jpg') }}"
                                                 alt="{{ $category->name }}">
                                         </figure>
                                     </div>

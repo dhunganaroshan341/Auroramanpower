@@ -3,54 +3,63 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Service;
 
 class ServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $services = [
             [
-                // 'image' => 'asset/images/web-development.jpg',
-                'name' => 'Web Development',
-                'short_desc' => 'Building responsive and functional websites.',
-                'description' => 'We specialize in creating responsive and functional websites tailored to your business needs, ensuring a strong online presence.',
+                'name' => 'Logistics',
+                'short_desc' => 'Transport and vehicle operation services.',
+                'description' => 'Drivers, Trailer, Crane Operators, Excavator Operators, Mechanics (Diesel & Petrol).',
                 'status' => 1,
             ],
             [
-                // 'image' => 'asset/images/digital-marketing.jpg',
-                'name' => 'Digital Marketing',
-                'short_desc' => 'Promoting your brands through digital channels.',
-                'description' => 'We offer comprehensive digital marketing services to promote your brand across various digital platforms, increasing reach and engagement.',
+                'name' => 'Construction Engineer',
+                'short_desc' => 'Engineering and construction project roles.',
+                'description' => 'Engineers, Surveyor, Quantity Surveyor, Safety Officers, Supervisors, Foreman, Electricians, Masons, Carpenters, Helpers, and more.',
                 'status' => 1,
             ],
             [
-                // 'image' => 'asset/images/seo.jpg',
-                'name' => 'SEO',
-                'short_desc' => 'Optimizing websites for search engines.',
-                'description' => 'Our SEO services enhance your website’s visibility on search engines, driving organic traffic and improving search rankings.',
+                'name' => 'Hospitality',
+                'short_desc' => 'Service industry and hotel management roles.',
+                'description' => 'Managers, Accountants, Secretaries, Waiters, Cooks, Cashiers, Housekeepers, Marketing Executives, and more.',
                 'status' => 1,
             ],
             [
-                // 'image' => 'asset/images/graphic-design.jpeg',
-                'name' => 'Graphic Design',
-                'short_desc' => 'Crafting visual content to communicate messages.',
-                'description' => 'Our graphic design services involve creating visual content that effectively communicates your brand message and engages your audience.',
+                'name' => 'Technician',
+                'short_desc' => 'Skilled technical and mechanical roles.',
+                'description' => 'Plant Technician, Chiller Plant Technician, A/C Technician, Materials & Concrete Technician, Duct Technician.',
                 'status' => 1,
             ],
-
+            [
+                'name' => 'Security Guards',
+                'short_desc' => 'Security and surveillance services.',
+                'description' => 'Security Officers, Supervisors, Guards, Watchmen, and other security personnel.',
+                'status' => 1,
+            ],
+            [
+                'name' => 'Manufacturing',
+                'short_desc' => 'Production and factory-related work.',
+                'description' => 'Production Operators, Factory Labour, and related manufacturing roles.',
+                'status' => 1,
+            ],
         ];
 
-        // Insert only if the services do not already exist
         foreach ($services as $service) {
-            if (!DB::table('services')->where('name', $service['name'])->exists()) {
-                DB::table('services')->insert($service);
-            }
+            Service::updateOrCreate(
+                ['name' => $service['name']], // Ensures no duplicate name
+                [
+                    'short_desc' => $service['short_desc'],
+                    'description' => $service['description'],
+                    'status' => $service['status'],
+                ]
+            );
         }
     }
 }

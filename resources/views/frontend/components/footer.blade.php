@@ -1,5 +1,5 @@
 <footer class="main-footer home-2">
-    <div class="widget-section p_relative pt_80 pb_100">
+    <div class="widget-section p_relative pt_80 pb_20">
         <div class="auto-container">
             <div class="row clearfix">
                 <!-- About Us -->
@@ -13,7 +13,7 @@
                         <p>Aurora Human Resource (P) Ltd. is an international manpower agency, one of the pioneers in
                             recruiting, founded with the core belief of offering true customer-focused solutions in
                             Human Resource recruiting, backed by a dedicated and experienced team.</p>
-                        <a href="#" class="theme-btn btn-style-one">VIEW MORE</a>
+                        <a href="{{route('company-overview')}}" class="theme-btn btn-one">VIEW MORE</a>
                     </div>
                 </div>
 
@@ -73,7 +73,9 @@
         <div class="auto-container">
             <div class="bottom-inner d-flex justify-content-between align-items-center">
                 <div class="copyright">
-                    <p>Copyright &copy; 2025 <a href="{{ route('index') }}">Aurora</a>. All rights reserved.</p>
+                    <p>Copyright &copy; 2025 <a href="{{ route('index') }}">Aurora</a>. All rights reserved. | 
+                    developed by <a href = "https://realminfotek.com/">Realminfotech pvt. ltd</a>
+                    </p>
                 </div>
                 <ul class="social-links d-flex">
                     <li>
@@ -82,7 +84,7 @@
                     <li><a href="#"><i class="icon-22"></i></a></li>
                     <li><a href="#"><i class="icon-23"></i></a></li>
                     <li><a href="#"><i class="icon-24"></i></a></li>
-                    <li><a href="#"><i class="icon-25"></i></a></li>
+                    {{-- <li><a href="#"><i class="icon-25"></i></a></li> --}}
                 </ul>
             </div>
         </div>
