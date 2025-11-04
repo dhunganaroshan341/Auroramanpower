@@ -265,7 +265,14 @@
                 <p>Connecting Nepalese talent with trusted international opportunities while helping employers
                     find the right workforce across Asia, Europe, and the Gulf.</p>
                 <div class="btn-box">
-                    <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one mr_20"><span>Upload CV</span></a>
+                    @auth()
+                         <a href="{{ route('profile.show') }}" class="theme-btn btn-one mr_20"><span>profile</span></a>
+                    @endauth
+                    @guest
+                        
+                   
+                     <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one mr_20"><span>Upload CV</span></a>
+                    @endguest
                     <a href="{{ route('jobs') }}" class="theme-btn banner-btn">Job Openings</a>
                 </div>
             </div>

@@ -80,18 +80,27 @@ Route::prefix('pages')->group(function () {
 });
 
 //  portfoliyo
+Route::middleware('guest')->controller(PagesController::class)->group(function () {
+    Route::get('/login', 'login')->name('login');
+    Route::get('/signup', 'signup')->name('signup');
+});
+
 Route::prefix('pages')->group(function () {
         Route::controller(PagesController::class)->group(function () {
             Route::get('/portfolio','portfolio')->name('portfolio');
             Route::get('/page-error','pageError')->name('pageError');
             Route::get('/faq','faq')->name('faq');
-            Route::get('/login','login')->name('login');
-            Route::get('/signup','signup')->name('signup');
+            // Route::get('/login','login')->name('login');
+            // Route::get('/signup','signup')->name('signup');
             Route::get('/team','team')->name('team');
             Route::get('/testimonial','testimonial')->name('testimonial');
             // Show the form (same blade, will use @guest / @auth to adapt)
 
 });
+//  portfoliyo
+
+  
+
 
 //  portfoliyo
 Route::prefix('solutions')->group(function () {
