@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\OurCountry;
+use App\Models\Job;
 use App\Models\Cta;
 use App\Models\GalleryAlbum;
 use App\Models\Notice;
@@ -42,6 +43,14 @@ function getLatestBlog(){
     $blogs = Post::where('status',1)->orderBy('created_at','DESC')->take(6)->get();
     return $blogs;
 }
+function getLatestFirstBlog() {
+    // Get the latest active blog
+    return Post::where('status', 1)
+                ->orderBy('created_at', 'DESC')
+                ->first(); // just the latest one
+}
+
+
 
 function getGalleryAlbum($id=null){
     if($id!=null){
@@ -75,4 +84,11 @@ function getActiveStatusServices(){
     return Category::pluck('id')->toArray();
 }
 
-?>
+ function getRecentVacancyByCountryForFooter()
+    {
+        // Get latest 4 vacancies ordered by created_at
+        return Job::with('ourCountry')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+    }

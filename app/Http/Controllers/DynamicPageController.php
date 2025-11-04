@@ -42,7 +42,7 @@ class DynamicPageController extends Controller
 
     public function requiredDocuments()
     {
-        $content = Page::where('slug', 'required-documents')->firstOrFail();
+        $content = Page::where('slug', 'required_documents')->firstOrFail();
         // $content = "hello";
         // $content = 
         // return view('frontend.pages.required-documents', compact('content'));
@@ -52,10 +52,10 @@ class DynamicPageController extends Controller
 
     public function recruitmentProcess()
     {
-        // $content = Page::where('slug', 'recruitment-process')->firstOrFail();
-        $content = "hello";
 
-        return view('frontend.pages.recruitment-procedure', compact('content'));
+        $content = Page::where('slug', 'recruitment_process')->firstOrFail();
+     
+        return view('frontend.pages.dynamic_procedures', compact('content'));
     }
 
     public function ourClients()

@@ -30,9 +30,9 @@
                     <div class="service-sidebar mr_40">
                         <div class="category-widget mb_40">
                             <ul class="category-list clearfix">
-                                <li><a href="{{ route('required-documents') }}" class="current">Required Documents <i
+                                <li><a href="{{ route('required-documents') }}" class="{{(isRoute('required-documents'))?'current':''}}">Required Documents <i
                                             class="icon-42"></i></a></li>
-                                <li><a href="{{ route('recruitment-process') }}">Recruitment Process <i
+                                <li><a href="{{ route('recruitment-process') }}" class = "class="{{(route('required-documents'))?'current':''}}">Recruitment Process <i
                                             class="icon-42"></i></a></li>
                             </ul>
                         </div>

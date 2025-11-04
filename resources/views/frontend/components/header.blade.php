@@ -2,6 +2,7 @@
 <header class="main-header header-style-two">
     @php
         $currentRoute = Route::currentRouteName();
+        $latestNews = getLatestfirstBlog();
     @endphp
 
     <!-- header-top -->
@@ -20,7 +21,20 @@
                         <a href="mailto:info@auroranepal.com.np">info@auroranepal.com.np</a>
                     </li>
                 </ul>
-                <p><span>Latest News:</span> Fusce neque CEO egestas cursu magna sapien</p>
+                <p>
+    <p>
+    <span>Latest News:</span>
+    @if($latestNews)
+        <a href="{{ route('blogDetail', ['slug' => $latestNews->slug]) }}">
+            {{ $latestNews->title }}
+        </a>
+    @else
+        <span>No news available</span>
+    @endif
+</p>
+
+</p>
+
                 <div class="right-column">
                     <ul class="social-links">
                         <li><span>Share:</span></li>
@@ -43,6 +57,7 @@
                         <img src="{{ asset('assets/images/logo-bg.png') }}" alt="Aurora Human Resource">
                     </a>
                 </figure>
+
                 <div class="menu-area">
                     <!-- Mobile Navigation Toggler -->
                     <div class="mobile-nav-toggler">
@@ -54,80 +69,133 @@
                     <nav class="main-menu navbar-expand-md navbar-light clearfix">
                         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                             <ul class="navigation clearfix">
-                                {{-- <li class="{{ $currentRoute === 'index' ? 'homeCurrent' : '' }}"><a
-                                        href="{{ route('index') }}">Home</a></li> --}}
-
-                                <li
-                                    class="dropdown {{ in_array($currentRoute, ['about', 'company-overview', 'message-from-chairman', 'license-certificates', 'organizational-chart']) ? 'current' : '' }}">
+                                <li class="{{ $currentRoute === 'index' ? 'current' : '' }}">
+                                    <a href="{{ route('index') }}">Home</a>
+                                </li>
+                                <li class="dropdown {{ in_array($currentRoute, ['about','company-overview','message-from-chairman','license-certificates','organizational-chart']) ? 'current' : '' }}">
                                     <a href="{{ route('about') }}">About</a>
                                     <ul class="submenu">
-                                        <li class="{{ $currentRoute === 'company-overview' ? 'current' : '' }}"><a
-                                                href="{{ route('company-overview') }}">Company Overview</a></li>
-                                        <li class="{{ $currentRoute === 'message-from-chairman' ? 'current' : '' }}"><a
-                                                href="{{ route('message-from-chairman') }}">Message from Chairman</a>
+                                        <li class="{{ $currentRoute === 'company-overview' ? 'current' : '' }}">
+                                            <a href="{{ route('company-overview') }}">Company Overview</a>
                                         </li>
-                                        <li class="{{ $currentRoute === 'license-certificates' ? 'current' : '' }}"><a
-                                                href="{{ route('license-certificates') }}">License & Certificates</a>
+                                        <li class="{{ $currentRoute === 'message-from-chairman' ? 'current' : '' }}">
+                                            <a href="{{ route('message-from-chairman') }}">Message from Chairman</a>
                                         </li>
-                                        <li class="{{ $currentRoute === 'organizational-chart' ? 'current' : '' }}"><a
-                                                href="{{ route('organizational-chart') }}">Organizational Chart</a>
+                                        <li class="{{ $currentRoute === 'license-certificates' ? 'current' : '' }}">
+                                            <a href="{{ route('license-certificates') }}">License & Certificates</a>
+                                        </li>
+                                        <li class="{{ $currentRoute === 'organizational-chart' ? 'current' : '' }}">
+                                            <a href="{{ route('organizational-chart') }}">Organizational Chart</a>
                                         </li>
                                     </ul>
                                 </li>
-
-                                <li class="{{ $currentRoute === 'dynamic-categories' ? 'current' : '' }}"><a
-                                        href="{{ route('dynamic-categories') }}">Category</a></li>
-                                <li class="{{ $currentRoute === 'hire' ? 'current' : '' }}"><a
-                                        href="{{ route('hire') }}">Hire Workers</a></li>
-                                <li class="{{ $currentRoute === 'jobs' ? 'current' : '' }}"><a
-                                        href="{{ route('jobs') }}">Vacancies</a></li>
-
-                                <li
-                                    class="dropdown {{ in_array($currentRoute, ['required-documents', 'recruitment-process']) ? 'current' : '' }}">
-                                    <a href="{{ route('index') }}">Procedures</a>
+                                <li class="{{ $currentRoute === 'dynamic-categories' ? 'current' : '' }}">
+                                    <a href="{{ route('dynamic-categories') }}">Category</a>
+                                </li>
+                                <li class="{{ $currentRoute === 'hire' ? 'current' : '' }}">
+                                    <a href="{{ route('hire') }}">Hire Workers</a>
+                                </li>
+                                <li class="{{ $currentRoute === 'jobs' ? 'current' : '' }}">
+                                    <a href="{{ route('jobs') }}">Vacancies</a>
+                                </li>
+                                <li class="dropdown {{ in_array($currentRoute, ['required-documents','recruitment-process']) ? 'current' : '' }}">
+                                    <a href="#">Procedures</a>
                                     <ul class="submenu">
-                                        <li class="{{ $currentRoute === 'required-documents' ? 'current' : '' }}"><a
-                                                href="{{ route('required-documents') }}">Required Documents</a></li>
-                                        <li class="{{ $currentRoute === 'recruitment-process' ? 'current' : '' }}"><a
-                                                href="{{ route('recruitment-process') }}">Recruitment Process</a></li>
+                                        <li class="{{ $currentRoute === 'required-documents' ? 'current' : '' }}">
+                                            <a href="{{ route('required-documents') }}">Required Documents</a>
+                                        </li>
+                                        <li class="{{ $currentRoute === 'recruitment-process' ? 'current' : '' }}">
+                                            <a href="{{ route('recruitment-process') }}">Recruitment Process</a>
+                                        </li>
                                     </ul>
                                 </li>
-
-                                <li class="{{ $currentRoute === 'blog' ? 'current' : '' }}"><a
-                                        href="{{ route('blog') }}">Blog</a></li>
+                                <li class="{{ $currentRoute === 'blog' ? 'current' : '' }}">
+                                    <a href="{{ route('blog') }}">Blog</a>
+                                </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
 
+                <!-- Right menu / user links -->
+               <!-- Right menu / user links -->
+<div class="menu-right-content d-flex align-items-center">
+
+    @auth
+        {{-- Logged-in user --}}
+        <div class="dropdown me-3"> <!-- added me-3 for gap -->
+            <a href="#" class="d-flex align-items-center" id="userMenuDropdown"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset('user.png') }}" alt="User Avatar" class="rounded-circle" width="35"
+                     height="35">
+                <i class="fas fa-chevron-down ms-2"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
+                <li class="dropdown-header">Hello, {{ auth()->user()->full_name }}</li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('jobseeker.create') }}">Upload CV</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form method="POST" action="{{ route('logoutPostRequest') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    @else
+        {{-- Guest --}}
+        <div class="link-box me-3">
+            <a href="{{ route('jobseeker.create') }}">Upload CV</a>
+        </div>
+    @endauth
+
+    <div class="btn-box">
+        <a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
+    </div>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- sticky Header (same user menu for mobile) -->
+    <div class="sticky-header">
+        <div class="outer-container">
+            <div class="outer-box d-flex justify-content-between align-items-center">
+                <figure class="logo-box">
+                    <a href="{{ route('index') }}">
+                        <img src="{{ asset('assets/images/logo-bg.png') }}" alt="Aurora Human Resource">
+                    </a>
+                </figure>
+
+                <div class="menu-area">
+                    <nav class="main-menu clearfix">
+                        <!-- Aurora Menu loaded via JS -->
+                    </nav>
+                </div>
+
                 <div class="menu-right-content d-flex align-items-center">
+                   
 
                     @auth
-                        {{-- Logged-in user --}}
-                        <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center" id="userMenuDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown me-3">
+                            <a href="#" class="d-flex align-items-center" id="userMenuDropdownSticky"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ asset('user.png') }}" alt="User Avatar" class="rounded-circle" width="35"
-                                    height="35">
+                                     height="35">
                                 <i class="fas fa-chevron-down ms-2"></i>
                             </a>
-
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
-                                {{-- Hello name at the top --}}
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdownSticky">
                                 <li class="dropdown-header">Hello, {{ auth()->user()->full_name }}</li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-
-                                {{-- Menu options --}}
-                                {{-- <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li> --}}
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ route('jobseeker.create') }}">Upload CV</a></li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <form method="GET" action="{{ route('logout') }}">
+                                    <form method="POST" action="{{ route('logoutPostRequest') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">Logout</button>
                                     </form>
@@ -135,46 +203,10 @@
                             </ul>
                         </div>
                     @else
-                        {{-- Guest --}}
-                        <div class="link-box me-3">
-                            <a href="{{ route('jobseeker.create') }}">Upload CV</a>
-                        </div>
+                        <div class="link-box me-3"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
                     @endauth
 
-                    {{-- Contact button always visible --}}
-                    <div class="btn-box">
-                        <a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-
-    <!-- sticky Header -->
-    <div class="sticky-header">
-        <div class="outer-container">
-            <div class="outer-box">
-                <figure class="logo-box">
-                    <a href="{{ route('index') }}">
-                        <img src="{{ asset('assets/images/logo-bg.png') }}" alt="Aurora Human Resource">
-                    </a>
-                </figure>
-                <div class="menu-area">
-                    <nav class="main-menu clearfix">
-                        <!-- Aurora Menu loaded via JS -->
-                    </nav>
-                </div>
-                <div class="menu-right-content">
-                    <div class="search-btn mr_20">
-                        <button class="search-toggler"><i class="icon-1"></i></button>
-                    </div>
-                    <!-- Always show Upload CV -->
-                    <div class="link-box mr_20"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
-                    <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact us</a>
-                    </div>
+                    <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact us</a></div>
                 </div>
             </div>
         </div>

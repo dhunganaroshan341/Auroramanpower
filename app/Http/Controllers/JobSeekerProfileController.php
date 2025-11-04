@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\JobSeekerProfile;
+use App\Models\JobApplication;
 
 class JobSeekerProfileController extends Controller
 {
@@ -125,11 +127,29 @@ public function store(Request $request)
     /**
      * Show a Job Seeker profile (read).
      */
-    public function show($id)
-    {
-        $profile = JobSeekerProfile::with('user')->findOrFail($id);
-        return view('frontend.pages.jobseeker.view-profile', compact('profile'));
+  public function show()
+{
+    $user = Auth::user();
+
+    // Get the user's job seeker profile
+    $profile = JobSeekerProfile::with('user')
+                ->where('user_id', $user->id)
+                ->first();
+ // Get all applications for this user directly
+    $appliedJobs = JobApplication::with('job')
+                    ->where('job_seeker_profile_id', $user->id)
+                    ->get();
+    // Optional: create a profile if it doesn't exist yet
+    if (!$profile) {
+        $profile = JobSeekerProfile::create(['user_id' => $user->id]);
     }
+
+    // Also get all applied jobs for this user
+    $applications = $profile->applications()->with('job')->get();
+
+    return view('frontend.pages.jobseeker.profile', compact('user','profile', 'appliedJobs'));
+}
+
 
     /**
      * Show the edit form for a Job Seeker profile.
@@ -143,9 +163,10 @@ public function store(Request $request)
     /**
      * Update an existing Job Seeker profile.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id=null)
     {
-        $profile = JobSeekerProfile::findOrFail($id);
+        // $profile = JobSeekerProfile::findOrFail($id);
+          $profile = auth()->user()->jobSeekerProfile; 
         $user = $profile->user;
 
         $validated = $request->validate([

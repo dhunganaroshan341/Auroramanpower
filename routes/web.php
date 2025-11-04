@@ -24,7 +24,9 @@ use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
 use App\Http\Controllers\Admin\GalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryMediaController;
 use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\JobSeekerProfileController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\Admin\NewsLetterController as AdminSideNewsLetterController;
 use App\Http\Controllers\Admin\PageBannerController;
 use App\Http\Controllers\Admin\PageController;
@@ -55,6 +57,7 @@ Route::middleware('isLogin')->group(function () {
     Route::post('/register', [AuthController::class, 'storeRegister'])->name('register.store');
 
     Route::get('/admin/login', [AuthController::class, 'login'])->name('login');
+    
     Route::post('/login/store', [AuthController::class, 'storeLogin'])->name('login.store');
 
     Route::get('/auth/google/redirect', function () {
@@ -73,7 +76,7 @@ Route::get('/forgot-password', [AuthController::class, 'login'])->name('password
             ]
         );
         Auth::login($user);
-        return redirect()->route('first.index');
+        return redirect()->route('index');
     })->name('google.callback');
 });
 
@@ -251,6 +254,8 @@ Route::prefix('setting')->name('setting.')->group(function () {
 });
 
     Route::apiResource('jobs',JobController::class);
+    Route::apiResource('job-seekers',JobseekerProfileController::class);
+    Route::apiResource('job-applications',JobApplicationController::class);
     Route::get('/jobs/status/{id}', [JobController::class, 'toggleStatus'])->name('client.status');
  Route::apiResource('job-categories',JobCategoryController::class);
     Route::get('/job-categories/status/{id}', [JobCategoryController::class, 'toggleStatus'])->name('client.status');
@@ -261,6 +266,7 @@ Route::prefix('setting')->name('setting.')->group(function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 });
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logoutPostRequest');
 
 
 Route::post('/newsletter/subscribe', [NewsLetterController::class, 'subscribe'])->name('newsletter.subscribe');

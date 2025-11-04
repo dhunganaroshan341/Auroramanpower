@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
  use App\Models\Job;
 use App\Models\JobCategory;
+use App\Models\OurCountry;
 
 use Illuminate\Http\Request;
 
@@ -26,48 +27,76 @@ class PagesController extends Controller
         return view('frontend.pages/job/job2');
     }
 
-
 public function job3(Request $request)
 {
-    // Get search parameter from query string
-    $searchTitle = $request->query('search'); // e.g., ?search=Electrician
+    // Get filter parameters
+    $searchTitle = $request->query('search');        // Job title
+    $categoryId  = $request->query('category_id');  // Optional category filter
+    $countryId   = $request->query('country_id');   // Optional country filter
 
-    // Base query for jobs
+    // Base query for all jobs
     $jobsQuery = Job::with(['ourCountry', 'categories', 'vacancy']);
 
-    // Apply search if a search term is provided
+    // Apply filters strictly
     if ($searchTitle) {
         $jobsQuery->where('title', 'like', '%' . $searchTitle . '%');
     }
 
-    // Get filtered jobs
-    $jobs = $jobsQuery->orderBy('created_at', 'desc')->get();
-
-    // Latest jobs (optional: can be same as $jobs or always latest)
-    $latestJobs = Job::with(['vacancy', 'categories'])
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-    // Top 3 categories with most jobs
-    $topCategories = JobCategory::withCount('jobs')
-        ->orderBy('jobs_count', 'desc')
-        ->take(3)
-        ->get();
-
-    // Prepare category-wise jobs (top categories)
-    $categoryJobs = [];
-    foreach ($topCategories as $category) {
-        $categoryJobs[] = [
-            'category_name' => $category->name,
-            'jobs' => $category->jobs()->with('vacancy')->get()
-        ];
+    if ($categoryId) {
+        $jobsQuery->whereHas('categories', function ($q) use ($categoryId) {
+            $q->where('id', $categoryId);
+        });
     }
 
- $jobCategories = JobCategory::all();
-    // Return view with jobs and categories
+    if ($countryId) {
+        $jobsQuery->where('our_country_id', $countryId);
+    }
 
-    return view('frontend.pages.job.job3', compact('latestJobs', 'categoryJobs', 'jobs', 'topCategories','jobCategories'));
+    // Filtered jobs list
+    $jobs = $jobsQuery->orderBy('created_at', 'desc')->get();
+
+    // Latest jobs section (filtered)
+    $latestJobs = (clone $jobsQuery)
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+
+    // Top 3 categories with most filtered jobs
+    $topCategories = JobCategory::withCount(['jobs as filtered_jobs_count' => function ($q) use ($searchTitle, $categoryId, $countryId) {
+        if ($searchTitle) $q->where('title', 'like', '%' . $searchTitle . '%');
+        if ($countryId) $q->where('our_country_id', $countryId);
+    }])->orderBy('filtered_jobs_count', 'desc')
+      ->take(3)
+      ->get();
+
+    // Top category-wise jobs (filtered)
+    $categoryJobs = $topCategories->map(function ($category) use ($searchTitle, $countryId) {
+        $jobs = $category->jobs()
+            ->when($searchTitle, fn($q) => $q->where('title', 'like', '%' . $searchTitle . '%'))
+            ->when($countryId, fn($q) => $q->where('our_country_id', $countryId))
+            ->with('vacancy')
+            ->get();
+
+        return [
+            'category_name' => $category->name,
+            'jobs' => $jobs,
+        ];
+    });
+
+    // All categories and countries for filters
+    $jobCategories = JobCategory::all();
+    $jobCountries  = OurCountry::all();
+
+    return view('frontend.pages.job.job3', compact(
+        'latestJobs',
+        'categoryJobs',
+        'jobs',
+        'topCategories',
+        'jobCategories',
+        'jobCountries'
+    ));
 }
+
 
 
 

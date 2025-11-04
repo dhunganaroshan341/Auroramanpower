@@ -39,7 +39,7 @@
         {{-- Preloader --}}
 
         {{-- Page Direction --}}
-        @include('frontend.components.pageDirection')
+        {{-- @include('frontend.components.pageDirection') --}}
 
         {{-- Search Popup --}}
         @include('frontend.components.searchPopup')

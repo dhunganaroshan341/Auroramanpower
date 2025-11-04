@@ -10,85 +10,62 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
-class JobController extends Controller
+class JobSeekerProfileController extends Controller
 {
     /**
      * Display a listing of jobs under a specific vacancy.
      */
-public function index(Request $request)
-{
-    if ($request->ajax()) {
-        $jobs = Job::with(['employer', 'categories', 'ourCountry'])->latest();
+ public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $profiles = JobSeekerProfile::with('user')->latest();
 
-        return datatables()->eloquent($jobs)
-            ->addIndexColumn()
-           ->addColumn('action', function ($job) {
-    // Existing buttons (edit/delete etc.)
-    $buttons = view('Admin.Button.button', ['data' => $job])->render();
+            return datatables()->eloquent($profiles)
+                ->addIndexColumn()
+                ->addColumn('action', function ($profile) {
+                    return view('Admin.Button.button', ['data' => $profile])->render();
+                })
+                ->addColumn('name', function ($profile) {
+                    return e($profile->name ?? optional($profile->user)->name ?? '—');
+                })
+                ->addColumn('email', function ($profile) {
+                    return e($profile->email ?? optional($profile->user)->email ?? '—');
+                })
+                ->addColumn('phone', function ($profile) {
+                    return e($profile->phone ?? optional($profile->user)->phone ?? '—');
+                })
+                ->addColumn('resume', function ($profile) {
+                    if ($profile->resume_file) {
+                        $resumeUrl = asset('uploads/resumes/' . $profile->resume_file);
+                        return '<a href="' . $resumeUrl . '" target="_blank" class="btn btn-sm btn-primary">View</a>';
+                    }
+                    return '<em>No Resume</em>';
+                })
+                ->addColumn('skills', function ($profile) {
+                    return $profile->skills
+                        ? '<span class="badge bg-info">' . e($profile->skills) . '</span>'
+                        : '<em>Not Mentioned</em>';
+                })
+                ->rawColumns(['action', 'resume', 'skills'])
+                ->make(true);
+        }
 
-    // Add "View Applicants" button
-    $viewApplicants = '<a href="' . route('admin.job-applications.index', ['job_id' => $job->id]) . '" 
-                            class="btn btn-sm btn-info ms-1" 
-                            title="View Applicants">
-                            <i class="fas fa-eye"></i>
-                       </a>';
+        $extraJs = array_merge(
+            config('js-map.admin.datatable.script'),
+            config('js-map.admin.select2.script'),
+            config('js-map.admin.buttons.script')
+        );
 
-    return $buttons . $viewApplicants;
-})
-
-            ->addColumn('image', function ($job) {
-                $image = $job->image_url ?? asset('uploads/' . $job->image);
-                $defaultImage = asset('user.png');
-                return '<img src="' . $image . '" width="50" height="50"
-                         class="rounded" style="object-fit:cover"
-                         onerror="this.src=\'' . $defaultImage . '\'"/>';
-            })
-            ->addColumn('status', function ($job) {
-                $checked = strtolower($job->status) === 'active' ? 'checked' : '';
-                return '<div class="form-check form-switch text-center">
-                    <input class="form-check-input statusIdData"
-                           type="checkbox" data-id="' . $job->id . '" role="switch" ' . $checked . '>
-                </div>';
-            })
-            ->addColumn('employer', function ($job) {
-                return optional($job->employer)->name ?? '<em>Not Assigned</em>';
-            })
-            ->addColumn('our_country', function ($job) {
-                // Send country name directly
-                return optional($job->ourCountry)->name ?? '<em>Not Set</em>';
-            })
-            ->addColumn('categories', function ($job) {
-                if ($job->categories->isEmpty()) {
-                    return '<em>No Categories</em>';
-                }
-                return $job->categories->pluck('name')->map(function ($name) {
-                    return '<span class="badge bg-primary me-1">' . e($name) . '</span>';
-                })->implode(' ');
-            })
-            ->rawColumns(['action', 'image', 'status', 'employer', 'our_country', 'categories'])
-            ->orderColumns(['title', 'employer.name', 'salary', 'status'], ':column $1')
-            ->make(true);
+        $extraCs = array_merge(
+            config('js-map.admin.datatable.style'),
+            config('js-map.admin.select2.style'),
+            config('js-map.admin.buttons.style')
+        );
+        return view('Admin.pages.JobSeekers.jobSeekersIndex', [
+            'extraJs' => $extraJs,
+            'extraCs' => $extraCs
+        ]);
     }
-
-    $extraJs = array_merge(
-        config('js-map.admin.datatable.script'),
-        config('js-map.admin.summernote.script'),
-        config('js-map.admin.select2.script'),
-        config('js-map.admin.buttons.script')
-    );
-
-    $extraCs = array_merge(
-        config('js-map.admin.datatable.style'),
-        config('js-map.admin.summernote.style'),
-        config('js-map.admin.select2.style'),
-        config('js-map.admin.buttons.style')
-    );
-
-    return view('Admin.pages.Job.jobIndex', [
-        'extraJs' => $extraJs,
-        'extraCs' => $extraCs
-    ]);
-}
 
 
     /**

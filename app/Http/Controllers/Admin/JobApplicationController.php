@@ -12,48 +12,73 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JobApplicationController extends Controller
 {
-    public function index(Request $request)
-    {
-        if ($request->ajax()) {
-            $search = $request->input('search.value');
-            $columns = $request->input('columns');
-            $order = $request->input('order')[0];
-            $orderColumnIndex = $order['column'];
-            $orderBy = $order['dir'];
+   public function index(Request $request)
+{
+    if ($request->ajax()) {
+        $applicationsQuery = JobApplication::with(['job.categories', 'job.ourCountry', 'jobSeekerProfile.user']);
 
-            $applicationsQuery = Application::with(['job', 'jobSeeker']);
-
-            // Filtering search
-            if ($search) {
-                $applicationsQuery->where(function ($query) use ($search) {
-                    $query->whereHas('job', fn($q) => $q->where('title', 'LIKE', "%$search%"))
-                          ->orWhereHas('jobSeeker', fn($q) => $q->where('name', 'LIKE', "%$search%"))
-                          ->orWhere('cover_letter', 'LIKE', "%$search%")
-                          ->orWhere('status', 'LIKE', "%$search%");
-                });
-            }
-
-            $orderColumnName = $columns[$orderColumnIndex]['data'] ?? 'created_at';
-            $applicationsQuery->orderBy($orderColumnName, $orderBy);
-
-            return DataTables::eloquent($applicationsQuery)
-                ->addIndexColumn()
-                ->addColumn('job_title', fn($item) => optional($item->job)->title ?? '-')
-                ->addColumn('job_seeker', fn($item) => optional($item->jobSeeker)->name ?? '-')
-                ->addColumn('status', function ($item) {
-                    return '<select class="form-select application-status" data-id="' . $item->id . '">
-                                <option value="applied" ' . ($item->status == 'applied' ? 'selected' : '') . '>Applied</option>
-                                <option value="shortlisted" ' . ($item->status == 'shortlisted' ? 'selected' : '') . '>Shortlisted</option>
-                                <option value="rejected" ' . ($item->status == 'rejected' ? 'selected' : '') . '>Rejected</option>
-                            </select>';
-                })
-                ->addColumn('action', fn($data) => view('Admin.Button.button', compact('data')))
-                ->rawColumns(['status', 'action'])
-                ->make(true);
+        // Only filter by job_id if it's provided in the request
+        if ($request->filled('job_id')) {
+            $applicationsQuery->where('job_id', $request->job_id);
         }
 
-        return view('Admin.pages.application.index');
+        // Optional: also filter by category or country if needed
+        if ($request->filled('job_category_id')) {
+            $applicationsQuery->whereHas('job.categories', function ($q) use ($request) {
+                $q->where('id', $request->job_category_id);
+            });
+        }
+
+        if ($request->filled('our_country_id')) {
+            $applicationsQuery->whereHas('job.ourCountry', function ($q) use ($request) {
+                $q->where('id', $request->our_country_id);
+            });
+        }
+
+        return DataTables::of($applicationsQuery)
+            ->addIndexColumn()
+            ->addColumn('job_title', fn($item) => optional($item->job)->title ?? '-')
+            ->addColumn('job_category', function ($item) {
+                if ($item->job && $item->job->categories->isNotEmpty()) {
+                    return $item->job->categories
+                        ->map(fn($cat) => '<span class="badge bg-primary me-1">' . e($cat->name) . '</span>')
+                        ->implode(' ');
+                }
+                return '<em>No Categories</em>';
+            })
+            ->addColumn('country', fn($item) => optional($item->job->ourCountry)->name ?? '-')
+            ->addColumn('job_seeker', fn($item) => optional($item->jobSeekerProfile->user)->full_name ?? '-')
+            ->addColumn('status', function ($item) {
+                return '<select class="form-select application-status" data-id="' . $item->id . '">
+                            <option value="applied" ' . ($item->status == 'applied' ? 'selected' : '') . '>Applied</option>
+                            <option value="shortlisted" ' . ($item->status == 'shortlisted' ? 'selected' : '') . '>Shortlisted</option>
+                            <option value="rejected" ' . ($item->status == 'rejected' ? 'selected' : '') . '>Rejected</option>
+                        </select>';
+            })
+            ->addColumn('action', fn($item) => view('Admin.Button.button', ['data' => $item])->render())
+            ->rawColumns(['status', 'action', 'job_category'])
+            ->make(true);
     }
+
+    $extraJs = array_merge(
+        config('js-map.admin.datatable.script'),
+        config('js-map.admin.summernote.script'),
+        config('js-map.admin.buttons.script')
+    );
+
+    $extraCss = array_merge(
+        config('js-map.admin.datatable.style'),
+        config('js-map.admin.summernote.style'),
+        config('js-map.admin.buttons.style')
+    );
+
+    // Pass job_id to view so you can use it in JS to append to AJAX URL
+    $jobId = $request->job_id ?? null;
+
+    return view('Admin.pages.JobApplication.jobApplicationIndex', compact('extraJs', 'extraCss', 'jobId'));
+}
+
+
 
     public function store(JobApplicationRequest $request)
     {

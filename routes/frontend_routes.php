@@ -112,7 +112,11 @@ Route::get('/cv-upload', [JobSeekerProfileController::class, 'create'])
     ->middleware('guest')       // only guests can access
     ->name('jobseeker.create');
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [JobSeekerProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [JobSeekerProfileController::class, 'update'])->name('profile.update');
+});
+    
 
 // Handle form submission
 Route::post('/cv-upload', [JobSeekerProfileController::class, 'store'])

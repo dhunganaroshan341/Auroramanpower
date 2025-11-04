@@ -22,20 +22,9 @@ public function index(Request $request)
 
         return datatables()->eloquent($jobs)
             ->addIndexColumn()
-           ->addColumn('action', function ($job) {
-    // Existing buttons (edit/delete etc.)
-    $buttons = view('Admin.Button.button', ['data' => $job])->render();
-
-    // Add "View Applicants" button
-    $viewApplicants = '<a href="' . route('admin.job-applications.index', ['job_id' => $job->id]) . '" 
-                            class="btn btn-sm btn-info ms-1" 
-                            title="View Applicants">
-                            <i class="fas fa-eye"></i>
-                       </a>';
-
-    return $buttons . $viewApplicants;
-})
-
+            ->addColumn('action', function ($job) {
+                return view('Admin.Button.button', ['data' => $job])->render();
+            })
             ->addColumn('image', function ($job) {
                 $image = $job->image_url ?? asset('uploads/' . $job->image);
                 $defaultImage = asset('user.png');

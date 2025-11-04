@@ -37,21 +37,33 @@
 
                 <!-- Recent Vacancies -->
                 <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
-                    <div class="footer-widget links-widget">
-                        <div class="widget-title">
-                            <h4>Recent Vacancies</h4>
-                        </div>
-                        <div class="widget-content">
-                            <ul class="links-list clearfix">
-                                <li><a href="#">Vacancy in Qatar</a></li>
-                                <li><a href="#">Vacancy in UAE</a></li>
-                                <li><a href="#">Vacancy in Malaysia</a></li>
-                                <li><a href="#">Vacancy in Saudi</a></li>
-                                <li><a href="#">Vacancy in Japan</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <div class="footer-widget links-widget">
+        <div class="widget-title">
+            <h4>Recent Vacancies</h4>
+        </div>
+        <div class="widget-content">
+            <ul class="links-list clearfix">
+                @php
+                    $recentVacancies = getRecentVacancyByCountryForFooter();
+                @endphp
+                @forelse($recentVacancies->take(4) as $vacancy)
+                    <li>
+                        <a href="{{ route('jobById', ['id' => $vacancy->id]) }}">
+                         Vacancy in {{ $vacancy->ourCountry->name }}
+                        </a>
+                    </li>
+                @empty
+                    {{-- Fallback vacancies --}}
+                    <li><a href="#">Vacancy in Qatar</a></li>
+                    <li><a href="#">Vacancy in UAE</a></li>
+                    <li><a href="#">Vacancy in Malaysia</a></li>
+                    <li><a href="#">Vacancy in Saudi</a></li>
+                @endforelse
+            </ul>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </div>

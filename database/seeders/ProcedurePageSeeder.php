@@ -16,7 +16,7 @@ class ProcedurePageSeeder extends Seeder
         DB::table('pages')->insert([
             [
                 'title' => 'Required Documents',
-                'slug' => 'required-documents',
+                'slug' => 'required_documents',
                 'content' => ' <!-- Content Side -->
                 <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="service-details-content">
@@ -67,7 +67,7 @@ class ProcedurePageSeeder extends Seeder
             ],
             [
                 'title' => 'Recruitment Process',
-                'slug' => 'recruitment-process',
+                'slug' => 'recruitment_process',
                 'content' => ' <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                     <div class="service-details-content">
                         <div class="sec-title mb_70">

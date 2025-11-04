@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             TagSeeder::class,
             SectionSeeder::class,
+            ProcedurePageSeeder::class,
         ]);
     }
 }

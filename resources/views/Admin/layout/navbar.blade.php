@@ -38,9 +38,9 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.jobs.index') }}"><i
                             class="mdi mdi-briefcase-outline"></i> Manage
                         Jobs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-calendar-check"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-seekers.index') }}"><i class="mdi mdi-calendar-check"></i>
                         Job Seekers</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="mdi mdi-calendar-check"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-applications.index') }}"><i class="mdi mdi-calendar-check"></i>
                         Applications</a></li>
             </ul>
         </div>
