@@ -110,6 +110,8 @@
                                 </li>
                                 <li class="{{ $currentRoute === 'blog' ? 'current' : '' }}">
                                     <a href="{{ route('blog') }}">Blog</a>
+                                </li> <li class="{{ $currentRoute === 'contact' ? 'current' : '' }}">
+                                    <a href="{{ route('contact') }}">contact us</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,15 +145,19 @@
                 </li>
             </ul>
         </div>
-    @else
-        {{-- Guest --}}
-        <div class="link-box me-3">
-            <a href="{{ route('jobseeker.create') }}">Upload CV</a>
-        </div>
-    @endauth
+   @else
+    {{-- Guest --}}
+    <div class="link-box me-3">
+        <a href="{{ route('login') }}" >Login</a>
+    </div>
+    {{-- <div class="link-box">
+        <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one">Upload CV</a>
+    </div> --}}
+@endauth
+
 
     <div class="btn-box">
-        <a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a>
+        <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one">Upload Cv</a>
     </div>
 
 </div>
