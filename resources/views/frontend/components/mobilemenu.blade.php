@@ -8,10 +8,10 @@
         <div class="contact-info">
             <h4>Contact Info</h4>
             <ul>
-                <li>Chicago 12, Melborne City, USA</li>
-                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-                <li><a href="mailto:info@example.com">info@example.com</a></li>
-            </ul>
+        <li>Kupandol-10, Lalitpur, Nepal</li>
+        <li><a href="tel:+977015261063">+977-01-5261063 / 5260810</a></li>
+        <li><a href="mailto:aurorashrpl@gmail.com">aurorashrpl@gmail.com</a></li>
+    </ul>
         </div>
         <div class="social-links">
             <ul class="clearfix">
