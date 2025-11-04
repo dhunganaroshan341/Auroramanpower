@@ -31,7 +31,7 @@ class HomeServiceSection extends Component
     {
         // Pass $services explicitly to view (optional but safer)
         return view('components.home-service-section', [
-            'services' => $this->services
+            'services' => $this->categories
         ]);
     }
 }

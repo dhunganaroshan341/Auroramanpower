@@ -24,23 +24,29 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-	//Update Header Style and Scroll to Top
 	function headerStyle() {
-		if($('.main-header').length){
-			var windowpos = $(window).scrollTop();
-			var siteHeader = $('.main-header');
-			var scrollLink = $('.scroll-top');
-			if (windowpos >= 150) {
-				siteHeader.addClass('fixed-header');
-				scrollLink.addClass('open');
-			} else {
-				siteHeader.removeClass('fixed-header');
-				scrollLink.removeClass('open');
-			}
+	if($('.main-header').length){
+		var windowpos = $(window).scrollTop();
+		var siteHeader = $('.main-header');
+		var scrollLink = $('.scroll-top');
+		if (windowpos >= 150) {
+			siteHeader.addClass('fixed-header');
+			scrollLink.addClass('open');
+		} else {
+			siteHeader.removeClass('fixed-header');
+			scrollLink.removeClass('open');
 		}
 	}
+}
 
+// Run when page loads and on scroll
+$(window).on('scroll', function() {
 	headerStyle();
+});
+// Run once after page load
+$(document).ready(function() {
+	headerStyle();
+});
 
 
 	//Submenu Dropdown Toggle
@@ -56,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		var mobileMenuContent = $('.main-header .menu-area .main-menu').html();
 		$('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
 		$('.sticky-header .main-menu').append(mobileMenuContent);
+
 
 		//Dropdown Button
 		$('.mobile-menu li.dropdown .dropdown-btn').on('click', function() {
