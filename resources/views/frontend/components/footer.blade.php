@@ -16,7 +16,7 @@
                             recruiting, founded with the core belief of offering true customer-focused solutions in
                             Human Resource recruiting, backed by a dedicated and experienced team.
                         </p>
-                        <a href="{{ route('company-overview') }}" class="theme-btn btn-one">VIEW MORE</a>
+                        {{-- <a href="{{ route('company-overview') }}" class="theme-btn btn-one">VIEW MORE</a> --}}
                     </div>
                 </div>
 
