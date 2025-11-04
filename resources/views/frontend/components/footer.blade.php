@@ -29,10 +29,10 @@
                             <li><strong>Address:</strong> Kupandol-10, Lalitpur, Nepal</li>
                             <li><strong>Phone:</strong> +977-01-5261063 / 5260810</li>
                             <li><strong>Email:</strong>
-                                <a href="mailto:aurorashrpl@gmail.com" class="text-decoration-none text-white d-block">
+                                <a href="mailto:aurorashrpl@gmail.com" class="text-decoration-none text-dark d-block">
                                     aurorashrpl@gmail.com
                                 </a>
-                                <a href="mailto:info@auroranepal.com.np" class="text-decoration-none text-white d-block">
+                                <a href="mailto:info@auroranepal.com.np" class="text-decoration-none text-dark d-block">
                                     info@auroranepal.com.np
                                 </a>
                             </li>
@@ -57,10 +57,10 @@
                                     </a>
                                 </li>
                             @empty
-                                <li><a href="#" class="text-decoration-none text-white">Vacancy in Qatar</a></li>
-                                <li><a href="#" class="text-decoration-none text-white">Vacancy in UAE</a></li>
-                                <li><a href="#" class="text-decoration-none text-white">Vacancy in Malaysia</a></li>
-                                <li><a href="#" class="text-decoration-none text-white">Vacancy in Saudi</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Vacancy in Qatar</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Vacancy in UAE</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Vacancy in Malaysia</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Vacancy in Saudi</a></li>
                             @endforelse
                         </ul>
                     </div>
