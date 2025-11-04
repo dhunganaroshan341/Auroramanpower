@@ -25,7 +25,7 @@
             <!-- Section Title -->
             <div class="sec-title centred pb_70 sec-title-animation animation-style2">
                 <span class="sub-title mb_10 title-animation">SHARE YOUR DETAILS</span>
-                <h2 class="title-animation">Login & Upload Your CV</h2>
+                <h2 class="title-animation">Register & Upload Your CV</h2>
                 <p class="title-animation">Provide your details and CV so we can match you with suitable opportunities.</p>
             </div>
 

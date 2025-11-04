@@ -48,6 +48,7 @@
     <div class="header-lower">
         <div class="outer-container">
             <div class="outer-box">
+
                 <!-- Logo -->
                 <figure class="logo-box">
                     <a href="{{ route('index') }}">
@@ -55,8 +56,9 @@
                     </a>
                 </figure>
 
-                <!-- Menu Area -->
+                <!-- Navigation -->
                 <div class="menu-area">
+                    <!-- Mobile Navigation Toggler -->
                     <div class="mobile-nav-toggler">
                         <i class="icon-bar"></i>
                         <i class="icon-bar"></i>
@@ -104,25 +106,31 @@
                                     <a href="{{ route('blog') }}">Blog</a>
                                 </li>
 
-                                {{-- Contact Us only for guests (not admins) --}}
-                                @guest
-                                    <li class="{{ $currentRoute === 'contact' ? 'current' : '' }}">
-                                        <a href="{{ route('contact') }}">Contact Us</a>
-                                    </li>
-                                @endguest
+                                {{-- Mobile extra links --}}
+                                <li class="d-md-none">
+                                    @guest
+                                        <a href="{{ route('login') }}">Login</a>
+                                    @else
+                                        <a href="{{ route('profile.show') }}">Profile</a>
+                                    @endguest
+                                </li>
+                                <li class="d-md-none">
+                                    <a href="{{ route('contact') }}">Contact Us</a>
+                                </li>
                             </ul>
                         </div>
                     </nav>
                 </div>
 
-                <!-- Right Menu -->
-                <div class="menu-right-content d-flex align-items-center">
+                <!-- Right Menu (Desktop Only) -->
+                <div class="menu-right-content d-none d-md-flex align-items-center">
                     @auth
-                        {{-- Logged-in user (not admin) --}}
                         @if(!auth()->user()->hasRole('Admin'))
                             <div class="dropdown me-3">
-                                <a href="#" class="d-flex align-items-center" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('user.png') }}" alt="User Avatar" class="rounded-circle" width="35" height="35">
+                                <a href="#" class="d-flex align-items-center" id="userMenuDropdown"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ asset('user.png') }}" alt="User Avatar"
+                                         class="rounded-circle" width="35" height="35">
                                     <i class="fas fa-chevron-down ms-2"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
@@ -144,7 +152,6 @@
                             </div>
                         @endif
                     @else
-                        {{-- Guest --}}
                         <div class="link-box me-3">
                             <a href="{{ route('login') }}">Login</a>
                         </div>
@@ -157,7 +164,7 @@
         </div>
     </div>
 
-    <!-- Sticky Header -->
+    <!-- sticky header -->
     <div class="sticky-header">
         <div class="outer-container">
             <div class="outer-box d-flex justify-content-between align-items-center">
@@ -171,14 +178,14 @@
                     <nav class="main-menu clearfix"></nav>
                 </div>
 
-                <div class="menu-right-content d-flex align-items-center">
+                <div class="menu-right-content d-none d-md-flex align-items-center">
                     @auth
-                        @if(!auth()->user()->hasRole('admin'))
+                        @if(!auth()->user()->hasRole('Admin'))
                             <div class="dropdown me-3">
                                 <a href="#" class="d-flex align-items-center" id="userMenuDropdownSticky"
                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('user.png') }}" alt="User Avatar" class="rounded-circle" width="35"
-                                         height="35">
+                                    <img src="{{ asset('user.png') }}" alt="User Avatar"
+                                         class="rounded-circle" width="35" height="35">
                                     <i class="fas fa-chevron-down ms-2"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdownSticky">
@@ -200,8 +207,12 @@
                             </div>
                         @endif
                     @else
-                        <div class="link-box me-3"><a href="{{ route('jobseeker.create') }}">Upload CV</a></div>
-                        <div class="btn-box"><a href="{{ route('contact') }}" class="theme-btn btn-one">Contact Us</a></div>
+                        <div class="link-box me-3">
+                            <a href="{{ route('login') }}">Login</a>
+                        </div>
+                        <div class="btn-box">
+                            <a href="{{ route('jobseeker.create') }}" class="theme-btn btn-one">Upload CV</a>
+                        </div>
                     @endauth
                 </div>
             </div>

@@ -71,7 +71,7 @@
                 </div>
 
                 <span class="text">or</span>
-
+{{-- 
                 <ul class="social-links clearfix">
                     <li>
                         <a href="#"><img src="{{ asset('assets/images/icons/icon-25.png') }}" alt=""> Continue with Google</a>
@@ -79,11 +79,11 @@
                     <li>
                         <a href="#"><img src="{{ asset('assets/images/icons/icon-26.png') }}" alt=""> Continue with Facebook</a>
                     </li>
-                </ul>
+                </ul> --}}
             </form>
 
             <div class="lower-text centred">
-                <p>Don't have an account? <a href="{{ route('register') }}">Create one</a></p>
+                <p>Don't have an account? <a href="{{ route('jobseeker.create') }}">Create one</a></p>
             </div>
 
         </div>
