@@ -502,7 +502,7 @@
 }
 
 .mobile-menu-visible .mobile-menu .menu-box{
-  opacity: 1;
+  opacity: 0.8;
   visibility: visible;
   -webkit-transition: all 0.7s ease;
   -o-transition: all 0.7s ease;
