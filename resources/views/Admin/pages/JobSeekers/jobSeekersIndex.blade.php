@@ -2,7 +2,6 @@
 
 @section('content')
     {{-- Optional Modal for Adding/Editing Job Seeker Profiles --}}
-    @includeIf('Admin.pages.JobSeekerProfiles.modal')
 
     <div class="container-fluid">
         <button class="btn btn-primary addJobSeekerBtn mb-4 mt-4">Add Job Seeker Profile</button>
@@ -26,5 +25,7 @@
             </table>
         </div>
     </div>
+
+    @include('Admin.pages.JobSeekers.jobSeekerProfileModal')
 @endsection
 

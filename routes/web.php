@@ -24,9 +24,9 @@ use App\Http\Controllers\Admin\FrontendController as AdminFrontendController;
 use App\Http\Controllers\Admin\GalleryAlbumController;
 use App\Http\Controllers\Admin\GalleryMediaController;
 use App\Http\Controllers\Admin\JobCategoryController;
-use App\Http\Controllers\Admin\JobSeekerProfileController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\JobSeekerProfileController as AdminJobseekerProfileController;
 use App\Http\Controllers\Admin\NewsLetterController as AdminSideNewsLetterController;
 use App\Http\Controllers\Admin\PageBannerController;
 use App\Http\Controllers\Admin\PageController;
@@ -254,8 +254,13 @@ Route::prefix('setting')->name('setting.')->group(function () {
 });
 
     Route::apiResource('jobs',JobController::class);
-    Route::apiResource('job-seekers',JobseekerProfileController::class);
+    Route::apiResource('job-seekers',AdminJobseekerProfileController::class);
+    Route::get('job-seekers/{id}/applied-jobs', [AdminJobseekerProfileController::class, 'getAppliedJobs'])
+    ->name('jobseeker.applied-jobs');
+
     Route::apiResource('job-applications',JobApplicationController::class);
+   Route::patch('/job-applications/{id}/status', [JobApplicationController::class, 'updateStatus'])
+     ->name('admin.job-applications.updateStatus');
     Route::get('/jobs/status/{id}', [JobController::class, 'toggleStatus'])->name('client.status');
  Route::apiResource('job-categories',JobCategoryController::class);
     Route::get('/job-categories/status/{id}', [JobCategoryController::class, 'toggleStatus'])->name('client.status');

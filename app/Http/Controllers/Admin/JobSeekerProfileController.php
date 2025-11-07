@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
+use App\Models\JobSeekerProfile;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,57 +16,61 @@ class JobSeekerProfileController extends Controller
     /**
      * Display a listing of jobs under a specific vacancy.
      */
- public function index(Request $request)
-    {
-        if ($request->ajax()) {
-            $profiles = JobSeekerProfile::with('user')->latest();
+    public function index(Request $request)
+{
+    if ($request->ajax()) {
+        $profiles = JobSeekerProfile::with('user')->latest();
 
-            return datatables()->eloquent($profiles)
-                ->addIndexColumn()
-                ->addColumn('action', function ($profile) {
-                    return view('Admin.Button.button', ['data' => $profile])->render();
-                })
-                ->addColumn('name', function ($profile) {
-                    return e($profile->name ?? optional($profile->user)->name ?? '—');
-                })
-                ->addColumn('email', function ($profile) {
-                    return e($profile->email ?? optional($profile->user)->email ?? '—');
-                })
-                ->addColumn('phone', function ($profile) {
-                    return e($profile->phone ?? optional($profile->user)->phone ?? '—');
-                })
-                ->addColumn('resume', function ($profile) {
-                    if ($profile->resume_file) {
-                        $resumeUrl = asset('uploads/resumes/' . $profile->resume_file);
-                        return '<a href="' . $resumeUrl . '" target="_blank" class="btn btn-sm btn-primary">View</a>';
-                    }
-                    return '<em>No Resume</em>';
-                })
-                ->addColumn('skills', function ($profile) {
-                    return $profile->skills
-                        ? '<span class="badge bg-info">' . e($profile->skills) . '</span>'
-                        : '<em>Not Mentioned</em>';
-                })
-                ->rawColumns(['action', 'resume', 'skills'])
-                ->make(true);
-        }
+        return datatables()->eloquent($profiles)
+            ->addIndexColumn()
+            ->addColumn('name', fn($profile) => e(optional($profile->user)->full_name ?? '—'))
+            ->addColumn('email', fn($profile) => e(optional($profile->user)->email ?? '—'))
+            ->addColumn('phone', fn($profile) => e(optional($profile->user)->phonenumber ?? '—'))
+            ->addColumn('skills', fn($profile) => $profile->skills ? '<span class="badge bg-info">' . e($profile->skills) . '</span>' : '<em>Not Mentioned</em>')
+            ->addColumn('experience', fn($profile) => e($profile->experience ?? '—'))
+            ->addColumn('education', fn($profile) => e($profile->education ?? '—'))
+           
 
-        $extraJs = array_merge(
-            config('js-map.admin.datatable.script'),
-            config('js-map.admin.select2.script'),
-            config('js-map.admin.buttons.script')
-        );
 
-        $extraCs = array_merge(
-            config('js-map.admin.datatable.style'),
-            config('js-map.admin.select2.style'),
-            config('js-map.admin.buttons.style')
-        );
-        return view('Admin.pages.JobSeekers.jobSeekersIndex', [
-            'extraJs' => $extraJs,
-            'extraCs' => $extraCs
-        ]);
+
+            // ->addColumn('action', fn($profile) => view('Admin.Button.button', ['data' => $profile])->render())
+            ->addColumn('action', function ($item) {
+    return '
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-info viewApplicant" data-id="' . $item->id . '">
+                <i class="fa fa-eye"></i> View
+            </button>
+
+            <button class="btn btn-sm btn-danger deleteData" data-id="' . $item->id . '">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </div>
+    ';
+})
+
+            ->rawColumns(['action', 'skills'])
+            ->make(true);
     }
+ $extraJs = array_merge(
+        config('js-map.admin.datatable.script'),
+        config('js-map.admin.summernote.script'),
+        config('js-map.admin.select2.script'),
+        config('js-map.admin.buttons.script')
+    );
+
+    $extraCs = array_merge(
+        config('js-map.admin.datatable.style'),
+        config('js-map.admin.summernote.style'),
+        config('js-map.admin.select2.style'),
+        config('js-map.admin.buttons.style')
+    );
+
+    return view('Admin.pages.JobSeekers.jobSeekersIndex', [
+        'extraJs' => $extraJs,
+        'extraCs' => $extraCs
+    ]);
+}
+
 
 
     /**
@@ -265,4 +270,28 @@ public function update(JobRequest $request, Vacancy $vacancy, Job $job)
             'data' => $jobs,
         ]);
     }
+
+
+   public function getAppliedJobs($id)
+{
+    $applications = \App\Models\JobApplication::with('job')
+        ->where('job_seeker_profile_id', $id)
+        ->get();
+
+    $data = $applications->map(function ($app) {
+        return [
+            'job_id' => $app->job->id ?? null,
+            'job_title' => $app->job->title ?? 'N/A',
+            'status' => $app->status,
+            'applied_on' => $app->created_at->format('Y-m-d H:i'),
+        ];
+    });
+
+    return response()->json([
+        'success' => true,
+        'data' => $data
+    ]);
+}
+
+
 }

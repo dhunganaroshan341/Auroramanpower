@@ -7,13 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobSeekerProfile extends Model
 {
-    protected $fillable = ['user_id','bio','skills','experience','education','resume_file'];
+    use HasFactory;
 
-    public function user() {
+    protected $fillable = ['user_id', 'bio', 'skills', 'experience', 'education', 'resume_file'];
+
+    // Each jobseeker belongs to a user
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function applications() {
+    // Each jobseeker can have many applications
+    public function applications()
+    {
         return $this->hasMany(Application::class, 'job_seeker_id');
+    }
+
+      // ✅ FIX: use the correct relationship name
+    public function hasAppliedTo($jobId)
+    {
+        return $this->applications()->where('job_id', $jobId)->exists();
     }
 }

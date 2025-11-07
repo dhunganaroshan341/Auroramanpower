@@ -1,11 +1,8 @@
-$(function () {
+$(document).ready(function () {
     // ====================== CSRF Setup ======================
     $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
     });
-
-    // ====================== Initialize Bootstrap Modal ======================
-    const jobSeekerModal = new bootstrap.Modal(document.getElementById("jobSeekerModal"));
 
     // ====================== Initialize DataTable ======================
     const table = $("#show-jobseeker-data").DataTable({
@@ -27,12 +24,21 @@ $(function () {
                 data: "resume_file",
                 orderable: false,
                 searchable: false,
-                render: function (data) {
-                    if (!data) return "<em>No File</em>";
-                    return `<a href="/uploads/resumes/${data}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                <i class="fa fa-file"></i> View
-                            </a>`;
-                },
+               render: function (data) {
+    if (!data) return "<em>No File</em>";
+
+    const url = "/uploads/" + data; // make sure this path is correct
+
+    return `
+        <a href="${url}" target="_blank" class="btn btn-sm btn-outline-primary me-1">
+            <i class="fa fa-file"></i> View
+        </a>
+        <a href="${url}" download class="btn btn-sm btn-outline-success">
+            <i class="fa fa-download"></i> Download
+        </a>
+    `;
+},
+
             },
             { data: "action", name: "action", orderable: false, searchable: false },
         ],
@@ -46,128 +52,121 @@ $(function () {
 
     table.on("draw", () => $('[data-bs-toggle="tooltip"]').tooltip());
 
-    // ====================== Modal Handlers ======================
-    function openModal(action, id = null) {
-        clearModal();
-        if (action === "add") {
-            $(".submitBtn").show();
-            $(".updateBtn").hide();
-        } else {
-            $(".submitBtn").hide();
-            $(".updateBtn").show().data("id", id);
-        }
-
-        $("#jobSeekerModalLabel").text(action === "add" ? "Add Job Seeker Profile" : "Update Job Seeker Profile");
-        jobSeekerModal.show();
-
-        if (action === "update" && id) {
-            $.get("/admin/job-seekers/" + id, function (res) {
-                if (res.success) populateModal(res.data);
-            });
-        }
-    }
-
-    $(document).on("click", ".addJobSeekerBtn", () => openModal("add"));
-    $(document).on("click", ".editData", function () {
-        openModal("update", $(this).data("id"));
-    });
-
-    // ====================== Populate Modal ======================
-    function populateModal(profile) {
-        $("#name").val(profile.name);
-        $("#email").val(profile.email);
-        $("#phone").val(profile.phone);
-        $("#skills").val(profile.skills);
-        $("#experience").val(profile.experience);
-        $("#education").val(profile.education);
-        if (profile.resume_file) {
-            $("#previewResume").html(
-                `<a href="/uploads/resumes/${profile.resume_file}" target="_blank" class="btn btn-sm btn-outline-primary">
-                    <i class="fa fa-file"></i> View Current Resume
-                </a>`
-            );
-        } else {
-            $("#previewResume").html("<em>No Resume Uploaded</em>");
-        }
-    }
-
-    // ====================== Form Submit ======================
-    function submitForm(action, id = "") {
-        const form = $("#jobSeekerForm");
-        const formData = new FormData(form[0]);
-        if (action === "update") formData.append("_method", "PUT");
-
-        $.ajax({
-            type: "POST",
-            url: action === "add" ? "/admin/job-seekers" : "/admin/job-seekers/" + id,
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                if (res.success) {
-                    Swal.fire({
-                        icon: "success",
-                        title: action === "add" ? "Created" : "Updated",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    });
-                    table.draw();
-                    jobSeekerModal.hide();
-                } else {
-                    Swal.fire({ icon: "warning", title: "Failed", text: "Please try again!" });
-                }
-            },
-            error: function (xhr) {
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors;
-                    let html = "<ul>";
-                    $.each(errors, (k, v) => (html += `<li>${v[0]}</li>`));
-                    html += "</ul>";
-                    $("#validationErrors").removeClass("d-none").html(html);
-                }
-            },
-        });
-    }
-
-    $(".submitBtn").on("click", function (e) {
-        e.preventDefault();
-        submitForm("add");
-    });
-
-    $(".updateBtn").on("click", function (e) {
-        e.preventDefault();
-        submitForm("update", $(this).data("id"));
-    });
-
     // ====================== Delete Handler ======================
     $(document).on("click", ".deleteData", function () {
         const id = $(this).data("id");
         Swal.fire({
-            icon: "warning",
             title: "Are you sure?",
             text: "This will permanently delete the profile!",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Yes, Delete it!",
         }).then((result) => {
             if (!result.isConfirmed) return;
-            $.post("/admin/job-seekers/" + id, {
-                _method: "DELETE",
-                _token: $('meta[name="csrf-token"]').attr("content"),
-            }, function (res) {
-                if (res.success) {
-                    Swal.fire({ icon: "success", title: "Deleted", showConfirmButton: false, timer: 1500 });
-                    table.draw();
-                }
+            $.ajax({
+                url: "/admin/job-seekers/" + id,
+                type: "DELETE",
+                success: function (res) {
+                    if (res.success) {
+                        Swal.fire({ icon: "success", title: "Deleted", showConfirmButton: false, timer: 1500 });
+                        table.draw();
+                    } else {
+                        Swal.fire({ icon: "error", title: "Failed", text: "Cannot delete this profile!" });
+                    }
+                },
+                error: function () {
+                    Swal.fire({ icon: "error", title: "Error", text: "An error occurred while deleting the profile." });
+                },
             });
         });
     });
 
-    // ====================== Helper: Clear Modal ======================
-    function clearModal() {
-        $("#jobSeekerForm")[0].reset();
-        $("#validationErrors").addClass("d-none").html("");
-        $("#previewResume").html("");
-        $(".submitBtn").show();
-        $(".updateBtn").hide();
-    }
+    $(document).on('click', '.viewApplicant', function() {
+    let id = $(this).data('id');
+
+     $.ajax({
+        url: `/admin/job-applications/${id}`,
+        type: 'GET',
+        success: function(response) {
+            if (!response.success || !response.data) {
+                alert('Invalid response.');
+                return;
+            }
+
+            const res = response.data;
+
+            // Fill data into modal
+            $('#applicantName').text(res.full_name || '-');
+            $('#applicantEmail').text(res.email || '-');
+            $('#applicantBio').text(res.bio || '-');
+            $('#applicantSkills').text(res.skills || '-');
+            $('#applicantExperience').text(res.experience || '-');
+            $('#applicantEducation').text(res.education || '-');
+
+            // Applicant image
+            if (res.image) {
+                $('#applicantImage').attr('src', res.image);
+            } else {
+                $('#applicantImage').attr('src', 'https://via.placeholder.com/100');
+            }
+
+            // Resume file
+            if (res.resume_file) {
+                $('#resumeSection').html(`
+                    <a href="${res.resume_file}" target="_blank" class="btn btn-success">
+                        <i class="fa fa-download"></i> Download Resume
+                    </a>
+                `);
+            } else {
+                $('#resumeSection').html('<p><em>No resume uploaded.</em></p>');
+            }
+
+            // Show modal
+            $('#applicantModal').modal('show');
+        },
+        error: function(xhr) {
+            console.error(xhr);
+            alert('Failed to load applicant details.');
+        }
+    });
+});
+
+
+// applied jobs by the applicant
+let applicantJobsTable;
+
+    $(document).on("click", ".viewApplicant", function () {
+        const jobSeekerId = $(this).data("id");
+
+        // If table already exists, destroy it
+        if ($.fn.DataTable.isDataTable("#applicantJobsTable")) {
+            $("#applicantJobsTable").DataTable().clear().destroy();
+        }
+
+        // Initialize DataTable
+        applicantJobsTable = $("#applicantJobsTable").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: `/admin/job-seekers/${jobSeekerId}/applied-jobs`,
+            columns: [
+                { data: null, render: (data, type, row, meta) => meta.row + 1 }, // S.N
+                { data: "job_title", name: "job_title" },
+                { data: "status", name: "status" },
+                { data: "applied_on", name: "applied_on" },
+                {
+                    data: "job_id",
+                    render: function (jobId) {
+                        return `<a href="/admin/jobs/${jobId}" class="btn btn-sm btn-info" target="_blank">View Job</a>`;
+                    },
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+            responsive: true,
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            info: false
+        });
+    });
 });

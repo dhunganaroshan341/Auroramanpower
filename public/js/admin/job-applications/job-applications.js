@@ -1,11 +1,13 @@
 $(function () {
     // ====================== CSRF Setup ======================
-    $.ajaxSetup({
+   $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
     });
-
-    // ====================== Initialize Summernote ======================
+       // ====================== Initialize Summernote ======================
     $(".summernote").summernote({ height: 300 });
+//   make status pending by default on load
+    $('#statusFilter').val('Pending');
+
 
     $(".generalRequirementsSummernote").on("summernote.init", function () {
         $(this).summernote("code", `
@@ -19,31 +21,35 @@ $(function () {
         `);
     }).summernote();
 
-    // ====================== Initialize Bootstrap Modal ======================
-    const jobModal = new bootstrap.Modal(document.getElementById("JobFormModal"));
+    
 
-    // ====================== Initialize DataTable ======================
-   let jobId = $('#show-application-data').data('job-id'); // pass job_id as a data attribute in your table
+    let defaultJobId = $('#show-application-data').data('job-id');
 
-$('#show-application-data').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-        url: '/admin/job-applications',
-        data: function(d) {
-            if(jobId) {
-                d.job_id = jobId;
+      let table = $('#show-application-data').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/admin/job-applications/",
+            data: function (d) {
+                d.job_id = $('#jobFilter').val();
+                d.status = $('#statusFilter').val();
             }
-        }
-    },
-    columns: [
-        { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'job_title', name: 'job.title' },
-        { data: 'job_seeker', name: 'jobSeekerProfile.user.full_name' },
-        { data: 'status', name: 'status', orderable: false, searchable: false },
-        { data: 'action', name: 'action', orderable: false, searchable: false },
-    ],
-});
+        },
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'job_title', name: 'job_title' },
+            { data: 'job_seeker', name: 'job_seeker' },
+            { data: 'status', name: 'status', orderable: false, searchable: false },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ]
+    });
+
+    $('#jobFilter, #statusFilter').change(function () {
+        table.ajax.reload();
+    });
+
+
+ 
 
 
 
@@ -165,7 +171,7 @@ $('#show-application-data').DataTable({
             confirmButtonText: "Yes, Delete it!",
         }).then((result) => {
             if (!result.isConfirmed) return;
-            $.post("/admin/jobs/" + id, { _method: "DELETE", _token: $('meta[name="csrf-token"]').attr("content") }, function (res) {
+            $.post("/admin/job-applications/" + id, { _method: "DELETE", _token: $('meta[name="csrf-token"]').attr("content") }, function (res) {
                 if (res.success) {
                     Swal.fire({ icon: "success", title: "Deleted", showConfirmButton: false, timer: 1500 });
                     table.draw();
@@ -218,4 +224,97 @@ $('#show-application-data').DataTable({
         $(".submitBtn").show();
         $(".updateBtn").hide();
     }
+
+
+    $(document).on('click', '.viewApplicant', function() {
+    let id = $(this).data('id');
+
+     $.ajax({
+        url: `/admin/job-applications/${id}`,
+        type: 'GET',
+        success: function(response) {
+            if (!response.success || !response.data) {
+                alert('Invalid response.');
+                return;
+            }
+
+            const res = response.data;
+
+            // Fill data into modal
+            $('#applicantName').text(res.full_name || '-');
+            $('#applicantEmail').text(res.email || '-');
+            $('#applicantBio').text(res.bio || '-');
+            $('#applicantSkills').text(res.skills || '-');
+            $('#applicantExperience').text(res.experience || '-');
+            $('#applicantEducation').text(res.education || '-');
+
+            // Applicant image
+            if (res.image) {
+                $('#applicantImage').attr('src', res.image);
+            } else {
+                $('#applicantImage').attr('src', 'https://via.placeholder.com/100');
+            }
+
+            // Resume file
+            if (res.resume_file) {
+                $('#resumeSection').html(`
+                    <a href="${res.resume_file}" target="_blank" class="btn btn-success">
+                        <i class="fa fa-download"></i> Download Resume
+                    </a>
+                `);
+            } else {
+                $('#resumeSection').html('<p><em>No resume uploaded.</em></p>');
+            }
+
+            // Show modal
+            $('#applicantModal').modal('show');
+        },
+        error: function(xhr) {
+            console.error(xhr);
+            alert('Failed to load applicant details.');
+        }
+    });
+});
+
+// Change application status
+$(document).on('change', '.application-status', function() {
+    const id = $(this).data('id');
+    const newStatus = $(this).val();
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Change Status?',
+        text: `Are you sure you want to change the status to "${newStatus}"?`,
+        showCancelButton: true,
+        confirmButtonText: 'Yes, change it!',
+    }).then((result) => {
+        if (!result.isConfirmed) return;
+
+        $.ajax({
+            url: `/admin/job-applications/${id}/status`,
+            type: 'PATCH',
+            data: { status: newStatus, _token: $('meta[name="csrf-token"]').attr('content') },
+            success: function(res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Status Updated',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    // Redraw DataTable to reflect changes
+                    $('#show-application-data').DataTable().ajax.reload(null, false);
+                } else {
+                    Swal.fire('Error', res.message || 'Failed to update status', 'error');
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr);
+                Swal.fire('Error', 'Failed to update status', 'error');
+            }
+        });
+    });
+});
+
 });

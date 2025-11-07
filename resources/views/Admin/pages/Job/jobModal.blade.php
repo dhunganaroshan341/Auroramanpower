@@ -5,7 +5,7 @@
             <form id="jobForm" class="form" method="POST" enctype="multipart/form-data"
                 data-id="{{ $job->id ?? '' }}">
                 @csrf
-                @csrf
+              
                 <div class="modal-header bg-primary text-white rounded-top-4">
                     <h5 class="modal-title" id="jobModalTitle">Add Job</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"

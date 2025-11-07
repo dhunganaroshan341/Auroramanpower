@@ -28,5 +28,8 @@ class JobApplication extends Model
     public function jobSeekerProfile()
     {
         return $this->belongsTo(JobSeekerProfile::class, 'job_seeker_profile_id');
+    }public function jobSeeker()
+    {
+        return $this->belongsTo(JobSeekerProfile::class, 'job_seeker_profile_id');
     }
 }

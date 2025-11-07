@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobApplicationRequest;
-use App\Models\Application;
+use App\Models\JobJobApplication;
 use App\Models\Job;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
@@ -12,54 +12,60 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JobApplicationController extends Controller
 {
-   public function index(Request $request)
+  public function index(Request $request)
 {
     if ($request->ajax()) {
-        $applicationsQuery = JobApplication::with(['job.categories', 'job.ourCountry', 'jobSeekerProfile.user']);
+        $applicationsQuery = JobApplication::with([
+            'job.categories',
+            'job.ourCountry',
+            'jobSeekerProfile.user'
+        ]);
 
-        // Only filter by job_id if it's provided in the request
+        // Filter by job
         if ($request->filled('job_id')) {
             $applicationsQuery->where('job_id', $request->job_id);
         }
 
-        // Optional: also filter by category or country if needed
-        if ($request->filled('job_category_id')) {
-            $applicationsQuery->whereHas('job.categories', function ($q) use ($request) {
-                $q->where('id', $request->job_category_id);
-            });
-        }
-
-        if ($request->filled('our_country_id')) {
-            $applicationsQuery->whereHas('job.ourCountry', function ($q) use ($request) {
-                $q->where('id', $request->our_country_id);
-            });
+        // Filter by status
+        if ($request->filled('status')) {
+            $applicationsQuery->where('status', $request->status);
         }
 
         return DataTables::of($applicationsQuery)
             ->addIndexColumn()
             ->addColumn('job_title', fn($item) => optional($item->job)->title ?? '-')
-            ->addColumn('job_category', function ($item) {
-                if ($item->job && $item->job->categories->isNotEmpty()) {
-                    return $item->job->categories
-                        ->map(fn($cat) => '<span class="badge bg-primary me-1">' . e($cat->name) . '</span>')
-                        ->implode(' ');
-                }
-                return '<em>No Categories</em>';
-            })
-            ->addColumn('country', fn($item) => optional($item->job->ourCountry)->name ?? '-')
             ->addColumn('job_seeker', fn($item) => optional($item->jobSeekerProfile->user)->full_name ?? '-')
             ->addColumn('status', function ($item) {
-                return '<select class="form-select application-status" data-id="' . $item->id . '">
-                            <option value="applied" ' . ($item->status == 'applied' ? 'selected' : '') . '>Applied</option>
-                            <option value="shortlisted" ' . ($item->status == 'shortlisted' ? 'selected' : '') . '>Shortlisted</option>
-                            <option value="rejected" ' . ($item->status == 'rejected' ? 'selected' : '') . '>Rejected</option>
-                        </select>';
+                $statuses = ['Pending', 'Reviewed', 'Accepted', 'Rejected'];
+                $options = '';
+
+                foreach ($statuses as $status) {
+                    $selected = $item->status === $status ? 'selected' : '';
+                    $options .= "<option value='{$status}' {$selected}>{$status}</option>";
+                }
+
+                return "<select class='form-select application-status' data-id='{$item->id}'>{$options}</select>";
             })
-            ->addColumn('action', fn($item) => view('Admin.Button.button', ['data' => $item])->render())
-            ->rawColumns(['status', 'action', 'job_category'])
+            // ->addColumn('action', fn($item) => view('Admin.Button.button', ['data' => $item])->render())
+            ->addColumn('action', function ($item) {
+    return '
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-info viewApplicant" data-id="' . $item->id . '">
+                <i class="fa fa-eye"></i> View
+            </button>
+
+            <button class="btn btn-sm btn-danger deleteData" data-id="' . $item->id . '">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </div>
+    ';
+})
+
+            ->rawColumns(['status', 'action'])
             ->make(true);
     }
 
+    // JS & CSS setup
     $extraJs = array_merge(
         config('js-map.admin.datatable.script'),
         config('js-map.admin.summernote.script'),
@@ -72,62 +78,68 @@ class JobApplicationController extends Controller
         config('js-map.admin.buttons.style')
     );
 
-    // Pass job_id to view so you can use it in JS to append to AJAX URL
-    $jobId = $request->job_id ?? null;
-
-    return view('Admin.pages.JobApplication.jobApplicationIndex', compact('extraJs', 'extraCss', 'jobId'));
+    return view('Admin.pages.JobApplication.jobApplicationIndex', compact('extraJs', 'extraCss'));
 }
+
 
 
 
     public function store(JobApplicationRequest $request)
     {
-        $application = Application::create($request->validated());
+        $application = JobApplication::create($request->validated());
 
         return response()->json([
             'success' => true,
-            'message' => 'Application submitted successfully!',
+            'message' => 'JobApplication submitted successfully!',
             'data' => $application
         ]);
     }
 
     public function update(JobApplicationRequest $request, string $id)
     {
-        $application = Application::findOrFail($id);
+        $application = JobApplication::findOrFail($id);
         $application->update($request->validated());
 
         return response()->json([
             'success' => true,
-            'message' => 'Application updated successfully!',
+            'message' => 'JobApplication updated successfully!',
             'data' => $application
         ]);
     }
 
-    public function manageStatus(string $id, Request $request)
-    {
-        $request->validate([
-            'status' => 'required|in:applied,shortlisted,rejected'
-        ]);
+    public function updateStatus(Request $request, $id)
+{
+    $request->validate([
+        'status' => 'required|in:Pending,Reviewed,Accepted,Rejected',
+    ]);
 
-        $application = Application::findOrFail($id);
-        $application->status = $request->status;
-        $application->save();
+    $application = JobApplication::find($id);
 
+    if (!$application) {
         return response()->json([
-            'success' => true,
-            'message' => 'Status updated successfully!',
-            'data' => $application
-        ]);
+            'success' => false,
+            'message' => 'Application not found.'
+        ], 404);
     }
+
+    $application->status = $request->status;
+    $application->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Application status updated successfully.'
+    ]);
+}
+
 
     public function destroy(string $id)
     {
-        $application = Application::findOrFail($id);
+        $application = JobApplication::findOrFail($id);
         $application->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Application deleted successfully!'
+            'message' => 'JobApplication deleted successfully!'
         ]);
     }
 
@@ -213,6 +225,47 @@ public function manualApply(Request $request, $id)
         'data' => $application
     ]);
 }
+
+
+public function show($id)
+{
+
+    $application = JobApplication::with(['jobSeeker.user'])->find($id);
+   
+    if (!$application) {
+        return response()->json([
+            'success' => false,
+            'message' => 'JobJobApplication not found'
+        ], 404);
+    }
+
+    $jobSeeker = $application->jobSeeker;
+    $user = $jobSeeker?->user;
+
+    $data = [
+        'application_id' => $application->id,
+        'job_id' => $application->job_id,
+        'status' => $application->status,
+        'cover_letter' => $application->cover_letter,
+
+        // From User
+        'full_name' => $user?->full_name ?? 'N/A',
+        'email' => $user?->email ?? 'N/A',
+        'phone' => $user?->phonenumber ?? 'N/A',
+        'position' => $user?->position ?? 'N/A',
+        'image' => $user?->image ? asset('uploads/' . $user->image) : null,
+
+        // From JobSeeker
+        'bio' => $jobSeeker?->bio ?? 'N/A',
+        'skills' => $jobSeeker?->skills ?? 'N/A',
+        'experience' => $jobSeeker?->experience ?? 'N/A',
+        'education' => $jobSeeker?->education ?? 'N/A',
+        'resume_file' => $jobSeeker?->resume_file ? asset('uploads/' . $jobSeeker->resume_file) : null,
+    ];
+
+    return response()->json(['success' => true, 'data' => $data]);
+}
+
 
 
 }
