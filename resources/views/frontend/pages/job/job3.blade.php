@@ -126,7 +126,7 @@
                                         </ul>
                                     </div>
                                     <div class="btn-box mt-3">
-                                        <a href="{{ route('jobById', $job->id) }}" class="theme-btn btn-one">View
+                                        <a href="{{ route('jobBySlug', ['slug'=>$job->slug]) }}" class="theme-btn btn-one">View
                                             Details</a>
                                     </div>
                                 </div>

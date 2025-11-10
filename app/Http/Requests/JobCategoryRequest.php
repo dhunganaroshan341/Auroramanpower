@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class JobCategoryRequest extends FormRequest
 {
@@ -21,7 +22,13 @@ class JobCategoryRequest extends FormRequest
         'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'icon_class'  => 'nullable|string|max:255',
         'description' => 'nullable|string',
-        'slug'        => 'required|string|max:255|unique:job_categories,slug,' . $jobCategoryId,
+       'slug' => [
+    'required',
+    'string',
+    'max:255',
+    Rule::unique('job_categories', 'slug')->ignore($this->id),
+],
+
     ];
 }
 

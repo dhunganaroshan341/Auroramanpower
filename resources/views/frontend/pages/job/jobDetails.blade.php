@@ -3,6 +3,7 @@
 @php
     $title = 'Vacancy Details';
     $subTitle = 'Vacancy Details';
+   $job = App\Models\Job::find(1); // returns a single Job model or null
     $css =
         '<link href="' .
         asset('assets/css/module-css/header.css') .

@@ -116,6 +116,14 @@ public function job3(Request $request)
     // Return the job details view
     return view('frontend.pages.job.jobDetailsDynamic', compact('job'));
 }
+public function jobDetailsBySlug($slug)
+{
+    // Fetch the job by ID with country and categories
+    $job = Job::with(['ourCountry', 'categories'])->where('slug', $slug)->firstOrFail();    
+
+    // Return the job details view
+    return view('frontend.pages.job.jobDetailsDynamic', compact('job'));
+}
     public function portfolio()
     {
         return view('frontend.pages/portfoliyo/portfolio');

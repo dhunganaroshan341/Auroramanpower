@@ -7,62 +7,97 @@ use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
+    // Show Registration Page
     public function index()
     {
         return view('Auth.register');
     }
 
-   public function storeRegister(AuthRequest $authRequest)
-{
-    DB::beginTransaction();
-    try {
-        $data = $authRequest->validated();
-        $data['role'] = 'User';
+    // Handle Registration
+    public function storeRegister(AuthRequest $authRequest)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $authRequest->validated();
+            $data['role'] = 'User';
 
-        // Create the user
-        $user = User::create($data);
+            $user = User::create($data);
+            Auth::login($user);
 
-        // Log the user in
-        Auth::login($user);
+            DB::commit();
 
-        DB::commit();
-
-        // Redirect to intended page (e.g., dashboard) or home
-        return redirect()->route('home')->with(['message' => 'User Registered Successfully!']);
-
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()->with(['error' => 'Something Went Wrong']);
+            return redirect()->route('index')->with(['message' => 'User Registered Successfully!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'Something went wrong: ' . $e->getMessage()]);
+        }
     }
-}
+
+    // Show Login Page
     public function login()
     {
         return view('Auth.login');
     }
 
-    public function storeLogin(AuthRequest $authRequest)
+    // Handle Normal Login
+    public function storeLogin(Request $request)
     {
-        try {
-            if (Auth::attempt(['email' => $authRequest->email, 'password' => $authRequest->password])) {
-                if (Auth::user()->role == 'Admin') {
-                    session('email', $authRequest->email);
-                    return redirect()->route('admin.user');
-                } else {
-                    return redirect()->route('index');
-                }
-            } else {
-                return back()->with(['error' => 'Invalid Login Crediantials']);
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if ($user->role === 'Admin') {
+                return redirect()->route('admin.user');
             }
-        } catch (\Exception $e) {
-            return back()->with(['error' => 'Something Went Wrong' . $e->getMessage()]);
+
+            return redirect()->route('index');
         }
+
+        return back()->with(['error' => 'Invalid login credentials']);
     }
 
-    public function logout(){
+    // Logout
+    public function logout()
+    {
         Auth::logout();
-        return redirect()->route('login')->with(['message'=>'Logout Successfully']);
+        return redirect()->route('admin.login')->with(['message' => 'Logged out successfully']);
+    }
+
+    // Redirect to Google OAuth
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    // Handle Google OAuth Callback
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->email],
+                [
+                    'full_name' => $googleUser->name,
+                    'google_id' => $googleUser->id,
+                    'role' => 'User',
+                    'image' => $googleUser->avatar,
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect()->route('index')->with(['message' => 'Logged in successfully via Google']);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.login')->with(['error' => 'Google login failed: ' . $e->getMessage()]);
+        }
     }
 }

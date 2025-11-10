@@ -20,7 +20,7 @@ class JobSeekerProfile extends Model
     // Each jobseeker can have many applications
     public function applications()
     {
-        return $this->hasMany(Application::class, 'job_seeker_id');
+        return $this->hasMany(JobApplication::class, 'job_seeker_profile_id');
     }
 
       // ✅ FIX: use the correct relationship name

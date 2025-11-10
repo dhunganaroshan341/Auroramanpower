@@ -84,6 +84,14 @@
     color: #fff !important;
 }
 
+.text-theme-secondary{
+    color: var(--secondary-color) !important;
+   
+}.text-theme-primary{
+    color: var(--theme-color) !important;
+    
+}
+
 .bg-theme-secondary{
     background-color: var(--secondary-color) !important;
     color: #fff !important;

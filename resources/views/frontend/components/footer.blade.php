@@ -52,7 +52,7 @@
                             @endphp
                             @forelse($recentVacancies->take(4) as $vacancy)
                                 <li class="mb-2">
-                                    <a href="{{ route('jobById', ['id' => $vacancy->id]) }}" class="text-decoration-none text-white">
+                                    <a href="{{ route('jobById', ['id' => $vacancy->id]) }}" class="text-decoration-none text-theme-secondary">
                                         Vacancy in {{ $vacancy->ourCountry->name }}
                                     </a>
                                 </li>
@@ -76,17 +76,17 @@
             <div class="bottom-inner d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-center text-md-start">
                 <div class="copyright small">
                     <p class="mb-0">
-                        &copy; 2025 <a href="{{ route('index') }}" class="text-decoration-none text-white fw-bold">Aurora</a>.
+                        &copy; 2025 <a href="{{ route('index') }}" class="text-decoration-none text-theme-secondary fw-bold">Aurora</a>.
                         All rights reserved. | Developed by
-                        <a href="https://realminfotek.com/" class="text-decoration-none text-white fw-bold">Realminfotech Pvt. Ltd</a>
+                        <a href="https://realminfotek.com/" class="text-decoration-none text-theme-secondary fw-bold">Realminfotech Pvt. Ltd</a>
                     </p>
                 </div>
 
                 <ul class="social-links d-flex justify-content-center justify-content-md-end gap-3 mb-0 list-unstyled">
                     <li><h6 class="mb-0 me-2">Follow Us:</h6></li>
-                    <li><a href="#" class="text-white"><i class="icon-22"></i></a></li>
-                    <li><a href="#" class="text-white"><i class="icon-23"></i></a></li>
-                    <li><a href="#" class="text-white"><i class="icon-24"></i></a></li>
+                    <li><a href="#" class="text-theme-secondary"><i class="icon-22"></i></a></li>
+                    <li><a href="#" class="text-theme-secondary"><i class="icon-23"></i></a></li>
+                    <li><a href="#" class="text-theme-secondary"><i class="icon-24"></i></a></li>
                 </ul>
             </div>
         </div>

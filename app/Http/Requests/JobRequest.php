@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class JobRequest extends FormRequest
 {
@@ -15,7 +16,13 @@ class JobRequest extends FormRequest
     {
         return [
             'title'             => 'required|string|max:255',
-            'job_code'          => 'required|string|max:50|unique:jobs,job_code,' . $this->job?->id,
+            'job_code' => [
+    'required',
+    'string',
+    'max:50',
+    Rule::unique('jobs', 'job_code')->ignore($this->job?->id)
+],
+
             'custom_company_name'=> 'nullable|string|max:255',
             'description'       => 'required|string|min:10',
             'requirements'      => 'nullable|string|min:5',
@@ -26,7 +33,7 @@ class JobRequest extends FormRequest
             'category_ids'      => 'nullable|array',
             'category_ids.*'    => 'exists:job_categories,id',
             'interview_date'    => 'nullable|date',
-            'status'            => 'required|in:active,inactive',
+            'status'            => 'required|in:Active,Inactive',
             'link'              => 'nullable|url|max:255',
             'icon_class'        => 'nullable|string|max:100',
             'image'             => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max

@@ -1,147 +1,115 @@
 @extends('Admin.layout.master')
-@section('content')
-    <div class="container-fluid">
-        <div class="main-panel">
-            <div class="content">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="home-tab">
-                            {{-- <div class="d-sm-flex align-items-center justify-content-between border-bottom">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
-                                            role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences"
-                                            role="tab" aria-selected="false">Audiences</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics"
-                                            role="tab" aria-selected="false">Demographics</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more"
-                                            role="tab" aria-selected="false">More</a>
-                                    </li>
-                                </ul>
-                                <div>
-                                    <div class="btn-wrapper">
-                                        <a href="#" class="btn btn-otline-dark align-items-center"><i
-                                                class="icon-share"></i> Share</a>
-                                        <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i>
-                                            Print</a>
-                                        <a href="#" class="btn btn-primary text-white me-0"><i
-                                                class="icon-download"></i> Export</a>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="tab-content tab-content-basic">
-                                <div class="tab-pane fade show active" id="overview" role="tabpanel"
-                                    aria-labelledby="overview">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div
-                                                class="statistics-details d-flex align-items-center justify-content-between">
 
-                                                <div>
-                                                    <p class="statistics-title">Total User</p>
-                                                    <h3 class="rate-percentage">{{ $totaluser }}</h3>
-                                                </div>
-                                                <div>
-                                                    <p class="statistics-title">Admin</p>
-                                                    <h3 class="rate-percentage">{{ $admin }}</h3>
-                                                </div>
-                                                <div>
-                                                    <p class="statistics-title">User</p>
-                                                    <h3 class="rate-percentage">{{ $user }}</h3>
-                                                </div>
-                                                <div class="d-none d-md-block">
-                                                    <p class="statistics-title">Total Post</p>
-                                                    <h3 class="rate-percentage">{{ $totalpost }}</h3>
-                                                </div>
-                                                <div class="d-none d-md-block">
-                                                    <p class="statistics-title">Total packages</p>
-                                                    <h3 class="rate-percentage">{{ $totalPackages }}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 d-flex flex-column">
-                                            <div class="row flex-grow">
-                                                <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
-                                                    <div class="card card-rounded">
-                                                        <div class="card-body">
-                                                            <div
-                                                                class="d-sm-flex justify-content-between align-items-start">
-                                                                <div>
-                                                                    <h4 class="card-title card-title-dash">Performance Line
-                                                                        Chart</h4>
-                                                                    <h5 class="card-subtitle card-subtitle-dash">Bar Graph
-                                                                        Data from DataSet</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mt-4">
-                                                                <canvas id="performanceLine"></canvas>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+@section('content')
+<div class="container-fluid">
+    <div class="main-panel">
+        <div class="content">
+
+            {{-- Top Section: User/Admin Stats --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="statistics-details d-flex align-items-center justify-content-between flex-wrap">
+
+                        <div class="mb-3">
+                            <p class="statistics-title">Total Users</p>
+                            <h3 class="rate-percentage">{{ $totaluser }}</h3>
+                        </div>
+                        <div class="mb-3">
+                            <p class="statistics-title">Admins</p>
+                            <h3 class="rate-percentage">{{ $admin }}</h3>
+                        </div>
+                        <div class="mb-3">
+                            <p class="statistics-title">Users</p>
+                            <h3 class="rate-percentage">{{ $user }}</h3>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{-- End Top Section --}}
+
+            {{-- Stats Chart --}}
+            <div class="row mt-3">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                        <div class="card-body">
+                            <h4 class="card-title card-title-dash">Dashboard Stats Chart</h4>
+                            <h5 class="card-subtitle card-subtitle-dash">All Stats with Admin Links</h5>
+                            <div class="mt-4">
+                                <canvas id="dashboardStatsChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:partials/_footer.html -->
-            <!-- partial -->
+            {{-- End Stats Chart --}}
+
+            {{-- Stats Cards with Admin Links --}}
+            <div class="row mt-4">
+                @php
+                    $stats = [
+                        ['label' => 'Jobs', 'value' => $jobs, 'route' => route('admin.jobs.index')],
+                        ['label' => 'Job Categories', 'value' => $jobCategories, 'route' => route('admin.job-categories.index')],
+                        ['label' => 'Pending Applications', 'value' => $pendingApplications, 'route' => route('admin.job-applications.index')],
+                        ['label' => 'Pages', 'value' => $pages, 'route' => route('admin.pages.index')],
+                        ['label' => 'Banners', 'value' => $banners, 'route' => route('admin.page-banner.index')],
+                        ['label' => 'Services', 'value' => $services, 'route' => route('admin.service.index')],
+                        ['label' => 'Testimonials', 'value' => $testimonials, 'route' => route('admin.testimonial')],
+                        ['label' => 'Achievements', 'value' => $achievements, 'route' => route('admin.achievements.index')],
+                        ['label' => 'Clients', 'value' => $clients, 'route' => route('admin.client.index')],
+                        ['label' => 'Gallery', 'value' => $gallery, 'route' => route('admin.gallery-albums.index')],
+                        ['label' => 'Notices', 'value' => $notices, 'route' => route('admin.notice.index')],
+                        ['label' => 'Blogs', 'value' => $blogs, 'route' => route('admin.post')],
+                        ['label' => 'Newsletters', 'value' => $newsletters, 'route' => route('admin.newsletters.index')],
+                    ];
+                @endphp
+
+                @foreach($stats as $stat)
+                    <div class="col-6 col-md-4 col-xl-3 mb-3">
+                        <a href="{{ $stat['route'] }}" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-3 border-light hover-shadow text-center p-3">
+                                <p class="mb-2 text-muted">{{ $stat['label'] }}</p>
+                                <h3 class="mb-0">{{ $stat['value'] }}</h3>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+            {{-- End Stats Cards --}}
+
         </div>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function() {
-            var ctx = document.getElementById('performanceLine').getContext('2d');
-            var dashboardBarChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Admin', 'User', 'Total Post', 'Todays Post'],
-                    datasets: [{
-                        label: 'Dashboard Data',
-                        data: [
-                            {{ $admin }},
-                            {{ $user }},
-                            {{ $totalpost }},
-                            {{ $today_post }},
-                        ],
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(0, 140, 70, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(0, 140, 70, 1)',
-                            'rgba(153, 102, 255, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
+{{-- Chart Script --}}
+<script>
+    $(document).ready(function() {
+        var ctx = document.getElementById('dashboardStatsChart').getContext('2d');
+        var statsLabels = @json(array_column($stats, 'label'));
+        var statsData = @json(array_column($stats, 'value'));
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: statsLabels,
+                datasets: [{
+                    label: 'Dashboard Stats',
+                    data: statsData,
+                    backgroundColor: statsLabels.map((_, i) => `rgba(${(i*30)%255}, ${(i*60)%255}, ${(i*90)%255}, 0.4)`),
+                    borderColor: statsLabels.map((_, i) => `rgba(${(i*30)%255}, ${(i*60)%255}, ${(i*90)%255}, 1)`),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 50
-                        }
-                    }
+                scales: {
+                    y: { beginAtZero: true }
                 }
-            });
-        })
-    </script>
+            }
+        });
+    });
+</script>
 @endsection

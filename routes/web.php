@@ -43,6 +43,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Admin\SectionCategoryController as AdminSectionCategoryController;
 use App\Http\Controllers\Admin\SectionContentController as AdminSectionContentController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,35 +51,21 @@ use App\Http\Controllers\Admin\SectionContentController as AdminSectionContentCo
 |--------------------------------------------------------------------------
 */
 
-// Auth routes with isLogin middleware
-Route::middleware('isLogin')->group(function () {
 
+Route::middleware('isLogin')->group(function () {
     Route::get('/register', [AuthController::class, 'index'])->name('register');
     Route::post('/register', [AuthController::class, 'storeRegister'])->name('register.store');
 
-    Route::get('/admin/login', [AuthController::class, 'login'])->name('login');
-    
+    Route::get('/admin/login', [AuthController::class, 'login'])->name('admin.login');
     Route::post('/login/store', [AuthController::class, 'storeLogin'])->name('login.store');
 
-    Route::get('/auth/google/redirect', function () {
-        return Socialite::driver('google')->redirect();
-    })->name('google.redirect');
-Route::get('/forgot-password', [AuthController::class, 'login'])->name('password.request');
-    Route::get('/auth/google/callback', function (Request $request) {
-        $userdata = Socialite::driver('google')->user();
-        $user = User::updateOrCreate(
-            ['google_id' => $userdata->id],
-            [
-                'full_name' => $userdata->name,
-                'email' => $userdata->email,
-                'role' => 'User',
-                'image' => $userdata->avatar,
-            ]
-        );
-        Auth::login($user);
-        return redirect()->route('index');
-    })->name('google.callback');
+    Route::get('/forgot-password', [AuthController::class, 'login'])->name('password.request');
+
+    // Google login routes
+    Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('google.callback');
 });
+
 
 // Admin routes with admin middleware
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
@@ -234,6 +221,11 @@ Route::post('/banner/video', [BannerSliderVideoController::class, 'store'])->nam
 
 
 
+Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+Route::put('/menus/{menu}', [MenuController::class, 'update'])->name('menus.update');
+Route::delete('/menus/{menu}', [MenuController::class, 'destroy'])->name('menus.destroy');
+
 
 
 // Contact messages
@@ -261,9 +253,9 @@ Route::prefix('setting')->name('setting.')->group(function () {
     Route::apiResource('job-applications',JobApplicationController::class);
    Route::patch('/job-applications/{id}/status', [JobApplicationController::class, 'updateStatus'])
      ->name('admin.job-applications.updateStatus');
-    Route::get('/jobs/status/{id}', [JobController::class, 'toggleStatus'])->name('client.status');
+    Route::get('/jobs/status/{id}', [JobController::class, 'toggleStatus'])->name('jobs.status');
  Route::apiResource('job-categories',JobCategoryController::class);
-    Route::get('/job-categories/status/{id}', [JobCategoryController::class, 'toggleStatus'])->name('client.status');
+    Route::get('/job-categories/status/{id}', [JobCategoryController::class, 'toggleStatus'])->name('job-categories.status');
 
 
 

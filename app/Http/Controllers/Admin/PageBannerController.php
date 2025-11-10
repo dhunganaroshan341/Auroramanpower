@@ -54,7 +54,7 @@ class PageBannerController extends Controller
                     return view('Admin.Button.button', compact('data'))->render();
                 })
                 ->addColumn('image', function ($item) {
-                    $dataImage = asset('uploads/' . $item->image);
+                    $dataImage = asset( $item->image);
                     $defaultImage = asset('defaultImage/defaultimage.webp');
                     return '<img src="' . $dataImage . '" width="50" height="50" onerror="this.src=\'' . $defaultImage . '\'" />';
                 })

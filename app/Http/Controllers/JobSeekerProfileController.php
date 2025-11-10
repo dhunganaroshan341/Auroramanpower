@@ -35,7 +35,6 @@ public function store(Request $request)
     DB::beginTransaction();
 
     try {
-        // Validate input
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'email'       => 'required|email|max:255',
@@ -46,28 +45,24 @@ public function store(Request $request)
             'education'   => 'nullable|string',
             'resume_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'password'    => 'nullable|string|min:6|confirmed',
-            'job_id'      => 'nullable|exists:jobs,id', // Optional job ID for smart apply
+            'job_id'      => 'nullable|exists:jobs,id',
             'desired_role'=> 'nullable|string|max:255',
         ]);
 
-        // Step 1: Determine the user
+        // Step 1: Determine user
         $user = Auth::user();
 
         if (!$user) {
-            $existingUser = User::where('email', $validated['email'])->first();
-            if ($existingUser) {
-                $user = $existingUser;
-            } else {
-                $user = User::create([
+            $user = User::firstOrCreate(
+                ['email' => $validated['email']],
+                [
                     'full_name' => $validated['name'],
-                    'email'     => $validated['email'],
                     'phone'     => $validated['phone'],
                     'role'      => 'User',
                     'password'  => isset($validated['password']) ? Hash::make($validated['password']) : Hash::make(Str::random(8)),
-                ]);
-            }
-
-            Auth::login($user);
+                ]
+            );
+            Auth::login($user); // Log in new user automatically
         }
 
         // Step 2: Handle resume upload
@@ -108,19 +103,38 @@ public function store(Request $request)
 
         DB::commit();
 
-        // Redirect smartly
-        if (isset($validated['job_id'])) {
-            return redirect()->route('jobById', ['id' => $validated['job_id']])
-                             ->with('success', 'Profile saved and applied successfully!');
+        $message = isset($validated['job_id']) 
+            ? 'Profile saved and applied successfully!' 
+            : 'Profile saved successfully!';
+
+        // Return JSON for AJAX requests
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'redirect' => route('index') // tell frontend to redirect
+            ]);
         }
 
-        return redirect()->route('index')->with('success', 'Profile saved successfully!');
+        // Normal POST redirect to home
+        return redirect()->route('index')->with('success', $message);
 
     } catch (\Exception $e) {
         DB::rollBack();
-        return redirect()->back()->with('error', 'Something went wrong. Please try again.')->withInput();
+
+        $errorMessage = $e->getMessage() ?: 'Something went wrong!';
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => false,
+                'message' => $errorMessage
+            ], 500);
+        }
+
+        return redirect()->back()->with('error', $errorMessage)->withInput();
     }
 }
+
 
 
 

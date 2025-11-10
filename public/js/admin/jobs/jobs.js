@@ -93,6 +93,10 @@ $(function () {
         $('#description').summernote('code', job.description);
         $('#location').val(job.location);
         $('#salary').val(job.salary);
+        setTimeout(() => {
+    $('#status').val(job.status).trigger('change');
+}, 100);
+
         $('#custom_company_name').val(job.custom_company_name);
         $('#job_code').val(job.job_code);
         $('#male_opening').val(job.male_opening);

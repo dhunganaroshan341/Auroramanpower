@@ -30,7 +30,7 @@
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->total_openings }}</td>
                             <td>
-                                <a href="{{ route('jobDetails', $job->id) }}" class="btn theme-btn btn-sm">
+                                <a href="{{ route('jobBySlug', ['slug'=>$job->slug]) }}" class="btn theme-btn btn-sm">
                                     <i class="fas fa-eye"></i> View
                                 </a>
                             </td>

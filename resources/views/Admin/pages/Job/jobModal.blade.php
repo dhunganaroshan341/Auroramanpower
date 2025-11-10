@@ -110,8 +110,8 @@
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Status</label>
                             <select name="status" id="status" class="form-select rounded-3 shadow-sm">
-                                <option value="active" selected>Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="Active" selected>Active</option>
+                                <option value="Inactive">Inactive</option>
                             </select>
                         </div>
 

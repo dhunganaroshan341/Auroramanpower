@@ -15,6 +15,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.menus.index') }}">
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <span class="menu-title">Website Menu</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.setting.index') }}">
             <i class="mdi mdi-cog-outline menu-icon"></i>
             <span class="menu-title">Settings</span>
@@ -38,9 +44,11 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.jobs.index') }}"><i
                             class="mdi mdi-briefcase-outline"></i> Manage
                         Jobs</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-seekers.index') }}"><i class="mdi mdi-calendar-check"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-seekers.index') }}"><i
+                            class="mdi mdi-calendar-check"></i>
                         Job Seekers</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-applications.index') }}"><i class="mdi mdi-calendar-check"></i>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.job-applications.index') }}"><i
+                            class="mdi mdi-calendar-check"></i>
                         Applications</a></li>
             </ul>
         </div>

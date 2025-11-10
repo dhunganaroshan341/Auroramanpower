@@ -34,7 +34,7 @@ Route::prefix('home')->group(function () {
     Route::controller(homeController::class)->group(function () {
         Route::get('/about','about')->name('about');
         Route::get('/contact','contact')->name('contact');
-        Route::get('/','index')->name('index');
+        // Route::get('/','index')->name('index');
 
     });
 });
@@ -55,7 +55,8 @@ Route::prefix('pages')->group(function () {
 });
     Route::controller(PagesController::class)->group(function(){
             Route::get('/jobs','job3')->name('jobs');
-            Route::get('/jobs/{id}','jobDetailsById')->name('jobById');
+           Route::get('/jobs/{slug}', 'jobDetailsBySlug')->name('jobBySlug');
+Route::get('/jobs/{id}', 'jobDetailsById')->where('id', '[0-9]+')->name('jobById');
 
             Route::get('/hire','job')->name('hire');
             });
